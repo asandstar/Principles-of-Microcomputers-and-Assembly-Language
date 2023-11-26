@@ -1,0 +1,70 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/19/2023  22:22:42  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL_C51\C51\BIN\BL51.EXE lab3.obj TO lab3
+
+
+INPUT MODULES INCLUDED:
+  lab3.obj (LAB3)
+
+
+LINK MAP OF MODULE:  lab3 (LAB3)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     012FH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  lab3 (LAB3)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LAB3
+  C:0116H         SYMBOL        CON
+  N:0060H         SYMBOL        COUNT
+  C:0100H         SYMBOL        MAIN
+  N:0061H         SYMBOL        RESULT
+  B:0088H.7       SYMBOL        TF1
+  D:008CH         SYMBOL        TH0
+  D:008DH         SYMBOL        TH1
+  D:008AH         SYMBOL        TL0
+  D:008BH         SYMBOL        TL1
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  B:0088H.6       SYMBOL        TR1
+  C:0000H         LINE#         104
+  C:0100H         LINE#         107
+  C:0103H         LINE#         108
+  C:0106H         LINE#         109
+  C:0109H         LINE#         110
+  C:010CH         LINE#         111
+  C:010FH         LINE#         112
+  C:0112H         LINE#         114
+  C:0114H         LINE#         115
+  C:0116H         LINE#         117
+  C:0119H         LINE#         118
+  C:011BH         LINE#         119
+  C:011EH         LINE#         120
+  C:0121H         LINE#         121
+  C:0123H         LINE#         122
+  C:0125H         LINE#         123
+  C:0127H         LINE#         124
+  C:0129H         LINE#         125
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/19/2023  22:22:42  PAGE 2
+
+
+  C:012BH         LINE#         126
+  C:012DH         LINE#         127
+  -------         ENDMOD        LAB3
+
+Program Size: data=8.0 xdata=0 code=303
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,55 @@
+//	$INCLUDE (STC152K60S2.INC)
+	ADC_DATAH EQU 31H  ;定义A/D转换结果高2位存储变量
+	ADC_DATAL EQU 30H  ;定义A/D转换结果低8位存储变量
+	P1ASF EQU 9DH
+	ADC_CONTR EQU 0BCH
+	ADC_RES EQU 0BDH
+	ADC_RESL EQU 0BEH
+	CLK_DIV EQU 97H
+	//IE EQU 0A8H
+	ORG 0000H
+	LJMP MAIN
+	ORG 002BH
+	LJMP ADC_ISR	   ;ADC中断向量入口
+	ORG 0050H
+MAIN:
+	MOV SP,#70H		  ;设置堆栈
+	MOV P1ASF, #02H	   ;设置P1.1为模拟量输入功能
+	MOV ADC_CONTR,#81H	;打开AD转换电源，设置输入通道
+	MOV A,#20H
+	LCALL DELAY1MS	 ;开AD转换电源后要加适当延时，1ms即可
+	ORL CLK_DIV, #20H  ;设置A/D转换结果存储格式(ADRJ为I)
+	//SETB EADC
+	MOV IE,#80H	   ;开放ADC中断
+	SETB EA		   ;开放CPU总中断
+	MOV ADC_CONTR, #10001001B	;启动A/D转换
+	SJMP $
+ADC_ISR:					;ADC中断服务程序入口
+	MOV ADC_CONTR, #81H		;将ADC_FLAG清零
+	MOV A, ADC_RES			;读取A/D转换结果高2位
+	ANL A,#03H				;屏蔽高6位
+	MOV ADC_DATAH, A		;保存A/D转换结果高2位
+	CPL A
+	MOV P3,A				;高2位送P3口LED灯显示
+	MOV 30H,A
+	MOV A,ADC_RESL			;读取A/D转换结果低8位
+	MOV ADC_DATAL,A			;保存A/D转换结果的低8位
+	CPL A
+	MOV P2,A				;低8位送P2口LED灯显示
+	MOV 31H,A
+	MOV ADC_CONTR, #89H		;重新启动AD转换
+	RETI
+DELAY1MS:			;@11.0592MHz
+	PUSH	30H
+	PUSH	31H
+	MOV		30H,#9
+	MOV		31H,#150
+NEXT:
+	DJNZ	31H,NEXT
+	DJNZ	30H,NEXT
+	POP		31H
+	POP		30H
+	RET
+
+   SJMP $
+   END

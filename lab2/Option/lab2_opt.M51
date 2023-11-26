@@ -1,0 +1,43 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/14/2023  21:59:38  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL_C51\C51\BIN\BL51.EXE opt.obj TO lab2_opt
+
+
+INPUT MODULES INCLUDED:
+  opt.obj (OPT)
+
+
+LINK MAP OF MODULE:  lab2_opt (OPT)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     050BH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  lab2_opt (OPT)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        OPT
+  C:0506H         SYMBOL        LOOP
+  C:0500H         SYMBOL        MAIN
+  C:0000H         LINE#         45
+  C:0500H         LINE#         49
+  C:0503H         LINE#         50
+  C:0506H         LINE#         52
+  C:0507H         LINE#         53
+  C:0509H         LINE#         54
+  -------         ENDMOD        OPT
+
+Program Size: data=8.0 xdata=0 code=1291
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

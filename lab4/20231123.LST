@@ -1,0 +1,154 @@
+A51 MACRO ASSEMBLER  20231123                                                             11/23/2023 16:45:25 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN 20231123.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE 20231123.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+                       5     
+                       6     
+                       7     
+                       8     
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+                      14     
+                      15     
+                      16     
+                      17     
+                      18     
+                      19     
+                      20     
+                      21     
+                      22     
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     
+                      29     
+                      30     
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     
+                      36     
+                      37     
+                      38     
+                      39     
+                      40     
+                      41     
+0000                  42             ORG 0000H
+0000 020100           43             LJMP MAIN
+0003                  44             ORG 0003H
+0003 020200           45             LJMP INTEX0  ;Õ‚≤ø÷–∂œ0
+000B                  46             ORG 000BH
+000B 020218           47             LJMP INTT0 ;∂® ±∆˜÷–∂œ0
+0013                  48             ORG 0013H
+0013 02020C           49             LJMP INTEX1  ;Õ‚≤ø÷–∂œ1
+                      50     
+0100                  51             ORG 0100H
+0100                  52     MAIN:
+0100 758900           53              MOV TMOD, #00H ;T0°¢T1,∑Ω Ω0
+0103 C288             54              CLR IT0 ;INT0œ¬Ωµ—ÿ¥•∑¢
+0105 C28A             55              CLR IT1 ;INT1œ¬Ωµ—ÿ¥•∑¢
+0107 D2A8             56              SETB EX0 ;Õ‚≤ø÷–∂œ0‘ –Ì
+0109 D2AA             57              SETB EX1  ;Õ‚≤ø÷–∂œ1‘ –Ì
+010B D2AF             58              SETB EA   ;‘ –Ìµ•∆¨ª˙◊‹÷–∂œ
+A51 MACRO ASSEMBLER  20231123                                                             11/23/2023 16:45:25 PAGE     2
+
+010D D2BA             59              SETB PX1 ;…Ë÷√Õ‚≤ø÷–∂œ1Œ™÷–∂œ”≈œ»º∂
+010F D2A9             60              SETB ET0  ;T0÷–∂œ‘ –Ì
+0111 D28C             61              SETB TR0 ;T0º∆ ∆Ù∂Ø
+                      62     
+0113                  63     LOOP:
+0113 80FE             64             SJMP LOOP
+                      65     
+0200                  66             ORG 0200H
+0200                  67     INTEX0:
+0200 511B             68             ACALL DELAY50MS ;»Ìº˛œ˚∂∂
+0202 20B206           69             JB P3.2,RE1      ;KEY1∞¥œ¬£¨∑‰√˘∆˜≤•∑≈“ª÷÷∆µ¬ …˘“Ù
+0205 758CF9           70             MOV TH0,#0F9H
+0208 758A1E           71             MOV TL0,#01EH
+020B                  72     RE1:
+020B 32               73             RETI
+020C                  74     INTEX1:
+020C 511B             75              ACALL DELAY50MS ;»Ìº˛œ˚∂∂
+020E 20B306           76              JB P3.3,RE2  ;KEY2∞¥œ¬£¨∑‰√˘∆˜≤•∑≈¡Ì“ª÷÷∆µ¬ …˘“Ù
+0211 758CFB           77              MOV TH0,#0FBH
+0214 758AE8           78              MOV TL0,#0E8H
+0217                  79     RE2:
+0217 32               80             RETI
+                      81     
+0218                  82     INTT0:
+0218 B290             83             CPL P1.0   ;≤˙…˙∑Ω≤®
+021A 32               84             RETI
+                      85     
+                      86     
+021B                  87     DELAY50MS:                      ;@11.0592MHz
+021B 00               88             NOP
+021C 00               89             NOP
+021D 00               90             NOP
+021E C030             91             PUSH    30H
+0220 C031             92             PUSH    31H
+0222 C032             93             PUSH    32H
+0224 753002           94             MOV             30H,#2
+0227 7531AF           95             MOV             31H,#175
+022A 753248           96             MOV             32H,#72
+022D                  97     NEXT50:
+022D D532FD           98             DJNZ    32H,NEXT50
+0230 D531FA           99             DJNZ    31H,NEXT50
+0233 D530F7          100             DJNZ    30H,NEXT50
+0236 D032            101             POP             32H
+0238 D031            102             POP             31H
+023A D030            103             POP             30H
+023C 22              104             RET
+                     105     
+023D 80FE            106             SJMP $
+                     107             END
+A51 MACRO ASSEMBLER  20231123                                                             11/23/2023 16:45:25 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY50MS. . . . .  C ADDR   021BH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . .  B ADDR   00A8H.2 A   
+INTEX0 . . . . . .  C ADDR   0200H   A   
+INTEX1 . . . . . .  C ADDR   020CH   A   
+INTT0. . . . . . .  C ADDR   0218H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+LOOP . . . . . . .  C ADDR   0113H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT50 . . . . . .  C ADDR   022DH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+PX1. . . . . . . .  B ADDR   00B8H.2 A   
+RE1. . . . . . . .  C ADDR   020BH   A   
+RE2. . . . . . . .  C ADDR   0217H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

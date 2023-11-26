@@ -1,0 +1,94 @@
+A51 MACRO ASSEMBLER  10_2                                                                 11/24/2023 07:26:44 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN 10_2.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE 10_2.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+  0031                 2             ADC_DATAH EQU 31H  ;定义A/D转换结果高2位存储变量
+  0030                 3             ADC_DATAL EQU 30H  ;定义A/D转换结果低8位存储变量
+  009D                 4             P1ASF EQU 9DH
+  00BC                 5             ADC_CONTR EQU 0BCH
+  00BD                 6             ADC_RES EQU 0BDH
+  00BE                 7             ADC_RESL EQU 0BEH
+  0097                 8             CLK_DIV EQU 97H
+                       9             
+0000                  10             ORG 0000H
+0000 020050           11             LJMP MAIN
+002B                  12             ORG 002BH
+002B 02006B           13             LJMP ADC_ISR       ;ADC中断向量入口
+0050                  14             ORG 0050H
+0050                  15     MAIN:
+0050 758170           16             MOV SP,#70H               ;设置堆栈
+0053 759D02           17             MOV P1ASF, #02H    ;设置P1.1为模拟量输入功能
+0056 75BC81           18             MOV ADC_CONTR,#81H      ;打开AD转换电源，设置输入通道
+0059 7420             19             MOV A,#20H
+005B 120086           20             LCALL DELAY1MS   ;开AD转换电源后要加适当延时，1ms即可
+005E 439720           21             ORL CLK_DIV, #20H  ;设置A/D转换结果存储格式(ADRJ为I)
+                      22             
+0061 75A880           23             MOV IE,#80H        ;开放ADC中断
+0064 D2AF             24             SETB EA            ;开放CPU总中断
+0066 75BC89           25             MOV ADC_CONTR, #10001001B       ;启动A/D转换
+0069 80FE             26             SJMP $
+006B                  27     ADC_ISR:                                        ;ADC中断服务程序入口
+006B 75BC81           28             MOV ADC_CONTR, #81H             ;将ADC_FLAG清零
+006E E5BD             29             MOV A, ADC_RES                  ;读取A/D转换结果高2位
+0070 5403             30             ANL A,#03H                              ;屏蔽高6位
+0072 F531             31             MOV ADC_DATAH, A                ;保存A/D转换结果高2位
+0074 F4               32             CPL A
+0075 F5B0             33             MOV P3,A                                ;高2位送P3口LED灯显示
+0077 F530             34             MOV 30H,A
+0079 E5BE             35             MOV A,ADC_RESL                  ;读取A/D转换结果低8位
+007B F530             36             MOV ADC_DATAL,A                 ;保存A/D转换结果的低8位
+007D F4               37             CPL A
+007E F5A0             38             MOV P2,A                                ;低8位送P2口LED灯显示
+0080 F531             39             MOV 31H,A
+0082 75BC89           40             MOV ADC_CONTR, #89H             ;重新启动AD转换
+0085 32               41             RETI
+0086                  42     DELAY1MS:                       ;@11.0592MHz
+0086 C030             43             PUSH    30H
+0088 C031             44             PUSH    31H
+008A 753009           45             MOV             30H,#9
+008D 753196           46             MOV             31H,#150
+0090                  47     NEXT:
+0090 D531FD           48             DJNZ    31H,NEXT
+0093 D530FA           49             DJNZ    30H,NEXT
+0096 D031             50             POP             31H
+0098 D030             51             POP             30H
+009A 22               52             RET
+                      53     
+009B 80FE             54        SJMP $
+                      55        END
+A51 MACRO ASSEMBLER  10_2                                                                 11/24/2023 07:26:44 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ADC_CONTR. . . . .  N NUMB   00BCH   A   
+ADC_DATAH. . . . .  N NUMB   0031H   A   
+ADC_DATAL. . . . .  N NUMB   0030H   A   
+ADC_ISR. . . . . .  C ADDR   006BH   A   
+ADC_RES. . . . . .  N NUMB   00BDH   A   
+ADC_RESL . . . . .  N NUMB   00BEH   A   
+CLK_DIV. . . . . .  N NUMB   0097H   A   
+DELAY1MS . . . . .  C ADDR   0086H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+MAIN . . . . . . .  C ADDR   0050H   A   
+NEXT . . . . . . .  C ADDR   0090H   A   
+P1ASF. . . . . . .  N NUMB   009DH   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

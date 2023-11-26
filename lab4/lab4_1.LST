@@ -1,0 +1,88 @@
+A51 MACRO ASSEMBLER  LAB4_1                                                               11/23/2023 10:51:10 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN lab4_1.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE lab4_1.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+                       5     
+                       6     
+  0100                 7     PWM8BIT EQU 256
+  0040                 8     HIGHDUTY EQU 64
+  00C0                 9     LOWDUTY EQU (PWM8BIT-HIGHDUTY)
+  008E                10     AUXR DATA 08EH
+  008F                11     INT_CLKO DATA 08FH
+  00B5                12     T0CLKO BIT P3.5
+  0000                13     FLAG BIT 20H.0
+0000                  14     ORG 0000H
+0000 02000E           15     LJMP MAIN
+                      16     
+000B                  17     ORG 000BH
+000B 020029           18     LJMP TM0_ISR
+                      19     
+000E                  20     MAIN:
+000E 758E80           21             MOV AUXR, #80H
+0011 758F01           22             MOV INT_CLKO,#01H
+0014 5389F0           23             ANL TMOD,#0F0H
+0017 758A40           24             MOV TL0, #LOW(65536-LOWDUTY)
+001A 758CFF           25             MOV TH0, #HIGH(65536-LOWDUTY)
+001D D2B5             26             SETB T0CLKO
+001F C200             27             CLR FLAG
+0021 D28C             28             SETB TR0
+0023 D2A9             29             SETB ET0
+0025 D2AF             30             SETB EA
+0027 80FE             31             SJMP $
+                      32     
+0029                  33     TM0_ISR:
+0029 B200             34             CPL FLAG
+002B 300008           35             JNB FLAG, READYLOW
+002E                  36     READYHIGH:
+002E 758AC0           37             MOV TL0, #LOW(65536-HIGHDUTY)
+0031 758CC0           38             MOV TH0, #LOW(65536-HIGHDUTY)
+0034 8006             39             JMP TM0ISR_EXIT
+0036                  40     READYLOW:
+0036 758A40           41             MOV TL0, #LOW(65536-LOWDUTY)
+0039 758CFF           42             MOV TH0, #HIGH(65536-LOWDUTY)
+003C                  43     TM0ISR_EXIT:
+003C 32               44             RETI
+                      45     
+                      46             END
+A51 MACRO ASSEMBLER  LAB4_1                                                               11/23/2023 10:51:10 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AUXR . . . . . . .  D ADDR   008EH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+FLAG . . . . . . .  B ADDR   0020H.0 A   
+HIGHDUTY . . . . .  N NUMB   0040H   A   
+INT_CLKO . . . . .  D ADDR   008FH   A   
+LOWDUTY. . . . . .  N NUMB   00C0H   A   
+MAIN . . . . . . .  C ADDR   000EH   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+PWM8BIT. . . . . .  N NUMB   0100H   A   
+READYHIGH. . . . .  C ADDR   002EH   A   
+READYLOW . . . . .  C ADDR   0036H   A   
+T0CLKO . . . . . .  B ADDR   00B0H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TM0ISR_EXIT. . . .  C ADDR   003CH   A   
+TM0_ISR. . . . . .  C ADDR   0029H   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

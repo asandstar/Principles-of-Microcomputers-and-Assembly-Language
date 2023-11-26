@@ -1,0 +1,80 @@
+A51 MACRO ASSEMBLER  OPT                                                                  11/14/2023 21:59:38 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN opt.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE opt.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+                       5     
+                       6     
+                       7     
+                       8     
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+                      14     
+                      15     
+                      16     
+                      17     
+                      18     
+                      19     
+                      20     
+                      21     
+                      22     
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     
+                      29     
+                      30     
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     
+                      36     
+                      37     
+                      38     
+                      39     
+                      40     
+                      41     
+                      42     
+                      43     ;4  ∂¡0C000H
+0000                  44             ORG 0000H
+0000 020500           45             LJMP MAIN
+                      46     
+0500                  47             ORG 0500H                                                          
+0500                  48     MAIN:
+0500 758EFF           49             MOV 8EH,#0FFH;EXTRAM=1£¨∑√Œ Õ‚≤øÕÿ’πRAM
+0503 90C000           50             MOV DPTR, #0C000H ;∞—µÿ÷∑¡¢º¥ 0C000H∏≥∏¯DPTR
+0506                  51     LOOP:
+0506 E0               52             MOVX A, @DPTR ;∂¡»°0C000H¿Ôµƒƒ⁄»›
+0507 80FD             53             SJMP LOOP
+0509 80FE             54             SJMP $
+                      55             END
+A51 MACRO ASSEMBLER  OPT                                                                  11/14/2023 21:59:38 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+LOOP . . . . . . .  C ADDR   0506H   A   
+MAIN . . . . . . .  C ADDR   0500H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

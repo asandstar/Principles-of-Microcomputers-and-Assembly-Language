@@ -1,0 +1,194 @@
+A51 MACRO ASSEMBLER  TEST1                                                                11/25/2023 13:30:52 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN test1.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE test1.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+                       5     
+                       6     
+                       7     
+                       8     
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+                      14     
+                      15     
+                      16     
+                      17     
+                      18     
+                      19     
+                      20     
+                      21     
+                      22     
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     
+                      29     
+                      30     
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     
+                      36     
+                      37     
+                      38     
+                      39     
+                      40     
+                      41     
+                      42     
+                      43     
+                      44     
+                      45     
+                      46     
+                      47     
+                      48     
+                      49     
+                      50     
+                      51     
+                      52     
+                      53     
+                      54     
+                      55     
+                      56     
+                      57     
+                      58     
+A51 MACRO ASSEMBLER  TEST1                                                                11/25/2023 13:30:52 PAGE     2
+
+                      59     
+                      60     
+                      61     
+                      62     
+                      63     
+                      64     
+                      65     
+                      66     
+                      67     
+                      68     
+                      69     
+                      70     
+                      71     
+                      72     
+                      73     
+                      74     
+                      75     
+                      76     
+                      77     
+                      78     
+                      79     
+                      80     
+                      81     
+                      82     
+                      83     
+                      84     
+                      85     
+                      86     
+                      87     
+                      88     
+                      89     
+                      90     
+                      91     
+                      92     
+                      93     
+                      94     
+                      95     
+                      96     
+                      97     
+                      98     
+                      99     
+                     100     
+                     101     
+                     102     
+                     103     
+                     104     
+                     105     
+                     106     
+                     107     
+                     108     
+                     109     
+                     110     
+                     111     
+                     112     
+                     113     
+                     114     
+                     115     
+                     116     
+                     117     
+                     118     
+                     119     
+                     120     
+                     121     
+                     122     
+                     123     
+                     124     
+A51 MACRO ASSEMBLER  TEST1                                                                11/25/2023 13:30:52 PAGE     3
+
+                     125     
+                     126     
+                     127     
+                     128     
+                     129     
+                     130     
+                     131     
+                     132     
+                     133     
+                     134     
+                     135     
+                     136     
+                     137     
+                     138     
+                     139     
+                     140     
+                     141     
+                     142     
+                     143     
+                     144     
+                     145     
+                     146     
+                     147     
+                     148     
+                     149     
+                     150     
+0000                 151             ORG 0000H
+0000 020100          152             LJMP MAIN
+0100                 153             ORG 0100H
+                     154     
+0100                 155     MAIN:
+0100 9293            156             MOV P1.3,C
+0102 9294            157             MOV P1.4,C
+0104 A296            158             MOV C,P1.6
+0106 92B6            159             MOV P3.6, C
+0108 A292            160             MOV C,P1.2
+010A 92B5            161             MOV P3.5,C
+                     162     
+010C 80FE            163             SJMP $
+                     164             END
+A51 MACRO ASSEMBLER  TEST1                                                                11/25/2023 13:30:52 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+MAIN . . . . . . .  C ADDR   0100H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

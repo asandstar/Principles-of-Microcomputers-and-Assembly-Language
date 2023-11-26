@@ -1,0 +1,80 @@
+A51 MACRO ASSEMBLER  10_1                                                                 11/24/2023 16:28:40 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN 10_1.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE 10_1.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+  0040                 2             ADC_DATA EQU 40H                        ;定义A/D转换结果保存单元
+  009D                 3             P1ASF EQU 9DH
+  00BC                 4             ADC_CONTR EQU 0BCH
+  00BD                 5             ADC_RES EQU 0BDH
+  00BE                 6             ADC_RESL EQU 0BEH
+0000                   7             ORG 0000H
+0000 020100            8             LJMP MAIN
+0100                   9             ORG 0100H
+0100                  10     MAIN:
+                      11     ;       MOV 40H,#00
+0100 758170           12             MOV SP,#70H                             ;设置堆栈
+0103 759D80           13             MOV P1ASF, #80H                 ;设置P1.7为模拟量输入功能
+0106 75BC87           14             MOV ADC_CONTR, #87H             ;打开A/D转换电源，设置输入通道
+0109 7420             15             MOV A, #20H
+010B 120124           16             LCALL DELAY1MS                          ;打开A/D转换电源后，延时1ms即可
+010E                  17     LOOP:
+010E 75BC8F           18             MOV ADC_CONTR, #10001111B ;启动A/D转换
+0111 00               19             NOP
+0112 00               20             NOP
+0113 00               21             NOP
+0114 00               22             NOP
+0115                  23     WAIT_AD:
+0115 E5BC             24             MOV A,ADC_CONTR
+0117 30E4FB           25             JNB ACC.4, WAIT_AD              ;判断A/D转换是否完成
+011A 75BC87           26             MOV ADC_CONTR, #87H             ;将ADC_FLAG清零
+011D E5BD             27             MOV A, ADC_RES                  ;读取A/D转换结果
+011F F540             28             MOV ADC_DATA,A                  ;保存A/D转换结果
+0121 02010E           29             LJMP LOOP                               ;循环检测
+0124                  30     DELAY1MS:                       ;@11.0592MHz
+0124 C030             31             PUSH    30H
+0126 C031             32             PUSH    31H
+0128 753009           33             MOV             30H,#9
+012B 753196           34             MOV             31H,#150
+012E                  35     NEXT:
+012E D531FD           36             DJNZ    31H,NEXT
+0131 D530FA           37             DJNZ    30H,NEXT
+0134 D031             38             POP             31H
+0136 D030             39             POP             30H
+0138 22               40             RET
+                      41     
+                      42     
+                      43             END
+                             
+                             
+A51 MACRO ASSEMBLER  10_1                                                                 11/24/2023 16:28:40 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+ADC_CONTR. . . . .  N NUMB   00BCH   A   
+ADC_DATA . . . . .  N NUMB   0040H   A   
+ADC_RES. . . . . .  N NUMB   00BDH   A   
+ADC_RESL . . . . .  N NUMB   00BEH   A   
+DELAY1MS . . . . .  C ADDR   0124H   A   
+LOOP . . . . . . .  C ADDR   010EH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT . . . . . . .  C ADDR   012EH   A   
+P1ASF. . . . . . .  N NUMB   009DH   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+WAIT_AD. . . . . .  C ADDR   0115H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

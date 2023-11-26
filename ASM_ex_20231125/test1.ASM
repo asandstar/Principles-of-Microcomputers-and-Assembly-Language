@@ -1,0 +1,153 @@
+//	ORG 0000H
+//	LJMP MAIN
+//	ORG 0100H
+//
+//MAIN:
+//	MOV 30H,#5AH
+//	MOV 5AH,#40H
+//	MOV 40H,#00H
+//	MOV P1,#7EH
+//	
+//	MOV R0,#30H
+//	MOV A,@R0
+//	MOV R1,A
+//	MOV B,R1
+//	MOV @R1,P1
+//	MOV A,P1
+//	MOV 40H,#20H
+//	MOV 30H,40H
+//
+//	SJMP $
+//	END
+
+//	ORG 0000H
+//	LJMP MAIN
+//	ORG 0100H
+//
+//MAIN:
+//	MOV A,#30H
+//	MOV B,#0AFH
+//	MOV R0,#31H
+//	MOV 30H,#87H
+//	XCH A,R0
+//	XCHD A,@R0
+//	XCH A,B
+//	SWAP A
+//
+//	SJMP $
+//	END
+
+//	ORG 0000H
+//	LJMP MAIN
+//	ORG 0100H
+
+//MAIN:
+//	MOV SP, #5FH
+//	MOV A,#54H
+//	MOV B,#78H
+//	PUSH ACC
+//	PUSH B
+//	MOV A,B
+//	MOV B,#00H
+//	POP ACC
+//	POP B
+//
+//	SJMP $
+//	END
+
+//	ORG 0000H
+//	LJMP MAIN
+//	ORG 0100H
+//
+//MAIN:
+//	MOV 34H,#10H
+//	MOV R0,#13H
+//	MOV A,34H
+//	ADD A,R0
+//	MOV R1,#34H
+//	ADD A,@R1
+//
+//	SJMP $
+//	END
+
+//	ORG 0000H
+//	LJMP MAIN
+//	ORG 0100H
+//
+//MAIN:
+//	MOV A,#25H
+//	MOV R0,#33H
+//	MOV 33H,#20H
+//	CLR C
+//	ADDC A,#60H
+//	MOV 20H,@R0
+//	ADDC A,20H
+//	MOV 33H,A
+//	SJMP $
+//	END
+
+//	ORG 0000H
+//	LJMP MAIN
+//	ORG 0100H
+//
+//MAIN:
+//	MOV 30H,#89H
+//	MOV A,30H
+//	ADD A,#11H
+//	;DA A
+//	MOV 30H,A
+//
+//	SJMP $
+//	END
+
+//	ORG 0000H
+//	LJMP MAIN
+//	ORG 0100H
+//
+//MAIN:
+//	MOV 20H,#25H
+//	MOV A,#43H ;0100 0011
+//	MOV R0,#20H
+//	MOV R2,#4BH	;0100 1011
+//	ANL A,R2   ;0100 0011  43H
+//	ORL A,@R0  ;0100 0011, 0010 0101; 0110 0111	 67H
+//	SWAP A	   ;0111 0110 76H
+//	CPL A	   ;1000 1001 89H
+//	XRL A,#0FH	;0000 1111; 1000 0110 86H
+//	ORL 20H,A	;0010 0101 ; 1010 0111 A7H
+//		 ;左边是目的地址
+//	SJMP $
+//	END
+
+//	ORG 0000H
+//	LJMP MAIN
+//	ORG 0100H
+//
+//MAIN:
+//	
+//
+////	ORG 1000H
+//	MOV DPTR, #2000H
+//	MOV A, #22H
+//	JMP @A+DPTR	  ;(PC)=2022
+//	SJMP $
+//
+//	END
+
+//	ORG 0000H
+//	MOV R1,#33H
+//	MOV A,R1	;取了两个字节所以(PC)=2
+//	CJNE A,#20H, L1;(PC)= 3
+//	MOV 70H, A
+//	SJMP L2	  ;(PC)= A 3+3+rel(4)?
+//L1:
+//	MOV 71H,A  ;71H=33
+//L2:
+//	
+//	SJMP $
+//
+//	END
+
+	ORG 0000H
+	LJMP START
+	

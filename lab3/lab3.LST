@@ -1,0 +1,348 @@
+A51 MACRO ASSEMBLER  LAB3                                                                 11/19/2023 22:22:42 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN lab3.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE lab3.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+                       5     
+                       6     
+                       7     
+                       8     
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+                      14     
+                      15     
+                      16     
+                      17     
+                      18     
+                      19     
+                      20     
+                      21     
+                      22     
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     
+                      29     
+                      30     
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     
+                      36     
+                      37     
+                      38     
+                      39     
+                      40     
+                      41     
+                      42     
+                      43     
+                      44     
+                      45     
+                      46     
+                      47     
+                      48     
+                      49     
+                      50     
+                      51     
+                      52     
+                      53     
+                      54     
+                      55     
+                      56     
+                      57     
+                      58     
+A51 MACRO ASSEMBLER  LAB3                                                                 11/19/2023 22:22:42 PAGE     2
+
+                      59     
+                      60     
+                      61     
+                      62     
+                      63     
+                      64     
+                      65     
+                      66     
+                      67     
+                      68     
+                      69     
+                      70     
+                      71     
+                      72     
+                      73     
+                      74     
+                      75     
+                      76     
+                      77     
+                      78     
+                      79     
+                      80     
+                      81     
+                      82     
+                      83     
+                      84     
+                      85     
+                      86     
+                      87     
+                      88     
+                      89     
+                      90     
+                      91     
+                      92     
+                      93     
+                      94     
+                      95     
+                      96     
+                      97     
+                      98     
+                      99     
+                     100     
+  0060               101             COUNT EQU 60H
+  0061               102             RESULT EQU 61H
+0000                 103             ORG 0000H
+0000 020100          104             LJMP MAIN
+0100                 105             ORG 0100H
+0100                 106     MAIN:
+0100 758915          107             MOV TMOD, #15H    ; T0 - Mode 1, T1 - Mode 0
+0103 758C00          108         MOV TH0, #00H     ; T0¼ÆÊ
+0106 758A00          109         MOV TL0, #00H
+0109 758D4B          110         MOV TH1, #4BH       ;T1¶¨Ê±,50ms 
+010C 758BFD          111         MOV TL1, #0FDH
+010F 756014          112         MOV COUNT, #20     ; ¼ÆÊÆ÷³õÊ¼»¯Îª 0
+                     113         
+0112 D28C            114         SETB TR0          ; Æô¶¯ T0 ¶¨Ê±Æ÷
+0114 D28E            115         SETB TR1          ; Æô¶¯ T1 ¼ÆÊÆ÷
+0116                 116     CON:
+0116 308FFD          117             JNB TF1, CON    ;¶¨Ê±50msºó£¬Òç³ö±êÖ¾Î»=1ÍùÏÂÖ´ÐÐ£¬=0Ôò¼ÌÐø¼ÆÊ±
+0119 C28F            118             CLR TF1                 ; Òç³ö±êÖ¾Çå0
+011B 758D4B          119         MOV TH1, # 4BH       ; T1¼ÆÊ±£¬ÊÖ¶¯ÖØÔØ 
+011E 758BFD          120         MOV TL1, # 0FDH
+0121 1560            121             DEC COUNT          ;¼ÆÊ´ÎÊ¼õÉÙ
+0123 E560            122             MOV A, COUNT   ;°ÑÊÖµ·Å½øAÓÃÓÚÅÐ¶Ï
+0125 70EF            123             JNZ CON    ;¼ÆÊ´ÎÊÎ´´ï20´Î£¬¼ÌÐø¼ÆÊ±
+0127 C28C            124             CLR TR0    ;¼ÆÊÊ±¼ä´ïµ½1s£¬Í£Ö¹¼ÆÊ
+A51 MACRO ASSEMBLER  LAB3                                                                 11/19/2023 22:22:42 PAGE     3
+
+0129 AA8C            125             MOV R2,TH0 ;´æ¸ß8Î»
+012B AB8A            126             MOV R3,TL0 ;´æµÍ8Î»
+012D 80FE            127             SJMP $
+                     128             END
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LAB3                                                                 11/19/2023 22:22:42 PAGE     4
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LAB3                                                                 11/19/2023 22:22:42 PAGE     5
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LAB3                                                                 11/19/2023 22:22:42 PAGE     6
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CON. . . . . . . .  C ADDR   0116H   A   
+COUNT. . . . . . .  N NUMB   0060H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+RESULT . . . . . .  N NUMB   0061H   A   
+TF1. . . . . . . .  B ADDR   0088H.7 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

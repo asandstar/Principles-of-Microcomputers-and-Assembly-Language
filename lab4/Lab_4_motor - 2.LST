@@ -1,0 +1,358 @@
+A51 MACRO ASSEMBLER  LAB_4_MOTOR___2                                                      11/26/2023 11:19:26 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN Lab_4_motor - 2.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE Lab_4_motor - 2.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             ORG 0000H
+0000 020100            2             LJMP MAIN
+0003                   3             ORG 0003H
+0003 020200            4             LJMP INTT0
+0013                   5             ORG 0013H
+0013 020300            6             LJMP INTT1
+                       7     
+0100                   8             ORG 0100H
+0100                   9     MAIN: 
+0100 D290             10             SETB P1.0 ;PWM输出端口
+0102 C296             11             CLR P1.6;清零INTT0 溢出标志
+0104 D297             12             SETB P1.7;设置INTT1 溢出标志    
+0106 758911           13             MOV TMOD,#11H;定时器T0，T1,模式1
+0109 D2AF             14             SETB EA;CPU 开放中断
+010B D288             15             SETB IT0;边沿触发
+010D D28A             16             SETB IT1
+010F D2A8             17             SETB EX0;允许外部中断
+0111 D2AA             18             SETB EX1
+0113 78F1             19             MOV R0,#0F1H ;R0,R1 保存高电平维持时间
+0115 799A             20             MOV R1,#09AH
+0117 7AC6             21             MOV R2,#0C6H;R2,R3 保存低电平维持时间
+0119 7B66             22             MOV R3,#66H 
+011B 888C             23             MOV TH0,R0
+011D 898A             24             MOV TL0,R1
+011F 8A8D             25             MOV TH1,R2
+0121 8B8B             26             MOV TL1,R3
+0123                  27     START: 
+0123 D28C             28             SETB TR0        
+0125                  29     LOOP: 
+0125 108D02           30             JBC TF0,NEXT0;溢出标志位为1 则跳出循环
+0128 80FB             31             SJMP LOOP
+012A                  32     NEXT0: 
+012A B290             33             CPL P1.0;翻转P1.0
+012C C28C             34             CLR TR0
+012E 209006           35             JB P1.0,UP0;若P1.0 为高电平,则进入高电平时间赋值
+0131 8A8C             36             MOV TH0,R2
+0133 8B8A             37             MOV TL0,R3
+0135 8004             38             SJMP BACK
+0137                  39     UP0: 
+0137 888C             40             MOV TH0,R0
+0139 898A             41             MOV TL0,R1
+013B                  42     BACK: 
+013B 80E6             43             SJMP START
+                      44     
+0200                  45             ORG 0200H
+0200                  46     INTT0: 
+0200 710E             47             ACALL DELAY50MS
+0202 C297             48             CLR P1.7;清零INTT1 溢出位
+0204 209604           49             JB P1.6,FAIL0;如果INTT0 溢出位为1,功能失效
+0207 7130             50             ACALL DUTY40
+0209 D296             51             SETB P1.6;若A 为00H 则表明INTT0溢出,设置溢出位
+020B                  52     FAIL0: 
+020B C289             53             CLR IE0;关闭中断
+020D 32               54             RETI
+                      55     
+0300                  56             ORG 0300H
+0300                  57     INTT1: 
+0300 710E             58             ACALL DELAY50MS
+A51 MACRO ASSEMBLER  LAB_4_MOTOR___2                                                      11/26/2023 11:19:26 PAGE     2
+
+0302 C296             59             CLR P1.6;清零INTT0 溢出位
+0304 209704           60             JB P1.7,FAIL1;如果INTT1 溢出位为一,功能失效
+0307 7139             61             ACALL DUTY20
+0309 D297             62             SETB P1.7;若A 为00H 则表明INTT1 溢出,置溢出位
+030B                  63     FAIL1: 
+030B C28B             64             CLR IE1;关闭中断
+030D 32               65             RETI
+030E                  66     DELAY50MS:                      ;@11.0592MHz
+030E 00               67             NOP
+030F 00               68             NOP
+0310 00               69             NOP
+0311 C030             70             PUSH    30H
+0313 C031             71             PUSH    31H
+0315 C032             72             PUSH    32H
+0317 753002           73             MOV             30H,#2
+031A 7531AF           74             MOV             31H,#175
+031D 753248           75             MOV             32H,#72
+0320                  76     NEXT50:
+0320 D532FD           77             DJNZ    32H,NEXT50
+0323 D531FA           78             DJNZ    31H,NEXT50
+0326 D530F7           79             DJNZ    30H,NEXT50
+0329 D032             80             POP             32H
+032B D031             81             POP             31H
+032D D030             82             POP             30H
+032F 22               83             RET
+0330                  84     DUTY40:
+0330 78E3             85             MOV R0,#0E3H ;R0,R1 保存高电平维持时间
+0332 7933             86             MOV R1,#33H
+0334 7AD4             87             MOV R2,#0D4H;R2,R3 保存低电平维持时间
+0336 7BCC             88             MOV R3,#0CCH 
+0338 22               89             RET
+0339                  90     DUTY20:
+0339 78F1             91             MOV R0,#0F1H ;R0,R1 保存高电平维持时间
+033B 799A             92             MOV R1,#09AH
+033D 7AC6             93             MOV R2,#0C6H;R2,R3 保存低电平维持时间
+033F 7B66             94             MOV R3,#66H 
+0341 22               95             RET     
+0342 80FE             96             SJMP $
+                      97             END
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LAB_4_MOTOR___2                                                      11/26/2023 11:19:26 PAGE     3
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LAB_4_MOTOR___2                                                      11/26/2023 11:19:26 PAGE     4
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LAB_4_MOTOR___2                                                      11/26/2023 11:19:26 PAGE     5
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LAB_4_MOTOR___2                                                      11/26/2023 11:19:26 PAGE     6
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BACK . . . . . . .  C ADDR   013BH   A   
+DELAY50MS. . . . .  C ADDR   030EH   A   
+DUTY20 . . . . . .  C ADDR   0339H   A   
+DUTY40 . . . . . .  C ADDR   0330H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . .  B ADDR   00A8H.2 A   
+FAIL0. . . . . . .  C ADDR   020BH   A   
+FAIL1. . . . . . .  C ADDR   030BH   A   
+IE0. . . . . . . .  B ADDR   0088H.1 A   
+IE1. . . . . . . .  B ADDR   0088H.3 A   
+INTT0. . . . . . .  C ADDR   0200H   A   
+INTT1. . . . . . .  C ADDR   0300H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+LOOP . . . . . . .  C ADDR   0125H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT0. . . . . . .  C ADDR   012AH   A   
+NEXT50 . . . . . .  C ADDR   0320H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+START. . . . . . .  C ADDR   0123H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+UP0. . . . . . . .  C ADDR   0137H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

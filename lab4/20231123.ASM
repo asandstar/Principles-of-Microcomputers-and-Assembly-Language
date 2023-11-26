@@ -1,0 +1,107 @@
+//ORG 0000H
+//LJMP MAIN
+//
+//ORG 0100H
+//MAIN:
+//	MOV TMOD, #60H ;定时器1方式2计数，定时器0方式0定时	 0110 0000
+//	MOV TH0,#0FFH  ;定时 200\mu s
+//	MOV TL0,#47H
+//	SETB TR0 ;启动T0运行
+//	SETB TR1 ;启动T1运行
+//	MOV R2,#20;4/20=20%,8/20=40%,12/20=60%,16/20=80%
+//	MOV R3,#4
+//	MOV R4,#16
+//	
+//CHECK:
+//	JNB TF1,HIGHDUTY
+//	
+//HIGHDUTY:
+//	SETB P1.0
+//	DEC R3
+//	MOV A,R3
+//	JNZ HIGHDUTY
+//	JZ LOWDUTY
+//LOWDUTY:
+//	CLR P1.0
+//	DEC R4	
+//	MOV A,R4
+//	JNZ LOWDUTY
+//	JZ HIGHDUTY
+//
+////
+////	CPL P1.0
+////	CLR TF0
+////	AJMP CHECK
+////T1OVERFLOW:
+////	AJMP CHECK
+////	SJMP $
+////	END
+////	
+
+//用按键或拨盘开关控制产生2种音频信号使蜂鸣器发声。
+	ORG 0000H
+	LJMP MAIN
+	ORG 0003H
+	LJMP INTEX0  ;外部中断0
+	ORG 000BH
+	LJMP INTT0 ;定时器中断0
+	ORG 0013H
+	LJMP INTEX1  ;外部中断1
+
+	ORG 0100H
+MAIN:
+	 MOV TMOD, #00H ;T0、T1,方式0
+	 CLR IT0 ;INT0下降沿触发
+	 CLR IT1 ;INT1下降沿触发
+	 SETB EX0 ;外部中断0允许
+	 SETB EX1  ;外部中断1允许
+	 SETB EA   ;允许单片机总中断
+	 SETB PX1 ;设置外部中断1为中断优先级
+	 SETB ET0  ;T0中断允许
+	 SETB TR0 ;T0计数启动
+
+LOOP:
+	SJMP LOOP
+
+	ORG 0200H
+INTEX0:
+	ACALL DELAY50MS	;软件消抖
+	JB P3.2,RE1	 ;KEY1按下，蜂鸣器播放一种频率声音
+	MOV TH0,#0F9H
+	MOV TL0,#01EH
+RE1:
+	RETI
+INTEX1:
+	 ACALL DELAY50MS ;软件消抖
+	 JB P3.3,RE2  ;KEY2按下，蜂鸣器播放另一种频率声音
+	 MOV TH0,#0FBH
+	 MOV TL0,#0E8H
+RE2:
+	RETI
+
+INTT0:
+	CPL P1.0   ;产生方波
+	RETI
+
+
+DELAY50MS:			;@11.0592MHz
+	NOP
+	NOP
+	NOP
+	PUSH	30H
+	PUSH	31H
+	PUSH	32H
+	MOV		30H,#2
+	MOV		31H,#175
+	MOV		32H,#72
+NEXT50:
+	DJNZ	32H,NEXT50
+	DJNZ	31H,NEXT50
+	DJNZ	30H,NEXT50
+	POP		32H
+	POP		31H
+	POP		30H
+	RET
+
+	SJMP $
+	END
