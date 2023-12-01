@@ -1,0 +1,137 @@
+A51 MACRO ASSEMBLER  LED_3                                                                12/01/2023 13:03:25 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN LED_3.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE LED_3.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+0000                   2             ORG 0000H
+0000 020100            3             LJMP MAIN
+0003                   4             ORG 0003H
+0003 020118            5             LJMP EXTERNAL_INT0
+0013                   6             ORG 0013H
+0013 02012F            7             LJMP EXTERNAL_INT1
+                       8     
+0100                   9             ORG 0100H
+0100                  10     MAIN:
+0100 D2AF             11             SETB EA          ; ÔÊÐíËùÓÐÖÐ¶Ï
+0102 D288             12             SETB IT0         ;Íâ²¿ÖÐ¶Ï0µÍµçÆ½´¥·¢·½Ê½
+0104 D28A             13             SETB IT1         ;Íâ²¿ÖÐ¶Ï0µÍµçÆ½´¥·¢·½Ê½
+0106 D2A8             14             SETB EX0         ; Ê¹ÄÜÍâ²¿ÖÐ¶Ï0
+0108 D2AA             15             SETB EX1         ; Ê¹ÄÜÍâ²¿ÖÐ¶Ï0
+010A D2B8             16             SETB PX0
+                      17     
+                      18             
+010C                  19     MAIN_LOOP:
+010C 7590FF           20             MOV P1,#0FFH ; 8¸öµÆÈ«Ãð
+010F 3166             21             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+0111 759000           22             MOV P1,#00H              ; 8¸öµÆÈ«ÁÁ
+0114 3166             23             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+0116 80F4             24             SJMP MAIN_LOOP   ; Ìø×ª»ØÖ÷Ñ­»·
+                      25     
+0118                  26     EXTERNAL_INT0:
+0118 3166             27             ACALL DELAY50MS
+011A 12011E           28             LCALL WASH_LED
+011D 32               29             RETI
+                      30     
+011E                  31     WASH_LED:
+011E 74FE             32             MOV A,#0FEH
+0120 7F08             33             MOV R7,#8
+0122 120125           34             LCALL WASH_LED_UP2DOWN
+0125                  35     WASH_LED_UP2DOWN:
+0125 F590             36             MOV P1,A
+0127 23               37             RL A
+0128 3166             38             ACALL DELAY50MS
+012A DFF9             39             DJNZ R7,WASH_LED_UP2DOWN
+012C 80DE             40             SJMP MAIN_LOOP
+012E 22               41             RET
+                      42     
+012F                  43     EXTERNAL_INT1:  ; Íâ²¿ÖÐ¶Ï0´¦Àí³ÌÐò
+012F 3166             44             ACALL DELAY50MS   
+0131 120135           45             LCALL LED_FLASH  ; µ÷ÓÃLED_FLASH×Ó³ÌÐò  
+0134 32               46             RETI
+                      47     
+0135                  48     LED_FLASH:   ; ÉÏÏÂ4¸öLEDÉÁË¸×Ó³ÌÐò
+0135 79F0             49             MOV R1, #0F0H   ; ÉèÖÃR1Îª0F0H£¬¿ØÖÆÉÏÃæ4¸öLED 
+0137 8990             50             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+0139 3166             51             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+013B 79FF             52             MOV R1, #0FFH   
+013D 8990             53             MOV P1,R1          
+013F 3166             54             ACALL DELAY50MS 
+0141 79F0             55             MOV R1, #0F0H   
+0143 8990             56             MOV P1,R1          
+0145 3166             57             ACALL DELAY50MS
+0147 79FF             58             MOV R1, #0FFH   
+A51 MACRO ASSEMBLER  LED_3                                                                12/01/2023 13:03:25 PAGE     2
+
+0149 8990             59             MOV P1,R1          
+014B 3166             60             ACALL DELAY50MS 
+                      61     
+014D 790F             62             MOV R1, #0FH   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÏÂÃæ4¸öLED 
+014F 8990             63             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+0151 3166             64             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+0153 79FF             65             MOV R1, #0FFH   
+0155 8990             66             MOV P1,R1          
+0157 3166             67             ACALL DELAY50MS 
+0159 790F             68             MOV R1, #0FH  
+015B 8990             69             MOV P1,R1         
+015D 3166             70             ACALL DELAY50MS 
+015F 79FF             71             MOV R1, #0FFH   
+0161 8990             72             MOV P1,R1          
+0163 3166             73             ACALL DELAY50MS 
+                      74     
+0165 22               75             RET
+                      76     
+0166                  77     DELAY50MS:                      ;@11.0592MHz
+0166 00               78             NOP
+0167 00               79             NOP
+0168 00               80             NOP
+0169 C030             81             PUSH    30H
+016B C031             82             PUSH    31H
+016D C032             83             PUSH    32H
+016F 753002           84             MOV             30H,#2
+0172 7531AF           85             MOV             31H,#175
+0175 753248           86                     MOV             32H,#72
+0178                  87     NEXT50:
+0178 D532FD           88                     DJNZ    32H,NEXT50
+017B D531FA           89                     DJNZ    31H,NEXT50
+017E D530F7           90                     DJNZ    30H,NEXT50
+0181 D032             91                     POP             32H
+0183 D031             92                     POP             31H
+0185 D030             93                     POP             30H
+0187 22               94                     RET
+                      95     
+                      96             END
+A51 MACRO ASSEMBLER  LED_3                                                                12/01/2023 13:03:25 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY50MS. . . . .  C ADDR   0166H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . .  B ADDR   00A8H.2 A   
+EXTERNAL_INT0. . .  C ADDR   0118H   A   
+EXTERNAL_INT1. . .  C ADDR   012FH   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+LED_FLASH. . . . .  C ADDR   0135H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MAIN_LOOP. . . . .  C ADDR   010CH   A   
+NEXT50 . . . . . .  C ADDR   0178H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PX0. . . . . . . .  B ADDR   00B8H.0 A   
+WASH_LED . . . . .  C ADDR   011EH   A   
+WASH_LED_UP2DOWN .  C ADDR   0125H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

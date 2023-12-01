@@ -1,0 +1,129 @@
+A51 MACRO ASSEMBLER  LED_2                                                                12/01/2023 10:11:21 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN LED_2.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE LED_2.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             ORG 0000H
+0000 020100            2             LJMP MAIN
+0003                   3             ORG 0003H
+0003 020112            4             LJMP EXTERNAL_INT0
+                       5     
+0100                   6             ORG 0100H
+0100                   7     MAIN:
+0100 D2AF              8             SETB EA          ; ÔÊÐíËùÓÐÖÐ¶Ï
+0102 D288              9             SETB IT0         ;Íâ²¿ÖÐ¶Ï0µÍµçÆ½´¥·¢·½Ê½
+0104 D2A8             10             SETB EX0         ; Ê¹ÄÜÍâ²¿ÖÐ¶Ï0
+                      11             
+0106                  12     MAIN_LOOP:
+0106 7590FF           13             MOV P1,#0FFH ; 8¸öµÆÈ«Ãð
+0109 3149             14             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+010B 759000           15             MOV P1,#00H              ; 8¸öµÆÈ«ÁÁ
+010E 3149             16             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+0110 80F4             17             SJMP MAIN_LOOP   ; Ìø×ª»ØÖ÷Ñ­»·
+                      18     
+                      19     
+0112                  20     EXTERNAL_INT0:  ; Íâ²¿ÖÐ¶Ï0´¦Àí³ÌÐò
+0112 3149             21             ACALL DELAY50MS   
+0114 120118           22             LCALL LED_FLASH  ; µ÷ÓÃLED_FLASH×Ó³ÌÐò  
+0117 32               23             RETI
+                      24     
+0118                  25     LED_FLASH:   ; ÉÏÏÂ4¸öLEDÉÁË¸×Ó³ÌÐò
+0118 79F0             26             MOV R1, #0F0H   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÉÏÃæ4¸öLED 
+011A 8990             27             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+011C 3149             28             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+011E 79FF             29             MOV R1, #0FFH   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÉÏÃæ4¸öLED
+0120 8990             30             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+0122 3149             31             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+0124 79F0             32             MOV R1, #0F0H   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÉÏÃæ4¸öLED
+0126 8990             33             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+0128 3149             34             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+012A 79FF             35             MOV R1, #0FFH   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÉÏÃæ4¸öLED
+012C 8990             36             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+012E 3149             37             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê 
+                      38     
+0130 790F             39             MOV R1, #0FH   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÉÏÃæ4¸öLED 
+0132 8990             40             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+0134 3149             41             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+0136 79FF             42             MOV R1, #0FFH   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÉÏÃæ4¸öLED
+0138 8990             43             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+013A 3149             44             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+013C 790F             45             MOV R1, #0FH   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÉÏÃæ4¸öLED
+013E 8990             46             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+0140 3149             47             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê
+0142 79FF             48             MOV R1, #0FFH   ; ÉèÖÃR1Îª0FH£¬¿ØÖÆÉÏÃæ4¸öLED
+0144 8990             49             MOV P1,R1          ; ½«R1µÄÖµÐ´ÈëP1¿Ú
+0146 3149             50             ACALL DELAY50MS ; µ÷ÓÃÑÓÊ±º¯Ê 
+                      51     
+0148 22               52             RET
+                      53     
+0149                  54     DELAY50MS:                      ;@11.0592MHz
+0149 00               55             NOP
+014A 00               56             NOP
+014B 00               57             NOP
+014C C030             58             PUSH    30H
+A51 MACRO ASSEMBLER  LED_2                                                                12/01/2023 10:11:21 PAGE     2
+
+014E C031             59             PUSH    31H
+0150 C032             60             PUSH    32H
+0152 753002           61             MOV             30H,#2
+0155 7531AF           62             MOV             31H,#175
+0158 753248           63                     MOV             32H,#72
+015B                  64     NEXT50:
+015B D532FD           65                     DJNZ    32H,NEXT50
+015E D531FA           66                     DJNZ    31H,NEXT50
+0161 D530F7           67                     DJNZ    30H,NEXT50
+0164 D032             68                     POP             32H
+0166 D031             69                     POP             31H
+0168 D030             70                     POP             30H
+016A 22               71                     RET
+                      72     
+016B                  73     DELAY500MS:                     ;@11.0592MHz
+016B 00               74             NOP
+016C 00               75             NOP
+016D 00               76             NOP
+016E C030             77             PUSH 30H
+0170 C031             78             PUSH 31H
+0172 C032             79             PUSH 32H
+0174 753011           80             MOV 30H,#17
+0177 7531D0           81             MOV 31H,#208
+017A 753218           82             MOV 32H,#24
+017D                  83     NEXT:   
+017D D532FD           84             DJNZ 32H,NEXT
+0180 D531FA           85             DJNZ 31H,NEXT
+0183 D530F7           86             DJNZ 30H,NEXT
+0186 D032             87             POP 32H
+0188 D031             88             POP 31H
+018A D030             89             POP 30H
+018C 22               90             RET
+                      91     
+                      92             END
+A51 MACRO ASSEMBLER  LED_2                                                                12/01/2023 10:11:21 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY500MS . . . .  C ADDR   016BH   A   
+DELAY50MS. . . . .  C ADDR   0149H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+EXTERNAL_INT0. . .  C ADDR   0112H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+LED_FLASH. . . . .  C ADDR   0118H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MAIN_LOOP. . . . .  C ADDR   0106H   A   
+NEXT . . . . . . .  C ADDR   017DH   A   
+NEXT50 . . . . . .  C ADDR   015BH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

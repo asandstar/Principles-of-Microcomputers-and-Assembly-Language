@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PWM_1                                                                11/26/2023 12:49:18 PAGE     1
+A51 MACRO ASSEMBLER  PWM_1                                                                11/26/2023 14:29:02 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.01
@@ -9,126 +9,141 @@ LOC  OBJ            LINE     SOURCE
 
 0000                   1             ORG 0000H
 0000 020100            2             LJMP MAIN
-0003                   3             ORG 0003H
-0003 020142            4             LJMP INT_KEY1
-0013                   5             ORG 0013H
-0013 020147            6             LJMP INT_KEY2
+                       3     
+                       4     
+                       5     
+                       6     
                        7     
 0100                   8             ORG 0100H
 0100                   9     MAIN:
 0100 758911           10             MOV TMOD,#11H ;T1-mode1, T0-mode1
 0103 D290             11             SETB P1.0
-0105 78F1             12             MOV R0,#0F1H
+0105 78F1             12             MOV R0,#0F1H   ;R0,R1 保存高电平维持时间
 0107 7999             13             MOV R1,#99H
-0109 7AC6             14             MOV R2,#0C6H
+0109 7AC6             14             MOV R2,#0C6H   ;R2,R3 保存低电平维持时间
 010B 7B66             15             MOV R3,#66H
-                      16     
-                      17     
-                      18     
-                      19     
-010D 888C             20             MOV TH0,R0
-010F 898A             21             MOV TL0,R1
-0111 8A8D             22             MOV TH1,R2
-0113 8B8B             23             MOV TL1,R3
-0115 D2AF             24             SETB EA
-0117 D288             25             SETB IT0
-0119 D28A             26             SETB IT1
-011B D2A8             27             SETB EX0
-011D D2AA             28             SETB EX1
-011F                  29     TIME0:
-011F 888C             30             MOV TH0,R0
-0121 898A             31             MOV TL0,R1      
-0123 D28C             32             SETB TR0
-0125                  33     CHECK:
-0125 108D03           34             JBC TF0,OVERFLOW0
-0128 020125           35             LJMP CHECK
-012B                  36     OVERFLOW0:
-012B C290             37             CLR P1.0
-012D C28C             38             CLR TR0
-012F                  39     TIME1:
-012F 8A8D             40             MOV TH1,R2
-0131 8B8B             41             MOV TL1,R3
-0133 D28E             42             SETB TR1
-0135                  43     CHECK1:
-0135 108F03           44             JBC TF1,OVERFLOW1
-0138 020135           45             LJMP CHECK1
-013B                  46     OVERFLOW1:
-013B D290             47             SETB P1.0
-013D C28E             48             CLR TR1
-013F 02011F           49             LJMP TIME0
-                      50     
-0142                  51     INT_KEY1:
-0142 3176             52             ACALL DELAY50MS 
-0144 314C             53             ACALL ADD20
-0146 32               54             RETI
-                      55     
-0147                  56     INT_KEY2:
-0147 3176             57             ACALL DELAY50MS
-0149 3161             58             ACALL DEC20
-A51 MACRO ASSEMBLER  PWM_1                                                                11/26/2023 12:49:18 PAGE     2
+010D 888C             16             MOV TH0,R0              ;T0赋初值
+010F 898A             17             MOV TL0,R1
+0111 8A8D             18             MOV TH1,R2              ;T1赋初值
+0113 8B8B             19             MOV TL1,R3
+0115 D2AF             20             SETB EA                 ;CPU 开放中断
+0117 D288             21             SETB IT0                ;边沿触发
+0119 D28A             22             SETB IT1
+011B D2A8             23             SETB EX0                ;允许外部中断
+011D D2AA             24             SETB EX1
+011F                  25     SWITCH:
+011F 209731           26             JB P1.7,DUTY20
+0122 309723           27             JNB P1.7,DUTY40
+0125                  28     TIME0:
+0125 888C             29             MOV TH0,R0               ;赋pwm波的高电平初值
+0127 898A             30             MOV TL0,R1      
+0129 D28C             31             SETB TR0                 ;开启定时器0
+012B                  32     CHECK:
+012B 108D03           33             JBC TF0,OVERFLOW0  ;检查定时是否满高电平时间
+012E 02012B           34             LJMP CHECK
+0131                  35     OVERFLOW0:
+0131 C290             36             CLR P1.0                        ;开始低电平时间
+0133 C28C             37             CLR TR0                         ;关闭定时器0
+0135                  38     TIME1:
+0135 8A8D             39             MOV TH1,R2               ;赋pwm波的低电平初值
+0137 8B8B             40             MOV TL1,R3
+0139 D28E             41             SETB TR1                 ;开启定时器1
+013B                  42     CHECK1:
+013B 108F03           43             JBC TF1,OVERFLOW1  ;检查定时是否满低电平时间
+013E 02013B           44             LJMP CHECK1
+0141                  45     OVERFLOW1:
+0141 D290             46             SETB P1.0                 ;开始高电平时间
+0143 C28E             47             CLR TR1                   ;关闭定时器1
+0145 02011F           48             LJMP SWITCH
+                      49     
+0148                  50     DUTY40:
+0148 78E3             51             MOV R0,#0E3H   ;R0,R1 保存高电平维持时间
+014A 7933             52             MOV R1,#33H
+014C 7AD4             53             MOV R2,#0D4H   ;R2,R3 保存低电平维持时间
+014E 7BCC             54             MOV R3,#0CCH 
+0150 020125           55             LJMP TIME0
+0153                  56     DUTY20:
+0153 78F1             57             MOV R0,#0F1H   ;R0,R1 保存高电平维持时间
+0155 7999             58             MOV R1,#99H
+A51 MACRO ASSEMBLER  PWM_1                                                                11/26/2023 14:29:02 PAGE     2
 
-014B 32               59             RETI
-                      60     
-014C                  61     ADD20:  
-014C C3               62             CLR C
-014D E8               63             MOV A,R0
-014E 940E             64             SUBB A,#0EH
-0150 F8               65             MOV R0,A
-0151 C3               66             CLR C
-0152 E9               67             MOV A,R1
-0153 9467             68             SUBB A,#67H
-0155 F9               69             MOV R1,A
-0156 C3               70             CLR C
-0157 EA               71             MOV A,R2
-0158 240E             72             ADD A,#0EH
-015A FA               73             MOV R2,A
-015B C3               74             CLR C
-015C EB               75             MOV A,R3
-015D 2467             76             ADD A,#67H
-015F FB               77             MOV R3,A
-0160 22               78             RET
+0157 7AC6             59             MOV R2,#0C6H   ;R2,R3 保存低电平维持时间
+0159 7B66             60             MOV R3,#66H
+015B 020125           61             LJMP TIME0
+                      62     
+                      63     
+                      64     
+                      65     
+                      66     
+                      67     
+                      68     
+                      69     
+                      70     
+                      71     
+                      72     
+                      73     
+                      74     
+                      75     
+                      76     
+                      77     
+                      78     
                       79     
-0161                  80     DEC20:  
-0161 C3               81             CLR C
-0162 E8               82             MOV A,R0
-0163 240E             83             ADD A,#0EH
-0165 F8               84             MOV R0,A
-0166 C3               85             CLR C
-0167 E9               86             MOV A,R1
-0168 2467             87             ADD A,#67H
-016A F9               88             MOV R1,A
-016B C3               89             CLR C
-016C EA               90             MOV A,R2
-016D 940E             91             SUBB A,#0EH
-016F FA               92             MOV R2,A
-0170 C3               93             CLR C
-0171 EB               94             MOV A,R3
-0172 9467             95             SUBB A,#67H
-0174 FB               96             MOV R3,A
-0175 22               97             RET
+                      80     
+                      81     
+                      82     
+                      83     
+                      84     
+                      85     
+                      86     
+                      87     
+                      88     
+                      89     
+                      90     
+                      91     
+                      92     
+                      93     
+                      94     
+                      95     
+                      96     
+                      97     
                       98     
-0176                  99     DELAY50MS:                      ;@11.0592MHz
-0176 00              100             NOP
-0177 00              101             NOP
-0178 00              102             NOP
-0179 C030            103             PUSH    30H
-017B C031            104             PUSH    31H
-017D C032            105             PUSH    32H
-017F 753002          106             MOV             30H,#2
-0182 7531AF          107             MOV             31H,#175
-0185 753248          108             MOV             32H,#72
-0188                 109     NEXT50:
-0188 D532FD          110             DJNZ    32H,NEXT50
-018B D531FA          111             DJNZ    31H,NEXT50
-018E D530F7          112             DJNZ    30H,NEXT50
-0191 D032            113             POP             32H
-0193 D031            114             POP             31H
-0195 D030            115             POP             30H
-0197 22              116             RET
+                      99     
+                     100     
+                     101     
+                     102     
+                     103     
+                     104     
+                     105     
+                     106     
+                     107     
+                     108     
+                     109     
+                     110     
+                     111     
+                     112     
+                     113     
+                     114     
+                     115     
+                     116     
                      117     
                      118     
-                     119             END
-A51 MACRO ASSEMBLER  PWM_1                                                                11/26/2023 12:49:18 PAGE     3
+                     119     
+                     120     
+                     121     
+                     122     
+                     123     
+                     124     
+A51 MACRO ASSEMBLER  PWM_1                                                                11/26/2023 14:29:02 PAGE     3
+
+                     125     
+                     126     
+                     127     
+                     128     
+                     129     
+                     130     
+                     131     
+                     132             END
+A51 MACRO ASSEMBLER  PWM_1                                                                11/26/2023 14:29:02 PAGE     4
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -136,29 +151,26 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-ADD20. . . . . . .  C ADDR   014CH   A   
-CHECK. . . . . . .  C ADDR   0125H   A   
-CHECK1 . . . . . .  C ADDR   0135H   A   
-DEC20. . . . . . .  C ADDR   0161H   A   
-DELAY50MS. . . . .  C ADDR   0176H   A   
+CHECK. . . . . . .  C ADDR   012BH   A   
+CHECK1 . . . . . .  C ADDR   013BH   A   
+DUTY20 . . . . . .  C ADDR   0153H   A   
+DUTY40 . . . . . .  C ADDR   0148H   A   
 EA . . . . . . . .  B ADDR   00A8H.7 A   
 EX0. . . . . . . .  B ADDR   00A8H.0 A   
 EX1. . . . . . . .  B ADDR   00A8H.2 A   
-INT_KEY1 . . . . .  C ADDR   0142H   A   
-INT_KEY2 . . . . .  C ADDR   0147H   A   
 IT0. . . . . . . .  B ADDR   0088H.0 A   
 IT1. . . . . . . .  B ADDR   0088H.2 A   
 MAIN . . . . . . .  C ADDR   0100H   A   
-NEXT50 . . . . . .  C ADDR   0188H   A   
-OVERFLOW0. . . . .  C ADDR   012BH   A   
-OVERFLOW1. . . . .  C ADDR   013BH   A   
+OVERFLOW0. . . . .  C ADDR   0131H   A   
+OVERFLOW1. . . . .  C ADDR   0141H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
+SWITCH . . . . . .  C ADDR   011FH   A   
 TF0. . . . . . . .  B ADDR   0088H.5 A   
 TF1. . . . . . . .  B ADDR   0088H.7 A   
 TH0. . . . . . . .  D ADDR   008CH   A   
 TH1. . . . . . . .  D ADDR   008DH   A   
-TIME0. . . . . . .  C ADDR   011FH   A   
-TIME1. . . . . . .  C ADDR   012FH   A   
+TIME0. . . . . . .  C ADDR   0125H   A   
+TIME1. . . . . . .  C ADDR   0135H   A   
 TL0. . . . . . . .  D ADDR   008AH   A   
 TL1. . . . . . . .  D ADDR   008BH   A   
 TMOD . . . . . . .  D ADDR   0089H   A   

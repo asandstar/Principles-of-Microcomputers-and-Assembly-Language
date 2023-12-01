@@ -1,0 +1,77 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/01/2023  17:54:00  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL_C51\C51\BIN\BL51.EXE TLC5620.obj TO lab5 RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  TLC5620.obj (TLC5620)
+
+
+LINK MAP OF MODULE:  lab5 (TLC5620)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0139H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  lab5 (TLC5620)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TLC5620
+  C:0116H         SYMBOL        DAC5620
+  B:0090H.3       SYMBOL        LDAC
+  B:0090H.2       SYMBOL        LOAD
+  C:0100H         SYMBOL        MAIN
+  D:0090H         SYMBOL        P1
+  B:0090H.0       SYMBOL        SCLA
+  B:0090H.1       SYMBOL        SDAA
+  C:012FH         SYMBOL        SENDBYTE
+  D:0081H         SYMBOL        SP
+  C:0000H         LINE#         6
+  C:0100H         LINE#         9
+  C:0103H         LINE#         10
+  C:0105H         LINE#         11
+  C:0107H         LINE#         12
+  C:0109H         LINE#         13
+  C:010BH         LINE#         14
+  C:010DH         LINE#         15
+  C:010FH         LINE#         16
+  C:0112H         LINE#         17
+  C:0114H         LINE#         19
+  C:0116H         LINE#         22
+  C:0117H         LINE#         23
+  C:0119H         LINE#         24
+  C:011BH         LINE#         25
+  C:011EH         LINE#         26
+  C:011FH         LINE#         27
+  C:0121H         LINE#         28
+  C:0123H         LINE#         29
+  C:0126H         LINE#         30
+  C:0128H         LINE#         31
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/01/2023  17:54:00  PAGE 2
+
+
+  C:012AH         LINE#         32
+  C:012CH         LINE#         33
+  C:012EH         LINE#         34
+  C:012FH         LINE#         37
+  C:0131H         LINE#         38
+  C:0132H         LINE#         39
+  C:0134H         LINE#         40
+  C:0136H         LINE#         41
+  C:0138H         LINE#         42
+  -------         ENDMOD        TLC5620
+
+Program Size: data=8.0 xdata=0 code=313
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,77 @@
+A51 MACRO ASSEMBLER  TLC5620                                                              12/01/2023 17:54:00 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN TLC5620.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE TLC5620.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0090                 1             SCLA EQU P1.0
+  0091                 2             SDAA EQU P1.1
+  0092                 3             LOAD EQU P1.2
+  0093                 4             LDAC EQU P1.3
+0000                   5             ORG 0000H
+0000 020100            6             LJMP MAIN
+0100                   7             ORG 0100H
+0100                   8     MAIN:
+0100 758160            9             MOV SP,#60H
+0103 D290             10             SETB SCLA       ; ±÷”∂Àƒ¨»œ∏ﬂµÁ∆Ω
+0105 D291             11             SETB SDAA       ;œ» ‰≥ˆref=2.5V≤ŒøºµÁ—π
+0107 D292             12             SETB LOAD       ;œ»¿≠∏ﬂÀ¯¥Ê æ›ø⁄µƒµÁ∆Ω
+0109 D293             13             SETB LDAC       ;¿≠∏ﬂøÿ÷∆DACµÁ∆Ω
+010B 79E0             14             MOV R1,#11100000B ;A1A0=11£¨ ‰≥ˆŒªDACD£¨RNG=1
+010D 7A0A             15             MOV R2, #00001010B
+010F 120116           16             LCALL DAC5620
+0112 80EC             17             SJMP MAIN
+                      18             
+0114 80FE             19             SJMP $
+                      20     
+0116                  21     DAC5620:        
+0116 E9               22             MOV     A,R1            ;R1Œ™øÿ÷∆◊÷Ω⁄
+0117 C290             23             CLR     SCLA            ;«Â¡„ ±÷”∂À
+0119 7F03             24             MOV     R7,#03H         ;…Ë÷√—≠ª∑¥Œ £¨3bist
+011B 12012F           25             LCALL SENDBYTE  ;µ˜”√ÀÕ ◊”≥Ã–Ú£¨∑¢ÀÕøÿ÷∆◊÷
+011E EA               26             MOV     A,R2            ;R2Œ™¥◊™ªª æ›
+011F C290             27             CLR     SCLA            ;«Â¡„ ±÷”∂À
+0121 7F08             28             MOV     R7,#08H         ;…Ë÷√—≠ª∑¥Œ £¨8bit
+0123 12012F           29             LCALL SENDBYTE  ;µ˜”√ÀÕ ◊”≥Ã–Ú£¨∑¢ÀÕ ◊÷ æ›
+0126 C292             30             CLR     LOAD            ;À¯¥Ê æ›
+0128 D292             31             SETB LOAD
+012A C293             32             CLR     LDAC            ;∏¸–¬DAC ‰≥ˆ
+012C D293             33             SETB LDAC
+012E 22               34             RET
+                      35     
+012F                  36     SENDBYTE:       
+012F D290             37             SETB SCLA                ;÷√Œª ±÷”∂À
+0131 33               38             RLC     A                ;—≠ª∑“∆Œª1Œª æ›
+0132 9291             39             MOV     SDAA,C           ; æ›“∆»Îºƒ¥Ê∆˜
+0134 C290             40             CLR     SCLA             ;≤˙…˙ ±÷”œ¬Ωµ—ÿ£¨∂¡»Î æ›
+0136 DFF7             41             DJNZ R7,SENDBYTE         ;—≠ª∑
+0138 22               42             RET
+                      43             
+                      44             END
+                             
+A51 MACRO ASSEMBLER  TLC5620                                                              12/01/2023 17:54:00 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DAC5620. . . . . .  C ADDR   0116H   A   
+LDAC . . . . . . .  B ADDR   0090H.3 A   
+LOAD . . . . . . .  B ADDR   0090H.2 A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SCLA . . . . . . .  B ADDR   0090H.0 A   
+SDAA . . . . . . .  B ADDR   0090H.1 A   
+SENDBYTE . . . . .  C ADDR   012FH   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

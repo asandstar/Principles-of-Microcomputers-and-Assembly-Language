@@ -1,0 +1,127 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/01/2023  13:03:25  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL_C51\C51\BIN\BL51.EXE LED_3.obj TO lab1 RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  LED_3.obj (LED_3)
+
+
+LINK MAP OF MODULE:  lab1 (LED_3)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0188H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  lab1 (LED_3)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LED_3
+  C:0166H         SYMBOL        DELAY50MS
+  B:00A8H.7       SYMBOL        EA
+  B:00A8H.0       SYMBOL        EX0
+  B:00A8H.2       SYMBOL        EX1
+  C:0118H         SYMBOL        EXTERNAL_INT0
+  C:012FH         SYMBOL        EXTERNAL_INT1
+  B:0088H.0       SYMBOL        IT0
+  B:0088H.2       SYMBOL        IT1
+  C:0135H         SYMBOL        LED_FLASH
+  C:0100H         SYMBOL        MAIN
+  C:010CH         SYMBOL        MAIN_LOOP
+  C:0178H         SYMBOL        NEXT50
+  D:0090H         SYMBOL        P1
+  B:00B8H.0       SYMBOL        PX0
+  C:011EH         SYMBOL        WASH_LED
+  C:0125H         SYMBOL        WASH_LED_UP2DOWN
+  C:0000H         LINE#         3
+  C:0003H         LINE#         5
+  C:0013H         LINE#         7
+  C:0100H         LINE#         11
+  C:0102H         LINE#         12
+  C:0104H         LINE#         13
+  C:0106H         LINE#         14
+  C:0108H         LINE#         15
+  C:010AH         LINE#         16
+  C:010CH         LINE#         20
+  C:010FH         LINE#         21
+  C:0111H         LINE#         22
+  C:0114H         LINE#         23
+  C:0116H         LINE#         24
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/01/2023  13:03:25  PAGE 2
+
+
+  C:0118H         LINE#         27
+  C:011AH         LINE#         28
+  C:011DH         LINE#         29
+  C:011EH         LINE#         32
+  C:0120H         LINE#         33
+  C:0122H         LINE#         34
+  C:0125H         LINE#         36
+  C:0127H         LINE#         37
+  C:0128H         LINE#         38
+  C:012AH         LINE#         39
+  C:012CH         LINE#         40
+  C:012EH         LINE#         41
+  C:012FH         LINE#         44
+  C:0131H         LINE#         45
+  C:0134H         LINE#         46
+  C:0135H         LINE#         49
+  C:0137H         LINE#         50
+  C:0139H         LINE#         51
+  C:013BH         LINE#         52
+  C:013DH         LINE#         53
+  C:013FH         LINE#         54
+  C:0141H         LINE#         55
+  C:0143H         LINE#         56
+  C:0145H         LINE#         57
+  C:0147H         LINE#         58
+  C:0149H         LINE#         59
+  C:014BH         LINE#         60
+  C:014DH         LINE#         62
+  C:014FH         LINE#         63
+  C:0151H         LINE#         64
+  C:0153H         LINE#         65
+  C:0155H         LINE#         66
+  C:0157H         LINE#         67
+  C:0159H         LINE#         68
+  C:015BH         LINE#         69
+  C:015DH         LINE#         70
+  C:015FH         LINE#         71
+  C:0161H         LINE#         72
+  C:0163H         LINE#         73
+  C:0165H         LINE#         75
+  C:0166H         LINE#         78
+  C:0167H         LINE#         79
+  C:0168H         LINE#         80
+  C:0169H         LINE#         81
+  C:016BH         LINE#         82
+  C:016DH         LINE#         83
+  C:016FH         LINE#         84
+  C:0172H         LINE#         85
+  C:0175H         LINE#         86
+  C:0178H         LINE#         88
+  C:017BH         LINE#         89
+  C:017EH         LINE#         90
+  C:0181H         LINE#         91
+  C:0183H         LINE#         92
+  C:0185H         LINE#         93
+  C:0187H         LINE#         94
+  -------         ENDMOD        LED_3
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/01/2023  13:03:25  PAGE 3
+
+
+
+Program Size: data=8.0 xdata=0 code=392
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

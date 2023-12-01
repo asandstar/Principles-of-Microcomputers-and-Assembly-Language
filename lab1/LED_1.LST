@@ -1,0 +1,141 @@
+A51 MACRO ASSEMBLER  LED_1                                                                12/01/2023 11:01:13 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN LED_1.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE LED_1.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             ORG 0000H
+0000 020100            2             LJMP MAIN
+                       3     
+0100                   4             ORG 0100H
+0100                   5     MAIN:
+0100 20A70B            6             JB P2.7,SWITCH0
+0103 30A70F            7             JNB P2.7,SWITCH1
+0106                   8     LOOP:
+0106 20A705            9             JB P2.7,SWITCH0
+0109 30A709           10             JNB P2.7,SWITCH1
+010C 80F8             11             SJMP LOOP
+010E                  12     SWITCH0:
+010E 74FE             13             MOV A,#0FEH
+0110 12011C           14             LCALL WASH_LED_UP2DOWN
+0113 80F1             15             SJMP LOOP
+0115                  16     SWITCH1:
+0115 747F             17             MOV A,#7FH
+0117 120127           18             LCALL WASH_LED_DOWN2UP
+011A 80EA             19             SJMP LOOP
+011C                  20     WASH_LED_UP2DOWN:
+011C F590             21             MOV P1,A
+011E 23               22             RL A
+011F 3132             23             ACALL DELAY50MS
+0121 30A7F1           24             JNB P2.7,SWITCH1
+0124 80F6             25             SJMP WASH_LED_UP2DOWN
+0126 22               26             RET
+                      27     
+0127                  28     WASH_LED_DOWN2UP:
+0127 F590             29             MOV P1,A
+0129 03               30             RR A
+012A 3132             31             ACALL DELAY50MS
+012C 20A7DF           32             JB P2.7,SWITCH0
+012F 80F6             33             SJMP WASH_LED_DOWN2UP
+0131 22               34             RET
+                      35     
+0132                  36     DELAY50MS:                      ;@11.0592MHz
+0132 00               37             NOP
+0133 00               38             NOP
+0134 00               39             NOP
+0135 C030             40             PUSH    30H
+0137 C031             41             PUSH    31H
+0139 C032             42             PUSH    32H
+013B 753002           43             MOV             30H,#2
+013E 7531AF           44             MOV             31H,#175
+0141 753248           45             MOV             32H,#72
+0144                  46     NEXT50:
+0144 D532FD           47                     DJNZ    32H,NEXT50
+0147 D531FA           48                     DJNZ    31H,NEXT50
+014A D530F7           49                     DJNZ    30H,NEXT50
+014D D032             50                     POP             32H
+014F D031             51                     POP             31H
+0151 D030             52                     POP             30H
+0153 22               53                     RET
+                      54             END
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LED_1                                                                12/01/2023 11:01:13 PAGE     2
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  LED_1                                                                12/01/2023 11:01:13 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY50MS. . . . .  C ADDR   0132H   A   
+LOOP . . . . . . .  C ADDR   0106H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT50 . . . . . .  C ADDR   0144H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+SWITCH0. . . . . .  C ADDR   010EH   A   
+SWITCH1. . . . . .  C ADDR   0115H   A   
+WASH_LED_DOWN2UP .  C ADDR   0127H   A   
+WASH_LED_UP2DOWN .  C ADDR   011CH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

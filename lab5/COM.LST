@@ -1,0 +1,80 @@
+A51 MACRO ASSEMBLER  COM                                                                  12/01/2023 09:26:01 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN COM.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE COM.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  008E                 1             AUXR EQU 8EH
+0000                   2             ORG 0000H
+0000 020100            3             LJMP MAIN
+0023                   4             ORG 0023H
+0023 02011A            5             LJMP INT_ISR
+0100                   6             ORG 0100H
+                       7     
+0100                   8     MAIN:
+0100 538920            9             ANL TMOD, #20H  ;¶¨Ê±Æ÷1Îª·½Ê½2
+0103 758DFD           10             MOV TH1,#0FDH
+0106 758BFD           11             MOV TL1,#0FDH
+0109 D28E             12             SETB TR1        ;¶¨Ê±Æ÷1¿ªÊ¼¼ÆÊ±
+                      13     
+010B 758E00           14             MOV AUXR,#00H    ;¶¨Ê±Æ÷1×÷Îª²¨ÌØÂÊ·¢ÉúÆ÷
+010E 7598D0           15             MOV SCON,#11010000B   ;´®¿ÚÉèÖÃÎª¹¤×÷·½Ê½3,ÔÊÐí½ÓÊÕ£¬½«TB8ÉèÎªÅ¼Ð£ÑéÎ»'0'
+0111 758780           16             MOV PCON,#10000000B       ;²¨ÌØÂÊ¼Ó±¶
+                      17     
+0114 D2AC             18             SETB ES
+0116 D2AF             19             SETB EA         ;´®ÐÐ¿ÚÖÐ¶ÏÔÊÐí 
+0118 80FE             20             SJMP $
+                      21     
+011A                  22     INT_ISR:
+011A C2AF             23             CLR EA     ;¹ØÖÐ¶Ï
+011C C298             24             CLR RI     ;Çå³´®ÐÐ¿Ú1ÖÐ¶Ï±êÖ¾
+011E C082             25             PUSH DPL   ;±£»¤ÏÖ³¡
+0120 C083             26             PUSH DPH
+0122 C0E0             27             PUSH ACC
+0124 E599             28             MOV A,SBUF      ;ÊÕµ½Ð¡Ð´×ÖÄ¸
+0126 9420             29             SUBB A,#20H     ;±ä³É´óÐ´×ÖÄ¸
+0128 F599             30             MOV SBUF,A      ;·µ»Ø´óÐ´×ÖÄ¸
+012A                  31     CHECK:
+012A 3099FD           32             JNB TI,CHECK   ;µÈ´·¢ËÍ½áÊø
+012D C299             33             CLR TI             ;·¢Íê»Ö¸´ÏÖ³¡
+012F D0E0             34             POP ACC
+0131 D083             35             POP DPH
+0133 D082             36             POP DPL
+0135 D2AF             37             SETB EA            ;¿ªÖÐ¶Ï
+0137 32               38             RETI
+                      39             END
+A51 MACRO ASSEMBLER  COM                                                                  12/01/2023 09:26:01 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+AUXR . . . . . . .  N NUMB   008EH   A   
+CHECK. . . . . . .  C ADDR   012AH   A   
+DPH. . . . . . . .  D ADDR   0083H   A   
+DPL. . . . . . . .  D ADDR   0082H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ES . . . . . . . .  B ADDR   00A8H.4 A   
+INT_ISR. . . . . .  C ADDR   011AH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+PCON . . . . . . .  D ADDR   0087H   A   
+RI . . . . . . . .  B ADDR   0098H.0 A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
