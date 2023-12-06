@@ -1,0 +1,175 @@
+A51 MACRO ASSEMBLER  SEG1                                                                 12/06/2023 12:03:51 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN seg1.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE seg1.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             ORG 0000H
+0000 020100            2             LJMP MAIN
+                       3     
+                       4     
+                       5     
+0100                   6             ORG 0100H
+0100                   7     MAIN:
+0100 759300            8             MOV 93H,#00H  ;p0推挽模式,位选通
+0103 7594FF            9             MOV 94H,#0FFH
+0106 759100           10             MOV 91H,#00H  ;P1推挽模式，段选通
+0109 7592FF           11             MOV 92H,#0FFH
+010C 759500           12             MOV 95H,#00H  ;P2推挽模式
+010F 7596FF           13             MOV 96H,#0FFH
+                      14     
+                      15     
+                      16     
+                      17     
+                      18     
+                      19     
+                      20     
+                      21     
+                      22     
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     
+                      29     
+                      30     
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     
+                      36     
+                      37     
+                      38     
+                      39     
+                      40     
+                      41     
+                      42     
+                      43     ;位码低有效
+0112                  44     SEG1:   
+0112 75F0FE           45             MOV B,#11111110B
+0115 85F080           46             MOV P0,B 
+0118 743F             47             MOV A,#3FH
+011A F590             48             MOV P1,A
+011C 120196           49             LCALL DELAY1MS
+011F                  50     SEG2:   
+011F 75F0FD           51             MOV B,#11111101B
+0122 85F080           52             MOV P0,B 
+0125 7406             53             MOV A,#06H
+0127 F590             54             MOV P1,A
+0129 120196           55             LCALL DELAY1MS
+012C                  56     SEG3:
+012C 75F0FB           57             MOV B,#11111011B
+012F 85F080           58             MOV P0,B 
+A51 MACRO ASSEMBLER  SEG1                                                                 12/06/2023 12:03:51 PAGE     2
+
+0132 745B             59             MOV A,#5BH
+0134 F590             60             MOV P1,A
+0136 120196           61             LCALL DELAY1MS
+0139                  62     SEG4:
+0139 75F0F7           63             MOV B,#11110111B
+013C 85F080           64             MOV P0,B 
+013F 744F             65             MOV A,#4FH
+0141 F590             66             MOV P1,A
+0143 120196           67             LCALL DELAY1MS
+0146                  68     SEG5:
+0146 75F0EF           69             MOV B,#11101111B
+0149 85F080           70             MOV P0,B 
+014C 7466             71             MOV A,#66H
+014E F590             72             MOV P1,A
+0150 120196           73             LCALL DELAY1MS
+0153                  74     SEG6:
+0153 75F0DF           75             MOV B,#11011111B
+0156 85F080           76             MOV P0,B 
+0159 746D             77             MOV A,#6DH
+015B F590             78             MOV P1,A
+015D 120196           79             LCALL DELAY1MS
+0160                  80     SEG7:
+0160 75F0BF           81             MOV B,#10111111B
+0163 85F080           82             MOV P0,B 
+0166 747D             83             MOV A,#7DH
+0168 F590             84             MOV P1,A
+016A 120196           85             LCALL DELAY1MS
+016D                  86     SEG8:
+016D 75F07F           87             MOV B,#01111111B
+0170 85F080           88             MOV P0,B 
+0173 7407             89             MOV A,#07H
+0175 F590             90             MOV P1,A
+0177 120196           91             LCALL DELAY1MS
+017A 020100           92             LJMP MAIN       
+                      93     
+                      94     
+                      95     
+                      96     
+                      97     
+                      98     
+                      99     
+                     100     
+017D                 101     DELAY2MS:                       ;@11.0592MHz
+017D 00              102             NOP
+017E 00              103             NOP
+017F 00              104             NOP
+0180 00              105             NOP
+0181 C030            106             PUSH    30H
+0183 C031            107             PUSH    31H
+0185 753012          108             MOV             30H,#18
+0188 753130          109             MOV             31H,#48
+018B                 110     NEXT:
+018B D531FD          111             DJNZ    31H,NEXT
+018E D530FA          112             DJNZ    30H,NEXT
+0191 D031            113             POP             31H
+0193 D030            114             POP             30H
+0195 22              115             RET
+0196                 116     DELAY1MS:                       ;@11.0592MHz
+0196 C030            117             PUSH    30H
+0198 C031            118             PUSH    31H
+019A 753009          119             MOV             30H,#9
+019D 753196          120             MOV             31H,#150
+01A0                 121     NEXT2:
+01A0 D531FD          122             DJNZ    31H,NEXT2
+01A3 D530FA          123             DJNZ    30H,NEXT2
+01A6 D031            124             POP             31H
+A51 MACRO ASSEMBLER  SEG1                                                                 12/06/2023 12:03:51 PAGE     3
+
+01A8 D030            125             POP             30H
+01AA 22              126             RET
+                     127     
+                     128     
+                     129     
+                     130             END
+                             
+                             
+A51 MACRO ASSEMBLER  SEG1                                                                 12/06/2023 12:03:51 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+DELAY1MS . . . . .  C ADDR   0196H   A   
+DELAY2MS . . . . .  C ADDR   017DH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT . . . . . . .  C ADDR   018BH   A   
+NEXT2. . . . . . .  C ADDR   01A0H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SEG1 . . . . . . .  C ADDR   0112H   A   
+SEG2 . . . . . . .  C ADDR   011FH   A   
+SEG3 . . . . . . .  C ADDR   012CH   A   
+SEG4 . . . . . . .  C ADDR   0139H   A   
+SEG5 . . . . . . .  C ADDR   0146H   A   
+SEG6 . . . . . . .  C ADDR   0153H   A   
+SEG7 . . . . . . .  C ADDR   0160H   A   
+SEG8 . . . . . . .  C ADDR   016DH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  TLC5620                                                              12/01/2023 17:54:00 PAGE     1
+A51 MACRO ASSEMBLER  TLC5620                                                              12/01/2023 16:30:56 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.01
@@ -20,8 +20,8 @@ LOC  OBJ            LINE     SOURCE
 0105 D291             11             SETB SDAA       ;œ» ‰≥ˆref=2.5V≤ŒøºµÁ—π
 0107 D292             12             SETB LOAD       ;œ»¿≠∏ﬂÀ¯¥Ê æ›ø⁄µƒµÁ∆Ω
 0109 D293             13             SETB LDAC       ;¿≠∏ﬂøÿ÷∆DACµÁ∆Ω
-010B 79E0             14             MOV R1,#11100000B ;A1A0=11£¨ ‰≥ˆŒªDACD£¨RNG=1
-010D 7A0A             15             MOV R2, #00001010B
+010B 79C0             14             MOV R1,#11000000B ;A1A0=11£¨ ‰≥ˆŒªDACD£¨RNG=0
+010D 7A0A             15             MOV R2, #0AH
 010F 120116           16             LCALL DAC5620
 0112 80EC             17             SJMP MAIN
                       18             
@@ -30,7 +30,7 @@ LOC  OBJ            LINE     SOURCE
 0116                  21     DAC5620:        
 0116 E9               22             MOV     A,R1            ;R1Œ™øÿ÷∆◊÷Ω⁄
 0117 C290             23             CLR     SCLA            ;«Â¡„ ±÷”∂À
-0119 7F03             24             MOV     R7,#03H         ;…Ë÷√—≠ª∑¥Œ £¨3bist
+0119 7F08             24             MOV     R7,#08H         ;…Ë÷√—≠ª∑¥Œ £¨3bist
 011B 12012F           25             LCALL SENDBYTE  ;µ˜”√ÀÕ ◊”≥Ã–Ú£¨∑¢ÀÕøÿ÷∆◊÷
 011E EA               26             MOV     A,R2            ;R2Œ™¥◊™ªª æ›
 011F C290             27             CLR     SCLA            ;«Â¡„ ±÷”∂À
@@ -52,7 +52,7 @@ LOC  OBJ            LINE     SOURCE
                       43             
                       44             END
                              
-A51 MACRO ASSEMBLER  TLC5620                                                              12/01/2023 17:54:00 PAGE     2
+A51 MACRO ASSEMBLER  TLC5620                                                              12/01/2023 16:30:56 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------

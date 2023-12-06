@@ -186,10 +186,10 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>13</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>6</CurrentLine>
+      <CurrentLine>33</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\lab3.ASM</PathWithFileName>
       <FilenameWithoutPath>lab3.ASM</FilenameWithoutPath>
@@ -197,9 +197,9 @@
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\ADDR_1.ASM</PathWithFilename>
-    <TopLine>20</TopLine>
-    <CurrentLine>20</CurrentLine>
+    <PathWithFilename>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\ADDR_2.ASM</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>26</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -223,9 +223,9 @@
   </AlienFiles>
 
   <AlienFiles>
-    <PathWithFilename>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\ADDR_2.ASM</PathWithFilename>
-    <TopLine>1</TopLine>
-    <CurrentLine>28</CurrentLine>
+    <PathWithFilename>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\ADDR_1.ASM</PathWithFilename>
+    <TopLine>20</TopLine>
+    <CurrentLine>20</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1589,13 +1589,13 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>2</ActiveTab>
+      <ActiveTab>1</ActiveTab>
       <Documents>
         <Doc>
           <Name>.\lab3.ASM</Name>
-          <ColumnNumber>13</ColumnNumber>
+          <ColumnNumber>0</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>6</CurrentLine>
+          <CurrentLine>33</CurrentLine>
         </Doc>
         <Doc>
           <Name>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\ADDR_1.ASM</Name>
@@ -1605,9 +1605,9 @@
         </Doc>
         <Doc>
           <Name>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\ADDR_2.ASM</Name>
-          <ColumnNumber>92</ColumnNumber>
+          <ColumnNumber>38</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>28</CurrentLine>
+          <CurrentLine>26</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

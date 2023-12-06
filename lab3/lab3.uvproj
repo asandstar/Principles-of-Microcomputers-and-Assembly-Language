@@ -347,9 +347,9 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>lab3.ASM</FileName>
+              <FileName>REC&amp;SEND.ASM</FileName>
               <FileType>2</FileType>
-              <FilePath>.\lab3.ASM</FilePath>
+              <FilePath>..\lab5\REC&amp;SEND.ASM</FilePath>
             </File>
           </Files>
         </Group>

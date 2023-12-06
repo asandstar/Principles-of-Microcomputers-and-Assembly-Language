@@ -1,0 +1,64 @@
+A51 MACRO ASSEMBLER  REC_SEND                                                             12/02/2023 14:50:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN REC_SEND.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE REC_SEND.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             ORG 0000H 
+0000 020100            2             LJMP MAIN
+                       3     
+0100                   4             ORG 0100H
+0100                   5     MAIN:
+0100 758E00            6             MOV 8EH,#00H
+0103 758920            7             MOV TMOD, #20H
+0106 758DFD            8             MOV TH1,#0FDH
+0109 758BFD            9             MOV TL1,#0FDH
+010C 7598D0           10             MOV SCON, #0D0H
+010F 758780           11             MOV PCON, #80H
+0112 D28E             12             SETB TR1
+0114                  13     SEND:
+0114 7457             14             MOV A,#57H
+0116 20D004           15             JB P,ODD
+0119 C29B             16             CLR TB8
+011B 8002             17             SJMP BACK
+011D                  18     ODD:
+011D D29B             19             SETB TB8
+011F                  20     BACK:
+011F F599             21             MOV SBUF,A
+0121                  22     SENDING:
+0121 1099F0           23             JBC TI,SEND
+0124 80FB             24             SJMP SENDING
+                      25     
+                      26             END
+A51 MACRO ASSEMBLER  REC_SEND                                                             12/02/2023 14:50:08 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BACK . . . . . . .  C ADDR   011FH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+ODD. . . . . . . .  C ADDR   011DH   A   
+P. . . . . . . . .  B ADDR   00D0H.0 A   
+PCON . . . . . . .  D ADDR   0087H   A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SEND . . . . . . .  C ADDR   0114H   A   
+SENDING. . . . . .  C ADDR   0121H   A   
+TB8. . . . . . . .  B ADDR   0098H.3 A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

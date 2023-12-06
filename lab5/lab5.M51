@@ -1,15 +1,15 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        12/01/2023  17:54:00  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/05/2023  13:39:17  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
-D:\KEIL_C51\C51\BIN\BL51.EXE TLC5620.obj TO lab5 RAMSIZE (256)
+D:\KEIL_C51\C51\BIN\BL51.EXE COM_NEW.obj TO lab5 RAMSIZE (256)
 
 
 INPUT MODULES INCLUDED:
-  TLC5620.obj (TLC5620)
+  COM_NEW.obj (COM_NEW)
 
 
-LINK MAP OF MODULE:  lab5 (TLC5620)
+LINK MAP OF MODULE:  lab5 (COM_NEW)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -19,59 +19,70 @@ LINK MAP OF MODULE:  lab5 (TLC5620)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     0139H     ABSOLUTE     
+            CODE    0000H     013DH     ABSOLUTE     
 
 
 
-SYMBOL TABLE OF MODULE:  lab5 (TLC5620)
+SYMBOL TABLE OF MODULE:  lab5 (COM_NEW)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        TLC5620
-  C:0116H         SYMBOL        DAC5620
-  B:0090H.3       SYMBOL        LDAC
-  B:0090H.2       SYMBOL        LOAD
+  -------         MODULE        COM_NEW
+  D:00E0H         SYMBOL        ACC
+  N:008EH         SYMBOL        AUXR
+  C:012FH         SYMBOL        CHECK
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  B:00A8H.7       SYMBOL        EA
+  B:00A8H.4       SYMBOL        ES
+  C:011AH         SYMBOL        INT_ISR
   C:0100H         SYMBOL        MAIN
-  D:0090H         SYMBOL        P1
-  B:0090H.0       SYMBOL        SCLA
-  B:0090H.1       SYMBOL        SDAA
-  C:012FH         SYMBOL        SENDBYTE
-  D:0081H         SYMBOL        SP
-  C:0000H         LINE#         6
+  B:00D0H.0       SYMBOL        P
+  D:0087H         SYMBOL        PCON
+  B:0098H.0       SYMBOL        RI
+  D:0099H         SYMBOL        SBUF
+  D:0098H         SYMBOL        SCON
+  B:0098H.3       SYMBOL        TB8
+  D:008DH         SYMBOL        TH1
+  B:0098H.1       SYMBOL        TI
+  D:008BH         SYMBOL        TL1
+  D:0089H         SYMBOL        TMOD
+  B:0088H.6       SYMBOL        TR1
+  C:0000H         LINE#         3
+  C:0023H         LINE#         5
   C:0100H         LINE#         9
   C:0103H         LINE#         10
-  C:0105H         LINE#         11
-  C:0107H         LINE#         12
-  C:0109H         LINE#         13
+  C:0106H         LINE#         11
+  C:0109H         LINE#         12
   C:010BH         LINE#         14
-  C:010DH         LINE#         15
-  C:010FH         LINE#         16
-  C:0112H         LINE#         17
-  C:0114H         LINE#         19
-  C:0116H         LINE#         22
-  C:0117H         LINE#         23
-  C:0119H         LINE#         24
-  C:011BH         LINE#         25
-  C:011EH         LINE#         26
-  C:011FH         LINE#         27
-  C:0121H         LINE#         28
-  C:0123H         LINE#         29
-  C:0126H         LINE#         30
-  C:0128H         LINE#         31
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/01/2023  17:54:00  PAGE 2
+  C:010EH         LINE#         15
+  C:0111H         LINE#         16
+  C:0114H         LINE#         18
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/05/2023  13:39:17  PAGE 2
 
 
-  C:012AH         LINE#         32
-  C:012CH         LINE#         33
-  C:012EH         LINE#         34
-  C:012FH         LINE#         37
-  C:0131H         LINE#         38
-  C:0132H         LINE#         39
-  C:0134H         LINE#         40
-  C:0136H         LINE#         41
-  C:0138H         LINE#         42
-  -------         ENDMOD        TLC5620
+  C:0116H         LINE#         19
+  C:0118H         LINE#         20
+  C:011AH         LINE#         23
+  C:011CH         LINE#         24
+  C:011EH         LINE#         25
+  C:0120H         LINE#         26
+  C:0122H         LINE#         27
+  C:0124H         LINE#         28
+  C:0126H         LINE#         29
+  C:0128H         LINE#         30
+  C:012AH         LINE#         31
+  C:012BH         LINE#         32
+  C:012DH         LINE#         33
+  C:012FH         LINE#         35
+  C:0132H         LINE#         36
+  C:0134H         LINE#         37
+  C:0136H         LINE#         38
+  C:0138H         LINE#         39
+  C:013AH         LINE#         40
+  C:013CH         LINE#         41
+  -------         ENDMOD        COM_NEW
 
-Program Size: data=8.0 xdata=0 code=313
+Program Size: data=8.0 xdata=0 code=317
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

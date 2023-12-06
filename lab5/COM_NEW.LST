@@ -1,9 +1,9 @@
-A51 MACRO ASSEMBLER  COM                                                                  12/01/2023 16:54:13 PAGE     1
+A51 MACRO ASSEMBLER  COM_NEW                                                              12/05/2023 13:39:17 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.01
-OBJECT MODULE PLACED IN COM.OBJ
-ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE COM.ASM SET(SMALL) DEBUG EP
+OBJECT MODULE PLACED IN COM_NEW.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE COM_NEW.ASM SET(SMALL) DEBUG EP
 
 LOC  OBJ            LINE     SOURCE
 
@@ -15,8 +15,8 @@ LOC  OBJ            LINE     SOURCE
 0100                   6             ORG 0100H
                        7     
 0100                   8     MAIN:
-0100 538920            9             ANL TMOD, #20H  ;¶¨Ê±Æ÷1Îª·½Ê½2
-0103 758DE8           10             MOV TH1,#0E8H
+0100 758920            9             MOV TMOD, #20H  ;¶¨Ê±Æ÷1Îª·½Ê½2
+0103 758DE8           10             MOV TH1,#0E8H   ;²¨ÌØÂÊ2400
 0106 758BE8           11             MOV TL1,#0E8H
 0109 D28E             12             SETB TR1        ;¶¨Ê±Æ÷1¿ªÊ¼¼ÆÊ±
                       13     
@@ -35,37 +35,21 @@ LOC  OBJ            LINE     SOURCE
 0120 C083             26             PUSH DPH
 0122 C0E0             27             PUSH ACC
 0124 E599             28             MOV A,SBUF      ;ÊÕµ½Ð¡Ð´×ÖÄ¸
-0126 9420             29             SUBB A,#20H     ;±ä³É´óÐ´×ÖÄ¸
-0128 F599             30             MOV SBUF,A      ;·µ»Ø´óÐ´×ÖÄ¸
-012A                  31     CHECK:
-012A 3099FD           32             JNB TI,CHECK   ;µÈ´·¢ËÍ½áÊø
-012D C299             33             CLR TI             ;·¢Íê»Ö¸´ÏÖ³¡
-012F D0E0             34             POP ACC
-0131 D083             35             POP DPH
-0133 D082             36             POP DPL
-0135 D2AF             37             SETB EA            ;¿ªÖÐ¶Ï
-0137 32               38             RETI
-                      39             END
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-                             
-A51 MACRO ASSEMBLER  COM                                                                  12/01/2023 16:54:13 PAGE     2
+0126 A2D0             29             MOV C,P ;»ñÈ¡Ð£ÑéÎ»
+0128 929B             30             MOV TB8,C
+012A C3               31             CLR C
+012B 9420             32             SUBB A,#20H     ;±ä³É´óÐ´×ÖÄ¸
+012D F599             33             MOV SBUF,A      ;·µ»Ø´óÐ´×ÖÄ¸
+012F                  34     CHECK:
+012F 3099FD           35             JNB TI,CHECK   ;µÈ´·¢ËÍ½áÊø
+0132 C299             36             CLR TI             ;·¢Íê»Ö¸´ÏÖ³¡
+0134 D0E0             37             POP ACC
+0136 D083             38             POP DPH
+0138 D082             39             POP DPL
+013A D2AF             40             SETB EA            ;¿ªÖÐ¶Ï
+013C 32               41             RETI
+                      42             END
+A51 MACRO ASSEMBLER  COM_NEW                                                              12/05/2023 13:39:17 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -75,17 +59,19 @@ N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 ACC. . . . . . . .  D ADDR   00E0H   A   
 AUXR . . . . . . .  N NUMB   008EH   A   
-CHECK. . . . . . .  C ADDR   012AH   A   
+CHECK. . . . . . .  C ADDR   012FH   A   
 DPH. . . . . . . .  D ADDR   0083H   A   
 DPL. . . . . . . .  D ADDR   0082H   A   
 EA . . . . . . . .  B ADDR   00A8H.7 A   
 ES . . . . . . . .  B ADDR   00A8H.4 A   
 INT_ISR. . . . . .  C ADDR   011AH   A   
 MAIN . . . . . . .  C ADDR   0100H   A   
+P. . . . . . . . .  B ADDR   00D0H.0 A   
 PCON . . . . . . .  D ADDR   0087H   A   
 RI . . . . . . . .  B ADDR   0098H.0 A   
 SBUF . . . . . . .  D ADDR   0099H   A   
 SCON . . . . . . .  D ADDR   0098H   A   
+TB8. . . . . . . .  B ADDR   0098H.3 A   
 TH1. . . . . . . .  D ADDR   008DH   A   
 TI . . . . . . . .  B ADDR   0098H.1 A   
 TL1. . . . . . . .  D ADDR   008BH   A   

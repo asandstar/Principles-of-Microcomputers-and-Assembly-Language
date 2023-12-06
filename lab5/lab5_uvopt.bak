@@ -87,8 +87,8 @@
         <TargetDlgDllArguments>-p51</TargetDlgDllArguments>
       </DllOpt>
       <DebugOpt>
-        <uSim>1</uSim>
-        <uTrg>0</uTrg>
+        <uSim>0</uSim>
+        <uTrg>1</uTrg>
         <sLdApp>1</sLdApp>
         <sGomain>1</sGomain>
         <sRbreak>1</sRbreak>
@@ -105,7 +105,7 @@
         <tRbox>1</tRbox>
         <sRunDeb>0</sRunDeb>
         <sLrtime>0</sLrtime>
-        <nTsel>-1</nTsel>
+        <nTsel>9</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -116,8 +116,15 @@
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
         <tIfile></tIfile>
-        <pMon></pMon>
+        <pMon>BIN\STCMON51.DLL</pMon>
       </DebugOpt>
+      <TargetDriverDllRegistry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>STCMON51</Key>
+          <Name>-S4 -B2400 -O0 -U0</Name>
+        </SetRegEntry>
+      </TargetDriverDllRegistry>
       <DebugFlag>
         <trace>0</trace>
         <periodic>1</periodic>
@@ -160,20 +167,20 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>16</ColumnNumber>
+      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <CurrentLine>33</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\TLC5620.ASM</PathWithFileName>
-      <FilenameWithoutPath>TLC5620.ASM</FilenameWithoutPath>
+      <PathWithFileName>.\COM_NEW.ASM</PathWithFileName>
+      <FilenameWithoutPath>COM_NEW.ASM</FilenameWithoutPath>
     </File>
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>C:\Users\azq\Desktop\Practice_makes_perfect\lab5\COM.ASM</PathWithFilename>
+    <PathWithFilename>E:\lab5\TLC5620.ASM</PathWithFilename>
     <TopLine>1</TopLine>
-    <CurrentLine>20</CurrentLine>
+    <CurrentLine>28</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1537,19 +1544,19 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>1</ActiveTab>
+      <ActiveTab>0</ActiveTab>
       <Documents>
         <Doc>
-          <Name>.\TLC5620.ASM</Name>
-          <ColumnNumber>16</ColumnNumber>
+          <Name>.\COM_NEW.ASM</Name>
+          <ColumnNumber>21</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>1</CurrentLine>
+          <CurrentLine>33</CurrentLine>
         </Doc>
         <Doc>
-          <Name>C:\Users\azq\Desktop\Practice_makes_perfect\lab5\COM.ASM</Name>
-          <ColumnNumber>55</ColumnNumber>
+          <Name>E:\lab5\TLC5620.ASM</Name>
+          <ColumnNumber>17</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>20</CurrentLine>
+          <CurrentLine>28</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>
