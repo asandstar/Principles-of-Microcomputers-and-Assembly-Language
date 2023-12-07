@@ -186,15 +186,41 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>28</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>96</TopLine>
-      <CurrentLine>132</CurrentLine>
+      <TopLine>34</TopLine>
+      <CurrentLine>34</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\pwm_1.ASM</PathWithFileName>
       <FilenameWithoutPath>pwm_1.ASM</FilenameWithoutPath>
     </File>
   </Group>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\azq\Desktop\Practice_makes_perfect\lab4\Lab_4_motor - 2.ASM</PathWithFilename>
+    <TopLine>85</TopLine>
+    <CurrentLine>85</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
 
   <WinLayout>
     <sActiveDebugView>Default</sActiveDebugView>
@@ -1541,9 +1567,15 @@
       <Documents>
         <Doc>
           <Name>.\pwm_1.ASM</Name>
+          <ColumnNumber>28</ColumnNumber>
+          <TopLine>34</TopLine>
+          <CurrentLine>34</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\Users\azq\Desktop\Practice_makes_perfect\lab4\Lab_4_motor - 2.ASM</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>96</TopLine>
-          <CurrentLine>132</CurrentLine>
+          <TopLine>85</TopLine>
+          <CurrentLine>85</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

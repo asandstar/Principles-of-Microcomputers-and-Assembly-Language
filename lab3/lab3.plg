@@ -4,26 +4,6 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\azq\Desktop\Practice_makes_perfect\lab3\lab3.uvproj
-Project File Date:  12/01/2023
+Project File Date:  12/02/2023
 
 <h2>Output:</h2>
-Build target 'Target 1'
-assembling REC&SEND.ASM...
-A51 MACRO ASSEMBLER V8.01 - SN: K1DZC-J1F5YC
-COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2007
-"D:\Keil_c51\C51\BIN\A51.EXE" "..\lab5\REC&SEND.ASM" SET (SMALL) DEBUG PRINT(.\REC&SEND.lst) OBJECT(.\REC&SEND.obj) EP
-A51 FATAL ERROR -
-  FILE:       ..\lab5\REC SEND.ASM
-  ERROR:      FILE DOES NOT EXIST
-A51 TERMINATED.
-Target not created
-Build target 'Target 1'
-assembling REC&SEND.ASM...
-A51 MACRO ASSEMBLER V8.01 - SN: K1DZC-J1F5YC
-COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2007
-"D:\Keil_c51\C51\BIN\A51.EXE" "..\lab5\REC&SEND.ASM" SET (SMALL) DEBUG PRINT(.\REC&SEND.lst) OBJECT(.\REC&SEND.obj) EP
-A51 FATAL ERROR -
-  FILE:       ..\lab5\REC SEND.ASM
-  ERROR:      FILE DOES NOT EXIST
-A51 TERMINATED.
-Target not created
