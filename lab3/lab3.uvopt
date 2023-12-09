@@ -277,7 +277,7 @@
   <AlienFiles>
     <PathWithFilename>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\lab3.ASM</PathWithFilename>
     <TopLine>1</TopLine>
-    <CurrentLine>33</CurrentLine>
+    <CurrentLine>1</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1641,13 +1641,13 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>0</ActiveTab>
+      <ActiveTab>1</ActiveTab>
       <Documents>
         <Doc>
           <Name>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\lab3.ASM</Name>
           <ColumnNumber>0</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>33</CurrentLine>
+          <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
           <Name>C:\Users\azq\Desktop\Practice_makes_perfect\lab3\ADDR_1.ASM</Name>

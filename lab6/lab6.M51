@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        12/07/2023  18:48:46  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/07/2023  22:48:15  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -19,7 +19,7 @@ LINK MAP OF MODULE:  lab6 (SEG2)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     0253H     ABSOLUTE     
+            CODE    0000H     1110H     ABSOLUTE     
 
 
 
@@ -29,60 +29,86 @@ SYMBOL TABLE OF MODULE:  lab6 (SEG2)
   ----------------------------------
 
   -------         MODULE        SEG2
-  C:0226H         SYMBOL        DELAY10MS
-  C:023EH         SYMBOL        DELAY1MS
+  D:00F0H         SYMBOL        B
+  C:015DH         SYMBOL        DELAY10MS
   B:00A8H.7       SYMBOL        EA
-  B:00A8H.2       SYMBOL        EX1
-  B:0088H.2       SYMBOL        IT1
-  C:0100H         SYMBOL        KEY
-  C:0200H         SYMBOL        MAIN
-  C:0233H         SYMBOL        NEXT
-  C:0248H         SYMBOL        NEXT1
+  B:00A8H.0       SYMBOL        EX0
+  C:0155H         SYMBOL        EXIT
+  C:013CH         SYMBOL        FIND
+  B:0088H.1       SYMBOL        IE0
+  C:0123H         SYMBOL        INT0_ISR
+  B:0088H.0       SYMBOL        IT0
+  C:1000H         SYMBOL        KEY
+  C:012CH         SYMBOL        KEYSCAN
+  C:0141H         SYMBOL        KEYSELECT
+  C:0100H         SYMBOL        MAIN
+  C:016AH         SYMBOL        NEXT
   D:0080H         SYMBOL        P0
   D:0090H         SYMBOL        P1
   D:00A0H         SYMBOL        P2
-  B:00B8H.2       SYMBOL        PX1
-  C:0110H         SYMBOL        SEG
-  C:0000H         LINE#         5
-  C:0200H         LINE#         24
-  C:0203H         LINE#         25
-  C:0206H         LINE#         26
-  C:0209H         LINE#         27
-  C:020CH         LINE#         28
-  C:020FH         LINE#         29
-  C:0212H         LINE#         30
-  C:0215H         LINE#         31
-  C:0218H         LINE#         32
-  C:021BH         LINE#         34
-  C:021EH         LINE#         35
-  C:0220H         LINE#         36
-  C:0222H         LINE#         37
-  C:0224H         LINE#         38
-  C:0226H         LINE#         144
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/07/2023  18:48:46  PAGE 2
+  B:00B8H.0       SYMBOL        PX0
+  C:1100H         SYMBOL        SEG
+  C:0147H         SYMBOL        SEGSELECT
+  D:0081H         SYMBOL        SP
+  C:0000H         LINE#         4
+  C:0003H         LINE#         6
+  C:0100H         LINE#         10
+  C:0103H         LINE#         11
+  C:0106H         LINE#         12
+  C:0109H         LINE#         13
+  C:010CH         LINE#         14
+  C:010FH         LINE#         15
+  C:0112H         LINE#         16
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/07/2023  22:48:15  PAGE 2
 
 
-  C:0227H         LINE#         145
-  C:0228H         LINE#         146
-  C:0229H         LINE#         147
-  C:022BH         LINE#         148
-  C:022DH         LINE#         149
-  C:0230H         LINE#         150
-  C:0233H         LINE#         152
-  C:0236H         LINE#         153
-  C:0239H         LINE#         154
-  C:023BH         LINE#         155
-  C:023DH         LINE#         156
-  C:023EH         LINE#         159
-  C:0240H         LINE#         160
-  C:0242H         LINE#         161
-  C:0245H         LINE#         162
-  C:0248H         LINE#         164
-  C:024BH         LINE#         165
-  C:024EH         LINE#         166
-  C:0250H         LINE#         167
-  C:0252H         LINE#         168
+  C:0115H         LINE#         18
+  C:0117H         LINE#         19
+  C:0119H         LINE#         20
+  C:011BH         LINE#         21
+  C:011DH         LINE#         23
+  C:0120H         LINE#         24
+  C:0123H         LINE#         27
+  C:0125H         LINE#         28
+  C:0128H         LINE#         29
+  C:012AH         LINE#         30
+  C:012CH         LINE#         33
+  C:012FH         LINE#         34
+  C:0131H         LINE#         35
+  C:0134H         LINE#         36
+  C:0137H         LINE#         37
+  C:0138H         LINE#         38
+  C:013AH         LINE#         39
+  C:013CH         LINE#         42
+  C:013FH         LINE#         43
+  C:0141H         LINE#         46
+  C:0142H         LINE#         47
+  C:0145H         LINE#         48
+  C:0147H         LINE#         51
+  C:0148H         LINE#         52
+  C:0149H         LINE#         53
+  C:014CH         LINE#         54
+  C:014FH         LINE#         55
+  C:0150H         LINE#         56
+  C:0151H         LINE#         57
+  C:0153H         LINE#         58
+  C:0155H         LINE#         61
+  C:0157H         LINE#         62
+  C:0159H         LINE#         63
+  C:015CH         LINE#         64
+  C:015DH         LINE#         78
+  C:015EH         LINE#         79
+  C:015FH         LINE#         80
+  C:0160H         LINE#         81
+  C:0162H         LINE#         82
+  C:0164H         LINE#         83
+  C:0167H         LINE#         84
+  C:016AH         LINE#         86
+  C:016DH         LINE#         87
+  C:0170H         LINE#         88
+  C:0172H         LINE#         89
+  C:0174H         LINE#         90
   -------         ENDMOD        SEG2
 
-Program Size: data=8.0 xdata=0 code=595
+Program Size: data=8.0 xdata=0 code=4368
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

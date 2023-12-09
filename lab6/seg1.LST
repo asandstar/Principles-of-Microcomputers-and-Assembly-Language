@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  SEG1                                                                 12/07/2023 18:23:06 PAGE     1
+A51 MACRO ASSEMBLER  SEG1                                                                 12/07/2023 21:58:23 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.01
@@ -34,49 +34,53 @@ LOC  OBJ            LINE     SOURCE
 0226 75467D           25             MOV 46H,#7DH            ;6
 0229 754707           26             MOV 47H,#07H            ;7
 022C 7940             27             MOV R1,#40H                     ;位选通
-                      28     
-022E                  29     TIMER0_INIT:                    
-022E 538E7F           30             ANL     AUXR,#7FH               ;定时器时钟12T模式
-0231 5389F0           31             ANL     TMOD,#0F0H              ;设置定时器模式
-                      32     
+022E 7B08             28             MOV R3,#8
+                      29     
+0230                  30     TIMER0_INIT:                    
+0230 538E7F           31             ANL     AUXR,#7FH               ;定时器时钟12T模式
+0233 5389F0           32             ANL     TMOD,#0F0H              ;设置定时器模式
                       33     
                       34     
                       35     
                       36     
                       37     
-                      38             ;1毫秒@11.0592MHz
-0234 758A66           39             MOV     TL0,#066H               ;设置定时初始值
-0237 758CFC           40             MOV     TH0,#0FCH               ;设置定时初始值
-                      41     
-023A D2A9             42             SETB ET0          ;定时器中断
-023C D2AF             43             SETB EA
-023E D28C             44             SETB TR0          ;定时器0开始计时
-0240 C28D             45             CLR TF0
-                      46     
-0242 80FE             47             SJMP $
-                      48             
-                      49                     
-0400                  50             ORG 0400H
-0400                  51     T0_ISR:
-0400 B94805           52             CJNE R1,#48H,SEG        ;位选通后赋值
-0403 7940             53             MOV R1,#40H                     ;重新位选通
-0405 8001             54             SJMP SEG                
-0407 32               55             RETI
-0408                  56     SEG:
-0408 EA               57             MOV A,R2
-0409 23               58             RL A                      ;下一位！
-A51 MACRO ASSEMBLER  SEG1                                                                 12/07/2023 18:23:06 PAGE     2
+                      38     
+                      39             ;1毫秒@11.0592MHz
+0236 758A66           40             MOV     TL0,#066H               ;设置定时初始值
+0239 758CFC           41             MOV     TH0,#0FCH               ;设置定时初始值
+                      42     
+023C D2A9             43             SETB ET0          ;定时器中断
+023E D2AF             44             SETB EA
+0240 D28C             45             SETB TR0          ;定时器0开始计时
+0242 C28D             46             CLR TF0
+                      47     
+0244 80FE             48             SJMP $
+                      49             
+                      50                     
+0400                  51             ORG 0400H
+0400                  52     T0_ISR:
+                      53             
+                      54             
+0400 DB07             55             DJNZ R3,SEG
+0402 7940             56             MOV R1,#40H                     ;重新位选通
+0404 7B08             57             MOV R3,#8
+0406 8001             58             SJMP SEG                
+A51 MACRO ASSEMBLER  SEG1                                                                 12/07/2023 21:58:23 PAGE     2
 
-040A F580             59             MOV P0,A
-040C FA               60             MOV R2,A
-                      61     
-040D E7               62             MOV A,@R1                ;段选通
-040E F590             63             MOV P1,A
-0410 09               64             INC R1          
-0411 32               65             RETI
-                      66             END
+0408 32               59             RETI
+0409                  60     SEG:
+0409 EA               61             MOV A,R2
+040A 23               62             RL A                      ;下一位！
+040B F580             63             MOV P0,A
+040D FA               64             MOV R2,A
+                      65     
+040E E7               66             MOV A,@R1                ;段选通
+040F F590             67             MOV P1,A
+0411 09               68             INC R1          
+0412 32               69             RETI
+                      70             END
                              
-A51 MACRO ASSEMBLER  SEG1                                                                 12/07/2023 18:23:06 PAGE     3
+A51 MACRO ASSEMBLER  SEG1                                                                 12/07/2023 21:58:23 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -91,11 +95,11 @@ MAIN . . . . . . .  C ADDR   0200H   A
 P0 . . . . . . . .  D ADDR   0080H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
 P_INIT . . . . . .  C ADDR   0212H   A   
-SEG. . . . . . . .  C ADDR   0408H   A   
+SEG. . . . . . . .  C ADDR   0409H   A   
 T0_ISR . . . . . .  C ADDR   0400H   A   
 TF0. . . . . . . .  B ADDR   0088H.5 A   
 TH0. . . . . . . .  D ADDR   008CH   A   
-TIMER0_INIT. . . .  C ADDR   022EH   A   
+TIMER0_INIT. . . .  C ADDR   0230H   A   
 TL0. . . . . . . .  D ADDR   008AH   A   
 TMOD . . . . . . .  D ADDR   0089H   A   
 TR0. . . . . . . .  B ADDR   0088H.4 A   

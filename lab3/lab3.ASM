@@ -1,9 +1,3 @@
-
-
-
-
-
-
 	COUNT EQU 60H
 	ORG 0000H
 	LJMP MAIN

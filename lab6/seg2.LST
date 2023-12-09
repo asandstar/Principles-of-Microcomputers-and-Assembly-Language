@@ -1,0 +1,256 @@
+A51 MACRO ASSEMBLER  SEG2                                                                 12/07/2023 22:48:15 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN seg2.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE seg2.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;保底,实现了功能但没完全满足要求
+                       2     
+0000                   3             ORG 0000H
+0000 020100            4             LJMP MAIN
+0003                   5             ORG 0003H                               ;外部中断0入口地址
+0003 020123            6             LJMP INT0_ISR
+                       7             
+0100                   8             ORG 0100H  
+0100                   9     MAIN:
+0100 759300           10             MOV 93H,#00H
+0103 7594FF           11             MOV 94H,#0FFH                   ;P0设置为推挽模式
+0106 759100           12             MOV 91H,#00H
+0109 7592FF           13             MOV 92H,#0FFH                   ;P1设置为推挽模式
+010C 759500           14             MOV 95H,#00H
+010F 7596FF           15             MOV 96H,#0FFH                   ;P2设置为推挽模式
+0112 758150           16             MOV SP,#50H                             ;设置堆栈
+                      17             
+0115 D288             18             SETB IT0                                ;外部中断0下降沿触发
+0117 D2B8             19             SETB PX0                                ;中断0优先
+0119 D2A8             20             SETB EX0                                ;允许外部中断0
+011B D2AF             21             SETB EA                                 ;允许总中断
+                      22     
+011D 75A000           23             MOV P2,#00H                             ;选通所有8管
+0120 7590F0           24             MOV P1,#0F0H                    ;行开放
+                      25     
+0123                  26     INT0_ISR:
+0123 C2AF             27             CLR EA                                  ;关中断
+0125 12015D           28             LCALL DELAY10MS                 ;按键消抖
+0128 74FE             29             MOV A,#11111110B                ;行扫描
+012A 7B04             30             MOV R3,#04H
+                      31     
+012C                  32     KEYSCAN:
+012C 758080           33             MOV P0,#80H
+012F F590             34             MOV P1,A                                ;行扫描赋值
+0131 8590F0           35             MOV B,P1                                ;存下当前行扫描值
+0134 B5F005           36             CJNE A,B,FIND                   ;如果不等则证明有键按下
+0137 23               37             RL A                            ;相等则没有按键按下，继续行扫描
+0138 DBF2             38             DJNZ R3,KEYSCAN                 ;4行都扫描
+013A 8019             39             SJMP EXIT                               ;扫描结束，没有键按下，退出中断
+                      40     
+013C                  41     FIND:   
+013C 901000           42             MOV DPTR,#KEY                   ;键值查表
+013F 78FF             43             MOV R0,#0FFH                    ;为段显示准备
+                      44     
+0141                  45     KEYSELECT:
+0141 08               46             INC R0                                  ;R0初值0，对应KEY0
+0142 B81002           47             CJNE R0,#16,SEGSELECT   ;到KEY15都转移到段选通
+0145 800E             48             SJMP EXIT
+                      49     
+0147                  50     SEGSELECT:      
+0147 E8               51             MOV A,R0                                ;用A保存找到的键值
+0148 93               52             MOVC A,@A+DPTR                  ;寻找实际键值
+0149 B5F0F5           53             CJNE A,B,KEYSELECT              ;如果不等则证明有键按下
+014C 901100           54             MOV DPTR,#SEG                   ;段选通
+014F E8               55             MOV A,R0                                ;把键值赋给A
+0150 93               56             MOVC A,@A+DPTR                  ;依据键值寻找段选通值
+0151 F580             57             MOV P0,A                                ;把键值对应的选通值送给P0
+0153 8000             58             SJMP EXIT
+A51 MACRO ASSEMBLER  SEG2                                                                 12/07/2023 22:48:15 PAGE     2
+
+                      59     
+0155                  60     EXIT:
+0155 C289             61             CLR IE0                                 ;清惩獠恐卸螴NT0的请求标志位
+0157 D2AF             62             SETB EA                                 ;允许中断
+0159 7590F0           63             MOV P1,#0F0H                    ;行开放（P0.0-P0.3置为0）
+015C 32               64             RETI                                    ;中断返回
+                      65     
+                      66     
+                      67     
+                      68     
+                      69     
+                      70     
+                      71     
+                      72     
+                      73     
+                      74     
+                      75     
+                      76     
+015D                  77     DELAY10MS:          ;@11.0592MHz  
+015D 00               78             NOP  
+015E 00               79             NOP  
+015F 00               80             NOP  
+0160 C030             81             PUSH 30H  
+0162 C031             82             PUSH 31H  
+0164 753057           83             MOV 30H,#87  
+0167 75310A           84             MOV 31H,#10  
+016A                  85     NEXT:  
+016A D531FD           86             DJNZ 31H,NEXT  
+016D D530FA           87             DJNZ 30H,NEXT  
+0170 D031             88             POP 31H  
+0172 D030             89             POP 30H  
+0174 22               90             RET  
+                      91     
+1000                  92             ORG 1000H
+1000                  93     KEY:                                    ;键编码
+                      94     
+                      95     
+1000 7EBEDEEE         96             DB 07EH,0BEH,0DEH,0EEH  ;3,2,1,0
+1004 7DBDDDED         97             DB 07DH,0BDH,0DDH,0EDH  ;7,6,5,4
+1008 7BBBDBEB         98             DB 07BH,0BBH,0DBH,0EBH  ;B,A,9,8
+100C 77B7D7E7         99             DB 077H,0B7H,0D7H,0E7H  ;F,E,D,C
+                     100     
+1100                 101             ORG 1100H
+1100                 102     SEG:                            ;段码
+1100 3F065B4F        103             DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H
+1104 666D7D07                
+1108 7F6F777C        104             DB 7FH,6FH,77H,7CH,39H,5EH,79H,71H
+110C 395E7971                
+                     105             END
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  SEG2                                                                 12/07/2023 22:48:15 PAGE     3
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  SEG2                                                                 12/07/2023 22:48:15 PAGE     4
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  SEG2                                                                 12/07/2023 22:48:15 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+DELAY10MS. . . . .  C ADDR   015DH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+EXIT . . . . . . .  C ADDR   0155H   A   
+FIND . . . . . . .  C ADDR   013CH   A   
+IE0. . . . . . . .  B ADDR   0088H.1 A   
+INT0_ISR . . . . .  C ADDR   0123H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+KEY. . . . . . . .  C ADDR   1000H   A   
+KEYSCAN. . . . . .  C ADDR   012CH   A   
+KEYSELECT. . . . .  C ADDR   0141H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT . . . . . . .  C ADDR   016AH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PX0. . . . . . . .  B ADDR   00B8H.0 A   
+SEG. . . . . . . .  C ADDR   1100H   A   
+SEGSELECT. . . . .  C ADDR   0147H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

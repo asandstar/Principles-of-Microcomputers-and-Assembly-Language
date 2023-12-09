@@ -1,0 +1,138 @@
+A51 MACRO ASSEMBLER  SEG2_BAODI                                                           12/07/2023 16:51:58 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN seg2_baodi.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE seg2_baodi.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             ORG 0000H  
+0000 020200            2             LJMP MAIN
+                       3     
+0100                   4             ORG 0100H  
+0100                   5     KEYTAB:
+0100 7EBEDEEE          6             DB 07EH,0BEH,0DEH,0EEH  ;3,2,1,0
+0104 7DBDDDED          7             DB 07DH,0BDH,0DDH,0EDH  ;7,6,5,4
+0108 7BBBDBEB          8             DB 07BH,0BBH,0DBH,0EBH  ;B,A,9,8
+010C 77B7D7E7          9             DB 077H,0B7H,0D7H,0E7H  ;F,E,D,C
+                      10     
+0110                  11     CODETAB:    
+0110 3F065B4F         12             DB 03FH, 006H, 05BH, 04FH, 066H, 06DH, 07DH, 007H  ;01234567
+0114 666D7D07                
+0118 7F6F777C         13             DB 07FH, 06FH, 077H, 07CH, 039H, 05EH, 079H, 071H  ;89abcdef
+011C 395E7971                
+                      14             
+0200                  15             ORG 0200H  
+0200                  16     MAIN:       
+0200 759100           17             MOV 91H,#0  
+0203 7592FF           18             MOV 92H,#0FFH  
+0206 759300           19             MOV 93H,#0  
+0209 7594FF           20             MOV 94H,#0FFH  
+020C 759500           21             MOV 95H,#0  
+020F 7596FF           22             MOV 96H,#0FFH 
+0212 75A000           23             MOV P2,#00H
+0215 758080           24             MOV P0,#80H 
+                      25     
+0218                  26     LOOP:       
+0218 7590F0           27             MOV P1,#0F0H  
+021B E590             28             MOV A,P1  
+021D B4F003           29             CJNE A,#0F0H,SCAN  
+0220 020218           30             LJMP LOOP 
+                      31             
+                      32              
+0223                  33     SCAN:       
+0223 5163             34             ACALL DELAY10MS  
+0225 7590FE           35             MOV P1,#0FEH  
+0228 E590             36             MOV A,P1  
+022A B4FE1B           37             CJNE A,#0FEH, FIND  
+022D 7590FD           38             MOV P1,#0FDH  
+0230 E590             39             MOV A,P1  
+0232 B4FD13           40             CJNE A,#0FDH,FIND  
+0235 7590FB           41             MOV P1,#0FBH  
+0238 E590             42             MOV A,P1  
+023A B4FB0B           43             CJNE A,#0FBH,FIND  
+023D 7590F7           44             MOV P1,#0F7H  
+0240 E590             45             MOV A,P1  
+0242 B4F703           46             CJNE A,#0F7H,FIND  
+0245 020218           47             LJMP LOOP  
+                      48     
+0248                  49     FIND:       
+0248 F5F0             50             MOV B,A  
+024A 900100           51             MOV DPTR,#KEYTAB  
+024D 7FFF             52             MOV R7,#0FFH  
+024F                  53     BACK:       
+024F 0F               54             INC R7  
+0250 EF               55             MOV A,R7  
+0251 93               56             MOVC A,@A+DPTR  
+A51 MACRO ASSEMBLER  SEG2_BAODI                                                           12/07/2023 16:51:58 PAGE     2
+
+0252 B5F0FA           57             CJNE A,B,BACK  
+0255                  58     DUANMA:  
+0255 900110           59             MOV DPTR, #CODETAB  
+0258 EF               60             MOV A,R7  
+0259 93               61             MOVC A,@A+DPTR  
+025A FE               62             MOV R6,A  
+                      63     
+025B                  64     OUT:        
+025B 75A000           65             MOV P2,#00H  
+025E 8E80             66             MOV P0,R6  
+0260 020218           67             LJMP LOOP  
+0263                  68     DELAY10MS:          ;@11.0592MHz  
+0263 00               69             NOP  
+0264 00               70             NOP  
+0265 00               71             NOP  
+0266 C030             72             PUSH 30H  
+0268 C031             73             PUSH 31H  
+026A 753057           74             MOV 30H,#87  
+026D 75310A           75             MOV 31H,#10  
+0270                  76     NEXT:  
+0270 D531FD           77             DJNZ 31H,NEXT  
+0273 D530FA           78             DJNZ 30H,NEXT  
+0276 D031             79             POP 31H  
+0278 D030             80             POP 30H  
+027A 22               81             RET  
+                      82     
+027B                  83     DELAY1MS:           ;@11.0592MHz  
+027B C030             84             PUSH 30H  
+027D C031             85             PUSH 31H  
+027F 753009           86             MOV 30H,#9  
+0282 753196           87             MOV 31H,#150  
+0285                  88     NEXT1:  
+0285 D531FD           89             DJNZ 31H,NEXT1  
+0288 D530FA           90             DJNZ 30H,NEXT1  
+028B D031             91             POP 31H  
+028D D030             92             POP 30H  
+028F 22               93             RET  
+                      94             END
+A51 MACRO ASSEMBLER  SEG2_BAODI                                                           12/07/2023 16:51:58 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+BACK . . . . . . .  C ADDR   024FH   A   
+CODETAB. . . . . .  C ADDR   0110H   A   
+DELAY10MS. . . . .  C ADDR   0263H   A   
+DELAY1MS . . . . .  C ADDR   027BH   A   
+DUANMA . . . . . .  C ADDR   0255H   A   
+FIND . . . . . . .  C ADDR   0248H   A   
+KEYTAB . . . . . .  C ADDR   0100H   A   
+LOOP . . . . . . .  C ADDR   0218H   A   
+MAIN . . . . . . .  C ADDR   0200H   A   
+NEXT . . . . . . .  C ADDR   0270H   A   
+NEXT1. . . . . . .  C ADDR   0285H   A   
+OUT. . . . . . . .  C ADDR   025BH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+SCAN . . . . . . .  C ADDR   0223H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

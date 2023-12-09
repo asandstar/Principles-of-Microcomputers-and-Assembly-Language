@@ -1,0 +1,117 @@
+A51 MACRO ASSEMBLER  SEG1_BAODI                                                           12/07/2023 16:51:26 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN seg1_baodi.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE seg1_baodi.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;保底,实现了功能但没完全满足要求
+                       2     
+                       3     
+                       4     ;P1接段选通，P0接位选通
+0000                   5             ORG 0000H
+0000 020100            6             LJMP MAIN
+                       7     
+0100                   8             ORG 0100H
+0100                   9     MAIN:
+0100 759300           10             MOV 93H,#00H  ;p0推挽模式,位选通
+0103 7594FF           11             MOV 94H,#0FFH
+0106 759100           12             MOV 91H,#00H  ;P1推挽模式，段选通
+0109 7592FF           13             MOV 92H,#0FFH
+010C 759500           14             MOV 95H,#00H  ;P2推挽模式
+010F 7596FF           15             MOV 96H,#0FFH
+                      16     ;位码低有效
+0112                  17     SEG1:   
+0112 75F0FE           18             MOV B,#11111110B
+0115 85F080           19             MOV P0,B 
+0118 743F             20             MOV A,#3FH
+011A F590             21             MOV P1,A
+011C 12017D           22             LCALL DELAY1MS
+011F                  23     SEG2:   
+011F 75F0FD           24             MOV B,#11111101B
+0122 85F080           25             MOV P0,B 
+0125 7406             26             MOV A,#06H
+0127 F590             27             MOV P1,A
+0129 12017D           28             LCALL DELAY1MS
+012C                  29     SEG3:
+012C 75F0FB           30             MOV B,#11111011B
+012F 85F080           31             MOV P0,B 
+0132 745B             32             MOV A,#5BH
+0134 F590             33             MOV P1,A
+0136 12017D           34             LCALL DELAY1MS
+0139                  35     SEG4:
+0139 75F0F7           36             MOV B,#11110111B
+013C 85F080           37             MOV P0,B 
+013F 744F             38             MOV A,#4FH
+0141 F590             39             MOV P1,A
+0143 12017D           40             LCALL DELAY1MS
+0146                  41     SEG5:
+0146 75F0EF           42             MOV B,#11101111B
+0149 85F080           43             MOV P0,B 
+014C 7466             44             MOV A,#66H
+014E F590             45             MOV P1,A
+0150 12017D           46             LCALL DELAY1MS
+0153                  47     SEG6:
+0153 75F0DF           48             MOV B,#11011111B
+0156 85F080           49             MOV P0,B 
+0159 746D             50             MOV A,#6DH
+015B F590             51             MOV P1,A
+015D 12017D           52             LCALL DELAY1MS
+0160                  53     SEG7:
+0160 75F0BF           54             MOV B,#10111111B
+0163 85F080           55             MOV P0,B 
+0166 747D             56             MOV A,#7DH
+0168 F590             57             MOV P1,A
+016A 12017D           58             LCALL DELAY1MS
+A51 MACRO ASSEMBLER  SEG1_BAODI                                                           12/07/2023 16:51:26 PAGE     2
+
+016D                  59     SEG8:
+016D 75F07F           60             MOV B,#01111111B
+0170 85F080           61             MOV P0,B 
+0173 7407             62             MOV A,#07H
+0175 F590             63             MOV P1,A
+0177 12017D           64             LCALL DELAY1MS
+017A 020112           65             LJMP SEG1       
+017D                  66     DELAY1MS:                       ;@11.0592MHz
+017D C030             67             PUSH    30H
+017F C031             68             PUSH    31H
+0181 753009           69             MOV             30H,#9
+0184 753196           70             MOV             31H,#150
+0187                  71     NEXT2:
+0187 D531FD           72             DJNZ    31H,NEXT2
+018A D530FA           73             DJNZ    30H,NEXT2
+018D D031             74             POP             31H
+018F D030             75             POP             30H
+0191 22               76             RET
+                      77             END
+                             
+A51 MACRO ASSEMBLER  SEG1_BAODI                                                           12/07/2023 16:51:26 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+DELAY1MS . . . . .  C ADDR   017DH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT2. . . . . . .  C ADDR   0187H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SEG1 . . . . . . .  C ADDR   0112H   A   
+SEG2 . . . . . . .  C ADDR   011FH   A   
+SEG3 . . . . . . .  C ADDR   012CH   A   
+SEG4 . . . . . . .  C ADDR   0139H   A   
+SEG5 . . . . . . .  C ADDR   0146H   A   
+SEG6 . . . . . . .  C ADDR   0153H   A   
+SEG7 . . . . . . .  C ADDR   0160H   A   
+SEG8 . . . . . . .  C ADDR   016DH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
