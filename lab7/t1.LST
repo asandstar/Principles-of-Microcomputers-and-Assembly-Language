@@ -1,0 +1,165 @@
+A51 MACRO ASSEMBLER  T1                                                                   12/13/2023 23:45:15 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN t1.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE t1.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0090                 1             DL EQU P1.0        ;DL¡¨Ω”P1.0  
+  0091                 2             DH EQU P1.1        ;DH¡¨Ω”P1.1  
+  0092                 3             CLK EQU P1.2       ;CLK¡¨Ω”P1.2  
+  0093                 4             STR EQU P1.3       ;STR¡¨Ω”P1.3  
+  0094                 5             OE EQU P1.4        ;OE¡¨Ω”P1.4  
+  0040                 6             ROWH EQU 40H       ;ROWH(40H)±Ì æµ±«∞––—°µƒ∏ﬂ8Œª  
+  0041                 7             ROWL EQU 41H       ;ROWL(41H)±Ì æµ±«∞––—°µƒµÕ8Œª  
+  0042                 8             COLH EQU 42H       ;COLH(42H)±Ì æµ±«∞¡–—°µƒ∏ﬂ8Œª  
+  0043                 9             COLL EQU 43H       ;COLL(43H)±Ì æµ±«∞¡–—°µƒµÕ8Œª  
+0000                  10             ORG 0000H  
+0000 020300           11             LJMP MAIN  
+0050                  12             ORG 0050H  
+0050                  13     COLHTAB: 
+0050 20022002         14     DB 20H ,02H ,20H ,02H ,0FFH ,7FH ,20H ,02H ,00H ,04H ,10H ,04H ,10H ,04H ,20H ,02H;
+0054 FF7F2002                
+0058 00041004                
+005C 10042002                
+                      15     
+                      16     
+                      17     
+                      18     
+0060                  19     COLLTAB: 
+0060 20024001         20     DB 20H ,02H ,40H ,01H ,80H ,00H ,40H ,01H ,20H ,02H ,10H ,04H ,0CH ,18H ,03H ,60H;"∞¨",0
+0064 80004001                
+0068 20021004                
+006C 0C180360                
+                      21     
+                      22     
+0070                  23     ROWHTAB: 
+0070 20022002         24     DB 20H ,02H ,20H ,02H ,0FFH ,7FH ,20H ,02H ,00H ,04H ,10H ,04H ,10H ,04H ,20H ,02H;
+0074 FF7F2002                
+0078 00041004                
+007C 10042002                
+                      25     
+                      26     
+                      27     
+0080                  28     ROWLTAB: 
+0080 20024001         29     DB 20H ,02H ,40H ,01H ,80H ,00H ,40H ,01H ,20H ,02H ,10H ,04H ,0CH ,18H ,03H ,60H;"∞¨",0
+0084 80004001                
+0088 20021004                
+008C 0C180360                
+                      30     
+                      31     
+                      32           
+0300                  33             ORG 0300H  
+0300                  34     MAIN:      
+0300 7F00             35             MOV R7,#0                      ;R7Œ™±Ì÷∏’Î£¨”√”⁄≤È––°¢¡–±Ì  
+0302                  36     LOOP:  
+0302 EF               37             MOV A,R7  
+0303 900070           38             MOV DPTR,#ROWHTAB  
+0306 93               39             MOVC A,@A+DPTR  
+0307 F540             40             MOV ROWH,A                     ;µ±«∞––—°∏ﬂ8Œª¥Ê”⁄ROWH  
+0309 EF               41             MOV A,R7  
+030A 900080           42             MOV DPTR,#ROWLTAB  
+030D 93               43             MOVC A,@A+DPTR  
+030E F541             44             MOV ROWL,A                     ;µ±«∞––—°µÕ8Œª¥Ê”⁄ROWL  
+0310 EF               45             MOV A,R7  
+0311 900050           46             MOV DPTR,#COLHTAB  
+A51 MACRO ASSEMBLER  T1                                                                   12/13/2023 23:45:15 PAGE     2
+
+0314 93               47             MOVC A,@A+DPTR  
+0315 F542             48             MOV COLH,A                     ;µ±«∞¡–—°∏ﬂ8Œª¥Ê”⁄COLH  
+0317 EF               49             MOV A,R7  
+0318 900060           50             MOV DPTR,#COLLTAB  
+031B 93               51             MOVC A,@A+DPTR  
+031C F543             52             MOV COLL,A                     ;µ±«∞¡–—°µÕ8Œª¥Ê”⁄COLL  
+031E 7126             53             ACALL DISP                     ;œ‘ æµ±«∞¡–(¡–…®√Ë)
+0320 0F               54             INC R7                         ;≤È±Ì÷∏’Î÷∏œÚœ¬“ªµÿ÷∑  
+0321 BF10DE           55             CJNE R7,#16,LOOP               ;≈–∂œ16¡– «∑Ò…®√ËÕÍ  
+0324 80DA             56             SJMP MAIN  
+                      57               
+0326                  58     DISP:                                   ;œ‘ æ◊”≥Ã–Ú  
+0326 AE40             59             MOV R6,ROWH                      
+0328 AD42             60             MOV R5,COLH  
+032A 7C08             61             MOV R4,#08H                    ;R4”√”⁄º«¥´ ‰Œª   
+032C 7139             62             ACALL INPUT                    ;––°¢¡–µƒ∏ﬂ8Œª ‰»Î74HC595  
+032E AE41             63             MOV R6,ROWL  
+0330 AD43             64             MOV R5,COLL  
+0332 7C08             65                      MOV R4,#08H                    ;R4”√”⁄º«¥´ ‰Œª   
+0334 7139             66                      ACALL INPUT                    ;––°¢¡–µƒµÕ8Œª ‰»Î74HC595  
+0336 714A             67                      ACALL OUTPUT                   ;74HC595 ‰≥ˆ£¨µ„¡¡LEDµ„’Û  
+0338 22               68                      RET                            ;◊”≥Ã–Ú∑µªÿ  
+                      69                        
+0339                  70     INPUT:                                  ;74HC595µƒ ‰»Î∫Ø        
+                      71     
+0339 C292             72     STORE:   CLR CLK                        ;¿≠µÕCLK  
+033B EE               73                      MOV A,R6  
+033C 33               74                      RLC A  
+033D 9290             75                      MOV DL,C                       ; ‰»Î––—°–≈∫≈£¨∏ﬂŒª-µÕŒª  
+033F FE               76                      MOV R6,A  
+0340 ED               77                      MOV A,R5  
+0341 33               78                      RLC A  
+0342 9291             79                      MOV DH,C                       ; ‰»Î¡–—°–≈∫≈£¨∏ﬂŒª-µÕŒª  
+0344 FD               80                      MOV R5,A  
+0345 D292             81                      SETB CLK                       ;¿≠∏ﬂCLK£¨ ‰»Î“∆Œªºƒ¥Ê∆˜  
+0347 DCF0             82                      DJNZ R4,STORE                  ;≈–∂¡8Œª æ› «∑Ò ‰»ÎÕÍ  
+0349 22               83                      RET                            ;◊”∫Ø ∑µªÿ  
+                      84               
+034A                  85             OUTPUT:                                 ; ‰≥ˆ∫Ø £¨«∂ØLEDµ„’Û  
+034A D294             86                      SETB OE                        ;¿≠∏ﬂOE£¨Ω˚÷π ‰≥ˆ  
+034C C293             87                      CLR STR                        ;¿≠µÕSTR  
+034E D293             88                      SETB STR                       ;¿≠∏ﬂSTR, ¥Ê÷¡ ‰≥ˆÀ¯¥Ê∆˜  
+0350 C294             89                      CLR OE                         ;¿≠µÕOE£¨ ‰≥ˆ£¨«∂ØLEDµ„’Û  
+0352 7155             90                      ACALL DELAY500US               ;—” ±£¨«∂Ø500US  
+0354 22               91                      RET                            ;◊”∫Ø ∑µªÿ  
+                      92                        
+0355                  93             DELAY500US:                             ;—” ±500US 
+0355 00               94                      NOP  
+0356 C030             95                      PUSH 30H  
+0358 C031             96                      PUSH 31H  
+035A 753005           97                      MOV 30H,#5  
+035D 753148           98                      MOV 31H,#72  
+0360                  99             NEXT:  
+0360 D531FD          100                      DJNZ 31H,NEXT  
+0363 D530FA          101                      DJNZ 30H,NEXT  
+0366 D031            102                      POP 31H  
+0368 D030            103                      POP 30H  
+036A 22              104                      RET  
+                     105               
+                     106              END                            ;≥Ã–ÚΩ· ¯  
+A51 MACRO ASSEMBLER  T1                                                                   12/13/2023 23:45:15 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CLK. . . . . . . .  B ADDR   0090H.2 A   
+COLH . . . . . . .  N NUMB   0042H   A   
+COLHTAB. . . . . .  C ADDR   0050H   A   
+COLL . . . . . . .  N NUMB   0043H   A   
+COLLTAB. . . . . .  C ADDR   0060H   A   
+DELAY500US . . . .  C ADDR   0355H   A   
+DH . . . . . . . .  B ADDR   0090H.1 A   
+DISP . . . . . . .  C ADDR   0326H   A   
+DL . . . . . . . .  B ADDR   0090H.0 A   
+INPUT. . . . . . .  C ADDR   0339H   A   
+LOOP . . . . . . .  C ADDR   0302H   A   
+MAIN . . . . . . .  C ADDR   0300H   A   
+NEXT . . . . . . .  C ADDR   0360H   A   
+OE . . . . . . . .  B ADDR   0090H.4 A   
+OUTPUT . . . . . .  C ADDR   034AH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+ROWH . . . . . . .  N NUMB   0040H   A   
+ROWHTAB. . . . . .  C ADDR   0070H   A   
+ROWL . . . . . . .  N NUMB   0041H   A   
+ROWLTAB. . . . . .  C ADDR   0080H   A   
+STORE. . . . . . .  C ADDR   0339H   A   
+STR. . . . . . . .  B ADDR   0090H.3 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
