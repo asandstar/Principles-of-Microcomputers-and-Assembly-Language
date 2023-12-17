@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  T1                                                                   12/13/2023 23:45:15 PAGE     1
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.01
@@ -7,127 +7,649 @@ ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE t1.ASM SET(SMALL) DEBUG EP
 
 LOC  OBJ            LINE     SOURCE
 
-  0090                 1             DL EQU P1.0        ;DLÁ¬½ÓP1.0  
-  0091                 2             DH EQU P1.1        ;DHÁ¬½ÓP1.1  
-  0092                 3             CLK EQU P1.2       ;CLKÁ¬½ÓP1.2  
-  0093                 4             STR EQU P1.3       ;STRÁ¬½ÓP1.3  
-  0094                 5             OE EQU P1.4        ;OEÁ¬½ÓP1.4  
-  0040                 6             ROWH EQU 40H       ;ROWH(40H)±íÊ¾µ±Ç°ÐÐÑ¡µÄ¸ß8Î»  
-  0041                 7             ROWL EQU 41H       ;ROWL(41H)±íÊ¾µ±Ç°ÐÐÑ¡µÄµÍ8Î»  
-  0042                 8             COLH EQU 42H       ;COLH(42H)±íÊ¾µ±Ç°ÁÐÑ¡µÄ¸ß8Î»  
-  0043                 9             COLL EQU 43H       ;COLL(43H)±íÊ¾µ±Ç°ÁÐÑ¡µÄµÍ8Î»  
-0000                  10             ORG 0000H  
-0000 020300           11             LJMP MAIN  
-0050                  12             ORG 0050H  
-0050                  13     COLHTAB: 
-0050 20022002         14     DB 20H ,02H ,20H ,02H ,0FFH ,7FH ,20H ,02H ,00H ,04H ,10H ,04H ,10H ,04H ,20H ,02H;
-0054 FF7F2002                
-0058 00041004                
-005C 10042002                
-                      15     
-                      16     
-                      17     
-                      18     
-0060                  19     COLLTAB: 
-0060 20024001         20     DB 20H ,02H ,40H ,01H ,80H ,00H ,40H ,01H ,20H ,02H ,10H ,04H ,0CH ,18H ,03H ,60H;"°¬",0
-0064 80004001                
-0068 20021004                
-006C 0C180360                
-                      21     
-                      22     
-0070                  23     ROWHTAB: 
-0070 20022002         24     DB 20H ,02H ,20H ,02H ,0FFH ,7FH ,20H ,02H ,00H ,04H ,10H ,04H ,10H ,04H ,20H ,02H;
-0074 FF7F2002                
-0078 00041004                
-007C 10042002                
-                      25     
-                      26     
-                      27     
-0080                  28     ROWLTAB: 
-0080 20024001         29     DB 20H ,02H ,40H ,01H ,80H ,00H ,40H ,01H ,20H ,02H ,10H ,04H ,0CH ,18H ,03H ,60H;"°¬",0
-0084 80004001                
-0088 20021004                
-008C 0C180360                
-                      30     
-                      31     
-                      32           
-0300                  33             ORG 0300H  
-0300                  34     MAIN:      
-0300 7F00             35             MOV R7,#0                      ;R7Îª±íÖ¸Õë£¬ÓÃÓÚ²éÐÐ¡¢ÁÐ±í  
-0302                  36     LOOP:  
-0302 EF               37             MOV A,R7  
-0303 900070           38             MOV DPTR,#ROWHTAB  
-0306 93               39             MOVC A,@A+DPTR  
-0307 F540             40             MOV ROWH,A                     ;µ±Ç°ÐÐÑ¡¸ß8Î»´æÓÚROWH  
-0309 EF               41             MOV A,R7  
-030A 900080           42             MOV DPTR,#ROWLTAB  
-030D 93               43             MOVC A,@A+DPTR  
-030E F541             44             MOV ROWL,A                     ;µ±Ç°ÐÐÑ¡µÍ8Î»´æÓÚROWL  
-0310 EF               45             MOV A,R7  
-0311 900050           46             MOV DPTR,#COLHTAB  
-A51 MACRO ASSEMBLER  T1                                                                   12/13/2023 23:45:15 PAGE     2
+                       1     
+                       2     
+                       3     
+0000                   4          ORG 0000H
+0000 020100            5          LJMP MAIN
+000B                   6          ORG 000BH
+000B 02018E            7          LJMP TIMER0
+0100                   8          ORG 0100H
+0100                   9     MAIN:
+0100 12017E           10          LCALL INITIAL        ;½«×ÖÐÎÂë´æÔÚ30H¿ªÊ¼µÄµ¥Ôª
+0103 7F00             11          MOV R7,#00H       ;R7ÓÃÀ´¿ØÖÆ¶¨Ê±Æ÷Òç³ö´ÎÊ
+0105 758160           12          MOV SP,#60H        ;ÉèÖÃ¶ÑÕ»Ö¸Õë
+0108 758901           13          MOV TMOD,#01H     ;¶¨Ê±Æ÷0¹¤×÷ÔÚ¹¤×÷·½Ê½1
+010B 758C00           14          MOV TH0,#00H 
+010E 758A00           15          MOV TL0,#00H        ;¶¨Ê±Æ÷0¸³³õÖµ
+0111 D2B9             16          SETB PT0             ;¶¨Ê±Æ÷ÖÐ¶Ï0ÓÅÏÈ¼¶Îª¸ß
+0113 D2A9             17          SETB ET0             ;ÔÊÐí¶¨Ê±Æ÷ÖÐ¶ÏÁã
+0115 D2AF             18          SETB EA              ;¿ª·ÅËùÓÐÖÐ¶ÏÔÊÐí
+0117 D28C             19          SETB TR0             ;Æô¶¯¶¨Ê±Æ÷
+0119                  20     XIANSHI:                  ;ÏÔÊ¾³ÌÐò
+0119 7E00             21          MOV R6,#00H         ;R6¼ÇÂ¼µ±Ç°ÐÐºÅ
+011B 7D00             22          MOV R5,#00H         ;R5¼ÇÂ¼µ±Ç°ÁÐºÅ
+011D                  23     BACK1:
+011D EE               24          MOV A,R6       
+011E 9001D0           25          MOV DPTR,#ROW0_TABLE  ;×¼±¸ÐÐÐÅºÅÇ°°ë¶Î
+0121 93               26          MOVC A,@A+DPTR
+0122 F550             27          MOV 50H,A               ;ÐÐÐÅºÅµÍ8Î»´æÔÚ50H
+0124 EE               28          MOV A,R6
+0125 9001E0           29          MOV DPTR,#ROW1_TABLE
+0128 93               30          MOVC A,@A+DPTR
+0129 F551             31          MOV 51H,A                 ;ÐÐÐÅºÅ¸ß8Î»´æÔÚ51H
+012B ED               32          MOV A,R5
+012C 75F030           33          MOV B,#30H
+012F 25F0             34          ADD A,B
+0131 F8               35          MOV R0,A
+0132 E6               36          MOV A,@R0
+0133 F552             37          MOV 52H,A                ;ÁÐÐÅºÅ¸ß8Î»´æÔÚ52H
+0135 0D               38          INC R5                    
+0136 ED               39          MOV A,R5
+0137 75F030           40          MOV B,#30H
+013A 25F0             41          ADD A,B
+013C F8               42          MOV R0,A
+013D E6               43          MOV A,@R0
+013E F553             44          MOV 53H,A                ;ÁÐÐÅºÅµÍ8Î»´æÔÚ53H
+0140 7C08             45          MOV R4,#08H              ;ÐÐÁÐÏÈÏò595ÊäÈë¸ß°ËÎ»
+0142 AB51             46          MOV R3,51H               ;ÐÐ¸ß8Î»´æÔÚR3
+0144 AA52             47          MOV R2,52H                ;ÁÐ¸ß8Î»´æÔÚR2
+0146                  48     BACK2:
+0146 C292             49          CLR P1.2                    ;ÒÆÎ»¼Ä´æÆ÷×´Ì¬±£³Ö
+0148 EB               50          MOV A,R3
+0149 33               51          RLC A
+014A 9290             52          MOV P1.0,C                  ;R3ÖðÎ»ÊäÈëµ½DL
+014C FB               53          MOV R3,A
+014D EA               54          MOV A,R2
+014E 33               55          RLC A
+014F 9291             56          MOV P1.1,C                 ;R2ÖðÎ»ÊäÈëµ½DH
+0151 FA               57          MOV R2,A
+0152 D292             58          SETB P1.2                   ;ÒÆÎ»¼Ä´æÆ÷¶ÁÈëµ±Ç°ÊäÈë
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     2
 
-0314 93               47             MOVC A,@A+DPTR  
-0315 F542             48             MOV COLH,A                     ;µ±Ç°ÁÐÑ¡¸ß8Î»´æÓÚCOLH  
-0317 EF               49             MOV A,R7  
-0318 900060           50             MOV DPTR,#COLLTAB  
-031B 93               51             MOVC A,@A+DPTR  
-031C F543             52             MOV COLL,A                     ;µ±Ç°ÁÐÑ¡µÍ8Î»´æÓÚCOLL  
-031E 7126             53             ACALL DISP                     ;ÏÔÊ¾µ±Ç°ÁÐ(ÁÐÉ¨Ãè)
-0320 0F               54             INC R7                         ;²é±íÖ¸ÕëÖ¸ÏòÏÂÒ»µØÖ·  
-0321 BF10DE           55             CJNE R7,#16,LOOP               ;ÅÐ¶Ï16ÁÐÊÇ·ñÉ¨ÃèÍê  
-0324 80DA             56             SJMP MAIN  
-                      57               
-0326                  58     DISP:                                   ;ÏÔÊ¾×Ó³ÌÐò  
-0326 AE40             59             MOV R6,ROWH                      
-0328 AD42             60             MOV R5,COLH  
-032A 7C08             61             MOV R4,#08H                    ;R4ÓÃÓÚ¼Ç´«ÊäÎ»Ê  
-032C 7139             62             ACALL INPUT                    ;ÐÐ¡¢ÁÐµÄ¸ß8Î»ÊäÈë74HC595  
-032E AE41             63             MOV R6,ROWL  
-0330 AD43             64             MOV R5,COLL  
-0332 7C08             65                      MOV R4,#08H                    ;R4ÓÃÓÚ¼Ç´«ÊäÎ»Ê  
-0334 7139             66                      ACALL INPUT                    ;ÐÐ¡¢ÁÐµÄµÍ8Î»ÊäÈë74HC595  
-0336 714A             67                      ACALL OUTPUT                   ;74HC595Êä³ö£¬µãÁÁLEDµãÕó  
-0338 22               68                      RET                            ;×Ó³ÌÐò·µ»Ø  
-                      69                        
-0339                  70     INPUT:                                  ;74HC595µÄÊäÈëº¯Ê       
-                      71     
-0339 C292             72     STORE:   CLR CLK                        ;À­µÍCLK  
-033B EE               73                      MOV A,R6  
-033C 33               74                      RLC A  
-033D 9290             75                      MOV DL,C                       ;ÊäÈëÐÐÑ¡ÐÅºÅ£¬¸ßÎ»-µÍÎ»  
-033F FE               76                      MOV R6,A  
-0340 ED               77                      MOV A,R5  
-0341 33               78                      RLC A  
-0342 9291             79                      MOV DH,C                       ;ÊäÈëÁÐÑ¡ÐÅºÅ£¬¸ßÎ»-µÍÎ»  
-0344 FD               80                      MOV R5,A  
-0345 D292             81                      SETB CLK                       ;À­¸ßCLK£¬ÊäÈëÒÆÎ»¼Ä´æÆ÷  
-0347 DCF0             82                      DJNZ R4,STORE                  ;ÅÐ¶Á8Î»Ê¾ÝÊÇ·ñÊäÈëÍê  
-0349 22               83                      RET                            ;×Óº¯Ê·µ»Ø  
-                      84               
-034A                  85             OUTPUT:                                 ;Êä³öº¯Ê£¬Ç¶¯LEDµãÕó  
-034A D294             86                      SETB OE                        ;À­¸ßOE£¬½ûÖ¹Êä³ö  
-034C C293             87                      CLR STR                        ;À­µÍSTR  
-034E D293             88                      SETB STR                       ;À­¸ßSTR,Ê´æÖÁÊä³öËø´æÆ÷  
-0350 C294             89                      CLR OE                         ;À­µÍOE£¬Êä³ö£¬Ç¶¯LEDµãÕó  
-0352 7155             90                      ACALL DELAY500US               ;ÑÓÊ±£¬Ç¶¯500US  
-0354 22               91                      RET                            ;×Óº¯Ê·µ»Ø  
-                      92                        
-0355                  93             DELAY500US:                             ;ÑÓÊ±500US 
-0355 00               94                      NOP  
-0356 C030             95                      PUSH 30H  
-0358 C031             96                      PUSH 31H  
-035A 753005           97                      MOV 30H,#5  
-035D 753148           98                      MOV 31H,#72  
-0360                  99             NEXT:  
-0360 D531FD          100                      DJNZ 31H,NEXT  
-0363 D530FA          101                      DJNZ 30H,NEXT  
-0366 D031            102                      POP 31H  
-0368 D030            103                      POP 30H  
-036A 22              104                      RET  
-                     105               
-                     106              END                            ;³ÌÐò½áÊø  
-A51 MACRO ASSEMBLER  T1                                                                   12/13/2023 23:45:15 PAGE     3
+0154 DCF0             59          DJNZ R4,BACK2               ;Î´¶ÁÍê8Î»¼ÌÐø
+0156 7C08             60          MOV R4,#08H                ;Ïò595ÖÐÊäÈëÐÐÁÐµÍ8Î»
+0158 AB50             61          MOV R3,50H                 ;ÐÐµÍ°ËÎ»´æÔÚR3
+015A AA53             62          MOV R2,53H                 ;ÁÐµÍ°ËÎ»´æÔÚR2
+015C                  63     BACK3:
+015C C292             64          CLR P1.2                     ;ÒÆÎ»¼Ä´æÆ÷×´Ì¬±£³Ö
+015E EB               65          MOV A,R3
+015F 33               66          RLC A
+0160 9290             67          MOV P1.0,C                   ;R3ÖðÎ»ÊäÈëDL
+0162 FB               68          MOV R3,A
+0163 EA               69          MOV A,R2
+0164 33               70          RLC A
+0165 9291             71          MOV P1.1,C                 ;R2ÖðÎ»ÊäÈëDH
+0167 FA               72          MOV R2,A
+0168 D292             73          SETB P1.2                   ;ÒÆÎ»¼Ä´æÆ÷¶ÁÈë
+016A DCF0             74          DJNZ R4,BACK3               ;Î´Íê³É8Î»¼ÌÐø
+016C                  75          SETB OE                     ;¹Ø±Õ595Êä³ö£¬Êä³ö¸ß×è
+*** ___________________________________^
+*** ERROR #A45 IN 75 (t1.ASM, LINE 75): UNDEFINED SYMBOL (PASS-2)
+016E                  76          CLR STR                     ;ÏÈÊä³öµÍµçÆ½
+*** __________________________________^
+*** ERROR #A45 IN 76 (t1.ASM, LINE 76): UNDEFINED SYMBOL (PASS-2)
+0170                  77          SETB STR       ;ÉÏÉÑØÊä³ö´æ´¢Æ÷Ëø´æÒÆÎ»¼Ä´æÆ÷ÖÐ×´Ì¬Öµ
+*** ___________________________________^
+*** ERROR #A45 IN 77 (t1.ASM, LINE 77): UNDEFINED SYMBOL (PASS-2)
+0172                  78          CLR OE                       ;¿ª·Å595Êä³öÔÊÐí
+*** __________________________________^
+*** ERROR #A45 IN 78 (t1.ASM, LINE 78): UNDEFINED SYMBOL (PASS-2)
+0174 1201C7           79          LCALL DELAY1M                ;ÑÓÊ±1ms
+0177 0E               80          INC R6
+0178 0D               81          INC R5                        ;Ö¸ÏòÏÂÒ»ÐÐÁÐµÄÖµ
+0179 BE10A1           82          CJNE R6,#10H,BACK1            ;16ÐÐÎ´É¨ÃèÍê¼ÌÐøÉ¨Ãè
+017C 809B             83          SJMP XIANSHI                  ;É¨ÃèÍê´ÓÍ·¿ªÊ¼É¨Ãè
+017E                  84     INITIAL:                           ;×ÖÐÎÂë×°Èë30H¿ªÊ¼µ¥Ôª
+017E 7830             85          MOV R0,#30H                 ;R0Ö¸Ïò¿ªÊ¼µØÖ·
+0180 7F00             86          MOV R7,#00H                 ;R7ÓÃÓÚ¼ÇÂ¼Ê¾Ý¸öÊ
+0182                  87     MOV_LOOP:
+0182 9001F0           88          MOV DPTR,#CHAR_TABLE
+0185 EF               89          MOV A,R7
+0186 93               90          MOVC A,@A+DPTR
+0187 F6               91          MOV @R0,A                  ;Ê¾Ý×ªÒÆÖÁ30H¿ªÊ¼µ¥Ôª
+0188 0F               92          INC R7                       ;¼ÆÊ¼ÓÒ»
+0189 08               93          INC R0                       ;Ö¸ÏòÏÂÒ»µ¥Ôª
+018A BF20F5           94          CJNE R7,#20H,MOV_LOOP       ;32¸ö×ÖÐÎÂëÎ´×ªÒÆÍê¼ÌÐø
+018D 22               95          RET                          
+018E                  96     TIMER0:                           ;¶¨Ê±Æ÷ÖÐ¶Ï³ÌÐò£¬¾²Ì¬ÏÔÊ¾²»ÐèÒªÖÐ¶Ï²¿·Ö
+018E C28C             97          CLR TR0                      ;ÔÝÍ£¼ÆÊ
+0190 0F               98          INC R7                        ;Òç³ö¼ÆÊ¼ÓÒ»
+0191 BF0E05           99          CJNE R7,#0EH,JIXU              ;Î´Òç³ö14´Î£¬²»×÷´¦Àí
+0194 1201A2          100          LCALL ROLL                    ;µ÷ÓÃ¹ö¶¯³ÌÐò
+0197 7F00            101          MOV R7,#00H                 ;¼ÆÊ¹éÁã
+0199                 102     JIXU:
+0199 758C00          103          MOV TH0,#00H
+019C 758A00          104          MOV TL0,#00H                  ;¼ÆÊÆ÷´ÓÐÂ¸³Öµ
+019F D28C            105          SETB TR0                        ;¼ÌÐø¼ÆÊ
+01A1 32              106          RETI
+01A2                 107     ROLL:
+01A2 C0E0            108          PUSH ACC                       ;±£»¤AÖµ
+01A4 8B70            109          MOV 70H,R3                     ;±£»¤R3µÄÖµ
+01A6 7930            110          MOV R1,#30H                    ;R1Ö¸Ïò´æ´¢¿ªÊ¼µ¥Ôª
+01A8 7B10            111          MOV R3,#10H                    ;R3¼ÇÂ¼Ñ­»·´ÎÊ
+01AA                 112     BACK4:
+01AA E7              113          MOV A,@R1
+01AB 33              114          RLC A                         ;ÁÐ¸ß°ËÎ»×óÒÆ
+01AC 09              115          INC R1                        ;Ö¸ÏòÁÐµÍ°ËÎ»
+01AD F5F0            116          MOV B,A                      ;BÔÝ´æ×óÒÆºóÁÐ¸ß8Î»
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     3
+
+01AF E7              117          MOV A,@R1                  
+01B0 33              118          RLC A                         ;´ø½øÎ»×óÒÆÁÐµÍ°ËÎ»
+01B1 F7              119          MOV @R1,A                   ;ÐÂµÍ°ËÎ»´æ»Ø£¨R1£©
+01B2 E5F0            120          MOV A,B                      ;A´æÁÐ×óÒÆºó¸ß°ËÎ»
+01B4 4004            121          JC   C1                       ;CÎª1Ìø×ª
+01B6 54FE            122          ANL A,#0FEH                   ;CÎª0¸ß°ËÎ»×îµÍÎ»Ìî0
+01B8 8002            123          SJMP C0
+01BA                 124     C1:
+01BA 4401            125          ORL A,#01H                    ;CÎª1¸ß°ËÎ»×îµÍÎ»Ìî1
+01BC                 126     C0:
+01BC 19              127          DEC R1                      ;R1Ö¸Ïò¸ß°ËÎ»´æ´¢µ¥Ôª
+01BD F7              128          MOV @R1,A                 ;´æ»Ø(R1)
+01BE 09              129          INC R1
+01BF 09              130          INC R1                       ;Ö¸ÏòÏÂÒ»ÁÐ
+01C0 DBE8            131          DJNZ R3,BACK4                ;16ÁÐÎ´ÒÆ¶¯Íê¼ÌÐø
+01C2 AB70            132          MOV R3,70H                  ;·µ»Ø½øÈëÖÐ¶Ï±£´æµÄR3Öµ
+01C4 D0E0            133          POP ACC                      ;·µ»Ø±£´æµÄAÖµ
+01C6 22              134          RET
+                     135          
+01C7                 136     DELAY1M:                           ;ÑÓÊ±1ms³ÌÐò
+01C7 7A20            137          MOV R2,#20H
+01C9                 138     DLOOP1:
+01C9 7B20            139          MOV R3,#20H
+01CB                 140     DLOOP0:
+01CB DBFE            141          DJNZ R3,DLOOP0
+01CD DAFA            142          DJNZ R2,DLOOP1
+01CF 22              143          RET
+01D0                 144     ROW0_TABLE:    ;ÐÐµÍ°ËÎ»
+01D0 01020408        145          DB 00000001B,00000010B,00000100B,00001000B,00010000B,00100000B,01000000B,10000000B
+01D4 10204080                
+01D8 00000000        146          DB 00H,00H,00H,00H,00H,00H,00H,00H
+01DC 00000000                
+01E0                 147     ROW1_TABLE:     ;ÐÐ¸ß°ËÎ»
+01E0 00000000        148          DB 00H,00H,00H,00H,00H,00H,00H,00H
+01E4 00000000                
+01E8 01020408        149          DB 00000001B,00000010B,00000100B,00001000B,00010000B,00100000B,01000000B,10000000B
+01EC 10204080                
+01F0                 150     CHAR_TABLE:     ;×ÖÐÎÂë
+01F0 FFFFFFFF        151          DB 0FFH,0FFH,0FFH,0FFH,0FCH,0CFH,0FDH,0EFH,080H,07H
+01F4 FCCFFDEF                
+01F8 8007                    
+01FA FDF3C005        152          DB 0FDH,0F3H,0C0H,005H,0FDH,0F7H,0C0H,07H,0FDH,0F7H,080H,07H
+01FE FDF7C007                
+0202 FDF78007                
+0206 DFF7DBB7        153          DB 0DFH,0F7H,0DBH,0B7H,0BBH,0BBH,77H,79H,0FFH,0FFH
+020A BBBB7779                
+020E FFFF                    
+                     154     END
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     4
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     5
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     6
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     7
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     8
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE     9
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE    10
+
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  T1                                                                   12/15/2023 10:32:04 PAGE    11
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -135,31 +657,41 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-CLK. . . . . . . .  B ADDR   0090H.2 A   
-COLH . . . . . . .  N NUMB   0042H   A   
-COLHTAB. . . . . .  C ADDR   0050H   A   
-COLL . . . . . . .  N NUMB   0043H   A   
-COLLTAB. . . . . .  C ADDR   0060H   A   
-DELAY500US . . . .  C ADDR   0355H   A   
-DH . . . . . . . .  B ADDR   0090H.1 A   
-DISP . . . . . . .  C ADDR   0326H   A   
-DL . . . . . . . .  B ADDR   0090H.0 A   
-INPUT. . . . . . .  C ADDR   0339H   A   
-LOOP . . . . . . .  C ADDR   0302H   A   
-MAIN . . . . . . .  C ADDR   0300H   A   
-NEXT . . . . . . .  C ADDR   0360H   A   
-OE . . . . . . . .  B ADDR   0090H.4 A   
-OUTPUT . . . . . .  C ADDR   034AH   A   
+ACC. . . . . . . .  D ADDR   00E0H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+BACK1. . . . . . .  C ADDR   011DH   A   
+BACK2. . . . . . .  C ADDR   0146H   A   
+BACK3. . . . . . .  C ADDR   015CH   A   
+BACK4. . . . . . .  C ADDR   01AAH   A   
+C0 . . . . . . . .  C ADDR   01BCH   A   
+C1 . . . . . . . .  C ADDR   01BAH   A   
+CHAR_TABLE . . . .  C ADDR   01F0H   A   
+DELAY1M. . . . . .  C ADDR   01C7H   A   
+DLOOP0 . . . . . .  C ADDR   01CBH   A   
+DLOOP1 . . . . . .  C ADDR   01C9H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+INITIAL. . . . . .  C ADDR   017EH   A   
+JIXU . . . . . . .  C ADDR   0199H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MOV_LOOP . . . . .  C ADDR   0182H   A   
+OE . . . . . . . .    ----   -----       
 P1 . . . . . . . .  D ADDR   0090H   A   
-ROWH . . . . . . .  N NUMB   0040H   A   
-ROWHTAB. . . . . .  C ADDR   0070H   A   
-ROWL . . . . . . .  N NUMB   0041H   A   
-ROWLTAB. . . . . .  C ADDR   0080H   A   
-STORE. . . . . . .  C ADDR   0339H   A   
-STR. . . . . . . .  B ADDR   0090H.3 A   
+PT0. . . . . . . .  B ADDR   00B8H.1 A   
+ROLL . . . . . . .  C ADDR   01A2H   A   
+ROW0_TABLE . . . .  C ADDR   01D0H   A   
+ROW1_TABLE . . . .  C ADDR   01E0H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+STR. . . . . . . .    ----   -----       
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0 . . . . . .  C ADDR   018EH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+XIANSHI. . . . . .  C ADDR   0119H   A   
 
 
 REGISTER BANK(S) USED: 0 
 
 
-ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
+ASSEMBLY COMPLETE.  0 WARNING(S), 4 ERROR(S)

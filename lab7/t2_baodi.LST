@@ -1,0 +1,184 @@
+A51 MACRO ASSEMBLER  T2_BAODI                                                             12/15/2023 15:12:59 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN t2_baodi.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE t2_baodi.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+  0090                 5             DL EQU P1.0                     ;¡– ‰»Î
+  0091                 6             DH EQU P1.1                     ;–– ‰»Î 
+  0092                 7             SCK EQU  P1.2        ;“∆Œªºƒ¥Ê∆˜ 
+  0093                 8             RCK EQU  P1.3        ;À¯¥Ê∆˜  
+  0094                 9             OE EQU  P1.4         ; πƒ‹∂À  
+                      10     
+  0030                11             HL EQU 30H ;–– µÕŒª
+  0031                12             HH EQU 31H ;–– ∏ﬂŒª
+  0032                13             LL EQU 32H ;¡– µÕŒª
+  0033                14             LH EQU 33H ;¡– ∏ﬂŒª
+                      15                       
+0000                  16             ORG  0000H                 
+0000 020100           17             LJMP  MAIN  
+0100                  18             ORG  0100H                 
+0100                  19     MAIN:  
+0100 900178           20             MOV   DPTR,#WORDTAB  ;◊÷ƒ£±Ìµÿ÷∑  
+0103 7900             21             MOV   R1,#00H          
+0105 7F40             22             MOV   R7,#40H       ;R7”√¿¥±Ì æ◊÷ƒ£±Ì∆ ºŒª÷√∆´“∆¡ø  
+0107                  23     LOOP:  
+0107 7D14             24             MOV   R5,#20         ;R5”√¿¥±Ì æ—” ±£¨∏ƒ±‰R5µƒ÷µø…∏ƒ±‰πˆ∆¡ÀŸ∂»                
+0109                  25     LOOP1:  
+0109 7E10             26             MOV   R6,#10H        ;R6”√¿¥≈–∂œ «∑Ò…®√ËÕÍ“ª¬÷  
+010B EF               27             MOV   A,R7              ;Ω´R7µƒ÷µ∏≥÷µ∏¯R1  
+010C F9               28             MOV   R1,A  
+010D 753001           29             MOV   HL,#01H        ;––…®√Ë–≈∫≈µƒ≥ı÷µ0001H  
+0110 753100           30             MOV   HH,#00H  
+0113                  31     LOOP2:  
+0113 E9               32             MOV   A,R1  
+0114 93               33             MOVC  A,@A+DPTR    
+0115 F532             34             MOV   LL,A           ;’“µΩ¡–µÕŒª æ›£¨¥Ê»Îƒ⁄¥Êµÿ÷∑÷–  
+0117 09               35             INC   R1  
+0118 E9               36             MOV   A,R1  
+0119 93               37             MOVC  A,@A+DPTR  
+011A F533             38             MOV   LH,A         ;’“µΩ¡–∏ﬂŒª æ›£¨¥Ê»Îƒ⁄¥Êµÿ÷∑÷–  
+011C 12013C           39             LCALL HC595           ;µ˜”√¥´ ‰ æ›µƒ≥Ã–Ú   
+011F 12016F           40             LCALL DELAY           ;µ˜”√—” ±≥Ã–Ú  
+0122 C3               41             CLR   C               ;Œª¥¶¿Ì¿€º”∆˜«Â¡„  
+0123 E530             42         MOV   A,HL  
+0125 33               43             RLC   A               ;◊Û“∆––…®√Ë–≈∫≈µÕ∞ÀŒª  
+0126 F530             44             MOV   HL,A  
+0128 E531             45             MOV   A,HH      
+012A 33               46             RLC   A               ;◊Û“∆––…®√Ë–≈∫≈∏ﬂ∞ÀŒª  
+012B F531             47             MOV   HH,A  
+012D 09               48             INC   R1  
+012E 1E               49         DEC   R6  
+012F BE00E1           50             CJNE  R6,#00H,LOOP2   ;Õ®πR6≈–∂œ «∑Ò…®√ËÕÍ“ª¬÷£¨R6ºıŒ™0£¨“ª¬÷…®√ËΩ· ¯  
+0132 DDD5             51             DJNZ  R5,LOOP1        ;Õ®πR5≈–∂œ“ª÷°µƒ—” ± «∑Ò¥ÔµΩ  
+0134 1F               52             DEC   R7              ;∏ƒ±‰◊÷ƒ£±Ìµƒ∆´“∆¡ø  
+0135 1F               53             DEC   R7              ;R7¡¨–¯º”2£¨œ‡µ±”⁄ªª––        
+0136 BF00CE           54             CJNE  R7,#00H,LOOP    ;≈–∂œ◊÷ƒ£±Ì «∑ÒΩ· ¯  
+0139 020100           55         LJMP  MAIN  
+                      56             
+                      57                       
+013C                  58     HC595:  
+A51 MACRO ASSEMBLER  T2_BAODI                                                             12/15/2023 15:12:59 PAGE     2
+
+013C C294             59             CLR   OE             ; πƒ‹–≈∫≈µÕµÁ∆Ω”––ß  
+013E C293             60             CLR   RCK            ;RCK–≈∫≈÷√0  
+0140 7A08             61             MOV   R2,#08H  
+0142 AB33             62             MOV   R3,LH        ;¡––≈∫≈∏ﬂ8Œªµÿ÷∑  
+0144 AC31             63             MOV   R4,HH        ;–––≈∫≈∏ﬂ8Œªµÿ÷∑  
+0146                  64     BACK:  
+0146 C292             65             CLR   SCK             ;SCK–≈∫≈÷√0   
+0148 EB               66             MOV   A,R3  
+0149 33               67             RLC   A  
+014A FB               68             MOV   R3,A  
+014B 9291             69             MOV   DH,C           ;¡––≈∫≈÷Œª¥´ ‰  
+014D EC               70             MOV   A,R4  
+014E 33               71             RLC   A  
+014F FC               72             MOV   R4,A  
+0150 9290             73             MOV   DL,C           ;–––≈∫≈÷Œª¥´ ‰  
+0152 D292             74             SETB  SCK             ;SCK–≈∫≈…œ…—ÿµΩ¿¥£¨Ω´¥Æ–– æ›“∆»Î“∆Œªºƒ¥Ê∆˜  
+0154 DAF0             75             DJNZ  R2,BACK         ;≈–∂œ∏ﬂ∞ÀŒª–≈∫≈ «∑Ò¥´ ‰ÕÍ±œ  
+0156 7A08             76             MOV   R2,#08H    
+0158 AB32             77             MOV   R3,LL          ;¡––≈∫≈µÕ∞ÀŒªµÿ÷∑  
+015A AC30             78             MOV   R4,HL          ;–––≈∫≈µÕ∞ÀŒªµÿ÷∑  
+015C                  79     BACK1:  
+015C C292             80             CLR  SCK              ;SCK–≈∫≈÷√0  
+015E EB               81             MOV  A,R3  
+015F 33               82             RLC  A  
+0160 FB               83             MOV  R3,A  
+0161 9291             84             MOV  DH,C            ;¡––≈∫≈÷Œª¥´ ‰  
+0163 EC               85             MOV  A,R4  
+0164 33               86             RLC  A  
+0165 FC               87             MOV  R4,A  
+0166 9290             88             MOV  DL,C            ;–––≈∫≈÷Œª¥´ ‰  
+0168 D292             89             SETB SCK               ;SCK–≈∫≈…œ…—ÿµΩ¿¥£¨Ω´¥Æ–– æ›“∆»Î“∆Œªºƒ¥Ê∆˜  
+016A DAF0             90             DJNZ R2,BACK1          ;≈–∂œµÕ∞ÀŒª–≈∫≈ «∑Ò¥´ ‰ÕÍ±œ  
+016C D293             91             SETB RCK               ;RCK–≈∫≈…œ…—ÿµΩ¿¥£¨“∆Œªºƒ¥Ê∆˜µƒ æ›À¯¥Ê»Î æ›ºƒ¥Ê∆˜  
+016E 22               92             RET    
+016F                  93     DELAY:                     ;—” ±◊”≥Ã–Ú  
+016F 7A32             94             MOV  R2,#50    
+0171                  95     DELAY1:  
+0171 7B0A             96             MOV  R3,#10  
+0173                  97     DELAY2:  
+0173 DBFE             98             DJNZ R3,$  
+0175 DAFA             99             DJNZ R2,DELAY1  
+0177 22              100             RET  
+                     101       
+0178                 102     WORDTAB:
+                     103             
+0178 DFFDDFFD        104     DB 0DFH,0FDH,0DFH,0FDH,000H,080H,0DFH,0FDH,0FFH,0FBH,0EFH,0FBH,0EFH,0FBH,0DFH,0FDH;
+017C 0080DFFD                
+0180 FFFBEFFB                
+0184 EFFBDFFD                
+0188 DFFDBFFE        105     DB 0DFH,0FDH,0BFH,0FEH,07FH,0FFH,0BFH,0FEH,0DFH,0FDH,0EFH,0FBH,0F3H,0E7H,0FCH,09FH;"∞¨",0
+018C 7FFFBFFE                
+0190 DFFDEFFB                
+0194 F3E7FC9F                
+                     106     
+0198 DFFDDFFD        107     DB 0DFH,0FDH,0DFH,0FDH,000H,080H,0DFH,0FDH,0FFH,0FBH,0EFH,0FBH,0EFH,0FBH,0DFH,0FDH;
+019C 0080DFFD                
+01A0 FFFBEFFB                
+01A4 EFFBDFFD                
+01A8 DFFDBFFE        108     DB 0DFH,0FDH,0BFH,0FEH,07FH,0FFH,0BFH,0FEH,0DFH,0FDH,0EFH,0FBH,0F3H,0E7H,0FCH,09FH;"∞¨",0
+01AC 7FFFBFFE                
+01B0 DFFDEFFB                
+01B4 F3E7FC9F                
+                     109     
+01B8 DFFDDFFD        110     DB 0DFH,0FDH,0DFH,0FDH,000H,080H,0DFH,0FDH,0FFH,0FBH,0EFH,0FBH,0EFH,0FBH,0DFH,0FDH;
+01BC 0080DFFD                
+01C0 FFFBEFFB                
+A51 MACRO ASSEMBLER  T2_BAODI                                                             12/15/2023 15:12:59 PAGE     3
+
+01C4 EFFBDFFD                
+01C8 DFFDBFFE        111     DB 0DFH,0FDH,0BFH,0FEH,07FH,0FFH,0BFH,0FEH,0DFH,0FDH,0EFH,0FBH,0F3H,0E7H,0FCH,09FH;"∞¨",0
+01CC 7FFFBFFE                
+01D0 DFFDEFFB                
+01D4 F3E7FC9F                
+                     112     
+                     113     
+                     114     
+                     115     
+                     116     
+                     117     
+                     118             END
+A51 MACRO ASSEMBLER  T2_BAODI                                                             12/15/2023 15:12:59 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BACK . . . . . . .  C ADDR   0146H   A   
+BACK1. . . . . . .  C ADDR   015CH   A   
+DELAY. . . . . . .  C ADDR   016FH   A   
+DELAY1 . . . . . .  C ADDR   0171H   A   
+DELAY2 . . . . . .  C ADDR   0173H   A   
+DH . . . . . . . .  B ADDR   0090H.1 A   
+DL . . . . . . . .  B ADDR   0090H.0 A   
+HC595. . . . . . .  C ADDR   013CH   A   
+HH . . . . . . . .  N NUMB   0031H   A   
+HL . . . . . . . .  N NUMB   0030H   A   
+LH . . . . . . . .  N NUMB   0033H   A   
+LL . . . . . . . .  N NUMB   0032H   A   
+LOOP . . . . . . .  C ADDR   0107H   A   
+LOOP1. . . . . . .  C ADDR   0109H   A   
+LOOP2. . . . . . .  C ADDR   0113H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+OE . . . . . . . .  B ADDR   0090H.4 A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+RCK. . . . . . . .  B ADDR   0090H.3 A   
+SCK. . . . . . . .  B ADDR   0090H.2 A   
+WORDTAB. . . . . .  C ADDR   0178H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

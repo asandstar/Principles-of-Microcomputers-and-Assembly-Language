@@ -1,0 +1,203 @@
+A51 MACRO ASSEMBLER  LILAOSHI                                                             12/15/2023 11:18:32 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN lilaoshi.OBJ
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE lilaoshi.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;IO分配
+  0090                 2             DL EQU P1.0     ;列输入
+  0091                 3             DH EQU P1.1     ;行输入
+  0092                 4             CLK EQU P1.2 ;移位寄存器时钟    SRCLK
+  0093                 5             STR EQU P1.3 ;锁存器时钟                RCLK
+  0094                 6             OE EQU P1.4 ;输出使能
+                       7             
+  00A0                 8             DOWN EQU P2.0
+  00A1                 9             UP EQU P2.1
+  00A2                10             RIGHT EQU P2.2
+  00A3                11             LEFT EQU P2.3
+                      12     
+                      13     ;store
+                      14     
+  0040                15             DATA1 EQU 40H
+  0041                16             DATA2 EQU 41H
+  0042                17             ADDR EQU 42H
+  0043                18             TEMP1 EQU 43H
+  0044                19             TEMP2 EQU 44H
+  0045                20             COUNT EQU 45H
+  0000                21             FLAG BIT 20H.0
+  0001                22             TEMPC BIT 20H.1
+                      23     
+0000                  24             ORG 0000H
+0000 020100           25             LJMP MAIN
+                      26     
+000B                  27             ORG 000BH
+000B                  28             LJMP TIME0_ISR
+*** ______________________________________^
+*** ERROR #A45 IN 28 (lilaoshi.ASM, LINE 28): UNDEFINED SYMBOL (PASS-2)
+                      29     
+0100                  30             ORG 0100H
+                      31     
+0100                  32     MAIN:
+0100 901000           33             MOV DPTR,#WORDTAB
+0103 75815A           34             MOV SP, #5AH
+0106 7830             35             MOV R0,#30H
+0108 7900             36             MOV R1,#0
+010A 7A20             37             MOV R2,#20H
+                      38     
+010C                  39     RAM:
+010C E9               40             MOV A,R1
+010D 93               41             MOVC A,@A+DPTR
+010E F6               42             MOV @R0,A
+010F 08               43             INC R0
+0110 09               44             INC R1
+0111 DAF9             45             DJNZ R2, RAM
+                      46     
+0113                  47     LOOP:
+0113 120200           48             LCALL DISPLAY
+0116 80FB             49             SJMP LOOP
+                      50     
+0200                  51     ORG 0200H
+0200                  52     DISPLAY:
+0200 754230           53             MOV ADDR,#30H
+0203 7401             54             MOV A,#01H
+0205 7C08             55             MOV R4,#8
+0207                  56     LOOPD1:
+A51 MACRO ASSEMBLER  LILAOSHI                                                             12/15/2023 11:18:32 PAGE     2
+
+0207 F540             57             MOV DATA1,A
+0209 23               58             RL A
+020A 754100           59             MOV DATA2,#00H
+020D 7840             60             MOV R0,#DATA1
+020F A942             61             MOV R1,ADDR
+0211 120234           62             LCALL HC595
+0214 120264           63             LCALL DELAY1MS
+0217 8942             64             MOV ADDR,R1
+                      65     
+0219 DCEC             66             DJNZ R4,LOOPD1
+021B 7401             67             MOV A,#01H
+021D 7C08             68             MOV R4,#8
+                      69     
+021F                  70     LOOPD2:
+021F F541             71             MOV DATA2,A
+0221 23               72             RL A
+0222 754000           73             MOV DATA1,#00H
+0225 7840             74             MOV R0,#DATA1
+0227 A942             75             MOV R1,ADDR
+0229 120234           76             LCALL HC595
+022C 120264           77             LCALL DELAY1MS
+022F 8942             78             MOV ADDR,R1
+0231 DCEC             79             DJNZ R4,LOOPD2
+0233 22               80             RET
+                      81     
+0234                  82     HC595:
+0234 C0E0             83             PUSH ACC
+0236 7B02             84             MOV R3,#2
+0238 C294             85             CLR OE
+                      86     
+023A                  87     REFRESH:
+023A 7A08             88             MOV R2,#8
+023C 8643             89             MOV TEMP1,@R0
+023E 8744             90             MOV TEMP2,@R1
+0240 C293             91             CLR STR
+                      92     
+0242                  93     SHIFT:
+0242 E543             94             MOV A,TEMP1
+0244 C292             95             CLR CLK
+0246 13               96             RRC A
+0247 9290             97             MOV DL,C
+0249 F543             98             MOV TEMP1,A
+024B E544             99             MOV A,TEMP2
+024D 13              100             RRC A
+024E 9291            101             MOV DH,C
+0250 F544            102             MOV TEMP2,A
+                     103     
+0252 D292            104             SETB CLK
+0254 DAEC            105             DJNZ R2,SHIFT
+0256 08              106             INC R0
+0257 09              107             INC R1
+0258 DBE0            108             DJNZ R3,REFRESH
+025A D293            109             SETB STR
+025C 00              110             NOP
+025D 00              111             NOP
+025E 00              112             NOP
+025F C293            113             CLR STR
+0261 D0E0            114             POP ACC
+0263 22              115             RET
+                     116     
+0264                 117     DELAY1MS:                       ;@11.0592MHz
+0264 C030            118             PUSH    30H
+0266 C031            119             PUSH    31H
+0268 753009          120             MOV             30H,#9
+026B 753196          121             MOV             31H,#150
+026E                 122     NEXT:
+A51 MACRO ASSEMBLER  LILAOSHI                                                             12/15/2023 11:18:32 PAGE     3
+
+026E D531FD          123             DJNZ    31H,NEXT
+0271 D530FA          124             DJNZ    30H,NEXT
+0274 D031            125             POP             31H
+0276 D030            126             POP             30H
+0278 22              127             RET
+                     128     
+1000                 129     ORG 1000H
+1000                 130     WORDTAB:  
+1000 FBBFFBBF        131             DB 0FBH ,0BFH ,0FBH ,0BFH ,000H ,001H ,0FBH ,0BFH ,0FFH ,0DFH ,0F7H ,0DFH ,0F7H ,0DFH ,0FBH ,0BFH;
+1004 0001FBBF                
+1008 FFDFF7DF                
+100C F7DFFBBF                
+1010 FBBFFD7F        132             DB 0FBH ,0BFH ,0FDH ,07FH ,0FEH ,0FFH ,0FDH ,07FH ,0FBH ,0BFH ,0F7H ,0DFH ,0CFH ,0E7H ,03FH ,0F9H;"艾",0
+1014 FEFFFD7F                
+1018 FBBFF7DF                
+101C CFE73FF9                
+                     133             
+                     134     END
+A51 MACRO ASSEMBLER  LILAOSHI                                                             12/15/2023 11:18:32 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+ADDR . . . . . . .  N NUMB   0042H   A   
+CLK. . . . . . . .  B ADDR   0090H.2 A   
+COUNT. . . . . . .  N NUMB   0045H   A   
+DATA1. . . . . . .  N NUMB   0040H   A   
+DATA2. . . . . . .  N NUMB   0041H   A   
+DELAY1MS . . . . .  C ADDR   0264H   A   
+DH . . . . . . . .  B ADDR   0090H.1 A   
+DISPLAY. . . . . .  C ADDR   0200H   A   
+DL . . . . . . . .  B ADDR   0090H.0 A   
+DOWN . . . . . . .  B ADDR   00A0H.0 A   
+FLAG . . . . . . .  B ADDR   0020H.0 A   
+HC595. . . . . . .  C ADDR   0234H   A   
+LEFT . . . . . . .  B ADDR   00A0H.3 A   
+LOOP . . . . . . .  C ADDR   0113H   A   
+LOOPD1 . . . . . .  C ADDR   0207H   A   
+LOOPD2 . . . . . .  C ADDR   021FH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT . . . . . . .  C ADDR   026EH   A   
+OE . . . . . . . .  B ADDR   0090H.4 A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+RAM. . . . . . . .  C ADDR   010CH   A   
+REFRESH. . . . . .  C ADDR   023AH   A   
+RIGHT. . . . . . .  B ADDR   00A0H.2 A   
+SHIFT. . . . . . .  C ADDR   0242H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+STR. . . . . . . .  B ADDR   0090H.3 A   
+TEMP1. . . . . . .  N NUMB   0043H   A   
+TEMP2. . . . . . .  N NUMB   0044H   A   
+TEMPC. . . . . . .  B ADDR   0020H.1 A   
+TIME0_ISR. . . . .    ----   -----       
+UP . . . . . . . .  B ADDR   00A0H.1 A   
+WORDTAB. . . . . .  C ADDR   1000H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 1 ERROR(S)

@@ -1,0 +1,300 @@
+A51 MACRO ASSEMBLER  ZHOU                                                                 12/15/2023 14:29:59 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN zhou.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE zhou.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+                       5     
+                       6     
+                       7     
+                       8     
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+                      14     
+                      15     
+                      16     
+                      17     
+                      18     
+                      19     
+                      20     
+                      21     
+                      22     
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     
+                      29     
+                      30     
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     
+                      36     
+                      37     
+                      38     
+                      39     
+                      40     
+                      41     
+                      42     
+                      43     
+                      44     
+                      45     
+                      46     
+                      47     
+                      48     
+                      49     
+                      50     
+                      51     
+                      52     
+                      53     
+                      54     
+                      55     
+                      56     
+                      57     
+                      58     
+A51 MACRO ASSEMBLER  ZHOU                                                                 12/15/2023 14:29:59 PAGE     2
+
+                      59     
+                      60     
+                      61     
+                      62     
+                      63     
+                      64     
+                      65     
+                      66     
+                      67     
+                      68     
+                      69     
+                      70     
+                      71     
+                      72     
+                      73     
+                      74     
+                      75     
+                      76     
+                      77     
+                      78     
+                      79     
+                      80     
+                      81     
+                      82     
+                      83     
+                      84     
+                      85     
+                      86     
+                      87     
+                      88     
+                      89     
+                      90     
+                      91     
+                      92     
+                      93     
+                      94     
+                      95     
+                      96     
+                      97     
+                      98     
+                      99     
+                     100     
+                     101     
+                     102     
+                     103     
+                     104     
+                     105     
+                     106     
+                     107     
+                     108     
+  0090               109             DH bit P1.0         ;¥Æ–– ‰»Î–– æ›–≈∫≈£®≤…”√––±‡¬Î£©
+  0091               110             DL bit P1.1         ;¥Æ–– ‰»Î––—°–≈∫≈
+  0092               111             CLK bit P1.2        ;“∆Œª ±÷”–≈∫≈SCK
+  0093               112             STR bit P1.3        ;À¯¥Ê ±÷”–≈∫≈RCLK
+  0094               113             OE bit P1.4         ; ‰≥ˆ πƒ‹–≈∫≈
+  0041               114             SELECT_H EQU 41H    ;––—°Õ®–≈∫≈∏ﬂ8Œª
+  0042               115             SELECT_L EQU 42H    ;––—°Õ®–≈∫≈µÕ8Œª
+  0043               116             DATA_H EQU 43H      ;–– æ›–≈∫≈∏ﬂ8Œª
+  0044               117             DATA_L EQU 44H      ;–– æ›–≈∫≈µÕ8Œª
+  0045               118             TIME EQU 45H        ;º«¬º√ø÷°—”≥Ÿ ±º‰
+  2000               119             ROW_DATA EQU 2000H        ;◊÷ƒ£ æ›±Ì
+  2200               120             ROW_SELECT EQU 2200H      ;––—° æ›±Ì
+                     121     
+0000                 122            ORG 0000H
+0000 020100          123            LJMP MAIN
+0100                 124            ORG 0100H
+A51 MACRO ASSEMBLER  ZHOU                                                                 12/15/2023 14:29:59 PAGE     3
+
+0100                 125     MAIN:   
+0100 754600          126             MOV 46H, #00H            ;¥Ê∑≈“—æ≠πˆ∂Øµƒ–– 
+0103 7B00            127                     MOV R3, #00H             ;–– æ›–≈∫≈∆´“∆¡ø
+0105 7C00            128                     MOV R4, #00H             ;––—°Õ®–≈∫≈∆´“∆¡ø
+0107                 129     START:  
+0107 75451E          130             MOV TIME, #30            ;√ø÷°œ‘ æ30¥Œ
+010A                 131     ROLL:
+010A 7C00            132                     MOV R4, #00H
+010C E546            133                     MOV A, 46H
+010E FB              134             MOV R3, A
+010F 7A10            135             MOV R2, #10H             ;º∆ 16¥Œ
+0111                 136     LOAD: 
+0111 902000          137            MOV DPTR, #ROW_DATA      ;≤È◊÷ƒ£ æ›±Ì
+0114 EB              138                     MOV A, R3
+0115 93              139                     MOVC A, @A+DPTR
+0116 F543            140                     MOV DATA_H, A            ;‘ÿ»Î–– æ›–≈∫≈∏ﬂ8Œª
+0118 0B              141                     INC R3
+0119 EB              142                     MOV A, R3
+011A 93              143                     MOVC A, @A+DPTR
+011B F544            144                     MOV DATA_L, A            ;‘ÿ»Î–– æ›–≈∫≈µÕ8Œª
+011D 0B              145                     INC R3
+011E 902200          146                     MOV DPTR, #ROW_SELECT    ;≤È––—°Õ®–≈∫≈±Ì
+0121 EC              147                     MOV A, R4
+0122 93              148                     MOVC A, @A+DPTR
+0123 F541            149                     MOV SELECT_H, A          ;‘ÿ»Î––—°Õ®–≈∫≈∏ﬂ8Œª
+0125 0C              150                     INC R4
+0126 EC              151                     MOV A, R4
+0127 93              152                     MOVC A, @A+DPTR
+0128 F542            153                     MOV SELECT_L, A          ;‘ÿ»Î––—°Õ®–≈∫≈µÕ8Œª
+012A 0C              154                     INC R4
+012B 3140            155                     ACALL SHIFT
+012D 3173            156                     ACALL DELAY1MS
+012F DAE0            157                     DJNZ R2, LOAD            ;—≠ª∑16¥Œ
+0131 D545D6          158                     DJNZ TIME, ROLL
+0134 E546            159                     MOV A, 46H
+0136 04              160                     INC A
+0137 04              161                     INC A
+0138 F546            162                     MOV 46H, A
+013A B420CA          163                     CJNE A, #20H, START     ;πˆ∂Ø16––∫Û¥”Õ∑ø™ º
+013D 020100          164                     LJMP MAIN
+                     165     
+0140                 166     SHIFT:                           ;¥Æ–– ‰»Î≥Ã–Ú
+0140 C294            167                     CLR OE                   ;‘ –Ì ‰≥ˆ
+0142 C293            168                     CLR STR
+0144 A843            169                     MOV R0, DATA_H
+0146 A941            170                     MOV R1, SELECT_H
+0148 7D08            171                     MOV R5, #8               ;8Œªº∆ 8¥Œ
+014A                 172     SHIFT_H:
+014A E8              173                     MOV A, R0                ;∏¸–¬◊÷ƒ£ æ›∏ﬂ8Œª
+014B 33              174                     RLC A                    ;—≠ª∑◊Û“∆1Œª
+014C F8              175                     MOV R0, A
+014D 9290            176                     MOV DH, C                ;Ω¯Œª∏≥∏¯DH¥Æ–– ‰»Î
+014F C292            177                     CLR CLK
+0151 E9              178                     MOV A, R1                ;∏¸–¬––—°–≈∫≈∏ﬂ8Œª
+0152 33              179                     RLC A
+0153 F9              180                     MOV R1, A
+0154 9291            181                     MOV DL, C                ;Ω¯Œª∏≥∏¯DL¥Æ–– ‰»Î 
+0156 D292            182                     SETB CLK                 ;“∆Œª ±÷”…œ…—ÿ£¨“∆Œªºƒ¥Ê∆˜¥Ê¥¢ æ›
+0158 DDF0            183                     DJNZ R5, SHIFT_H         ;—≠ª∑8¥Œ
+015A A844            184                     MOV R0, DATA_L
+015C A942            185                     MOV R1, SELECT_L
+015E 7D08            186                     MOV R5, #8
+0160                 187     SHIFT_L:
+0160 E8              188                     MOV A, R0                ;Õ¨…œ£¨∏¸–¬◊÷ƒ£ æ›µÕ8Œª
+0161 33              189                     RLC A
+0162 F8              190                     MOV R0, A
+A51 MACRO ASSEMBLER  ZHOU                                                                 12/15/2023 14:29:59 PAGE     4
+
+0163 9290            191                     MOV DH, C
+0165 C292            192                     CLR CLK
+0167 E9              193                     MOV A, R1                ;Õ¨…œ£¨∏¸–¬––—°–≈∫≈µÕ8Œª
+0168 33              194                     RLC A
+0169 F9              195                     MOV R1, A
+016A 9291            196                     MOV DL, C
+016C D292            197                     SETB CLK                 ;“∆Œª ±÷”…œ…—ÿ£¨“∆Œªºƒ¥Ê∆˜¥Ê¥¢ æ›
+016E DDF0            198                     DJNZ R5, SHIFT_L         ;—≠ª∑8¥Œ
+0170 D293            199                     SETB STR                 ;¡Ω–≈∫≈µƒ8Œª“∆Œªºƒ¥ÊÕÍ±œ£¨À¯¥Ê ±÷”…œ…—ÿ£¨À¯¥Ê“∆Œª¥
+                             Ê¥¢∆˜◊¥Ã¨÷µ
+0172 22              200                     RET
+                     201     
+0173                 202     DELAY1MS:                       ;—”≥Ÿ1MS
+0173 C030            203                     PUSH 30H
+0175 C031            204                     PUSH 31H
+0177 753009          205                     MOV 30H,#9
+017A 753196          206                     MOV 31H,#150
+017D                 207     NEXT1:
+017D D531FD          208                     DJNZ 31H,NEXT1
+0180 D530FA          209                     DJNZ 30H,NEXT1
+0183 D031            210                     POP 31H
+0185 D030            211                     POP 30H
+0187 22              212                     RET
+                     213     
+2000                 214            ORG 2000H              ;¥Ê∑≈◊÷ƒ£ æ›¡Ω±È,¡–µÕ”––ß //—Ù¬Î£¨÷––£¨ƒÊœÚ
+2000 DFFBDFF7        215            DB  0DFH, 0FBH, 0DFH, 0F7H,  01H, 0C0H, 06fH, 0FBH, 06FH, 0DCH, 017H, 0DFH, 0FBH, 0C
+                             0H, 0DCH, 0FDH
+2004 01C06FFB                
+2008 6FDC17DF                
+200C FBC0DCFD                
+2010 DFFD03E0        216            DB  0DFH, 0FDH, 003H, 0E0H, 0DFH, 0FDH, 0DFH, 0FDH, 00H,  080H, 0EFH, 0FBH, 0F7H, 0F
+                             7H, 0FBH, 0EFH;"π®",0
+2014 DFFDDFFD                
+2018 0080EFFB                
+201C F7F7FBEF                
+2020 DFFBDFF7        217            DB  0DFH, 0FBH, 0DFH, 0F7H,  01H, 0C0H, 06fH, 0FBH, 06FH, 0DCH, 017H, 0DFH, 0FBH, 0C
+                             0H, 0DCH, 0FDH
+2024 01C06FFB                
+2028 6FDC17DF                
+202C FBC0DCFD                
+2030 DFFD03E0        218            DB  0DFH, 0FDH, 003H, 0E0H, 0DFH, 0FDH, 0DFH, 0FDH, 00H,  080H, 0EFH, 0FBH, 0F7H, 0F
+                             7H, 0FBH, 0EFH;"π®",0
+2034 DFFDDFFD                
+2038 0080EFFB                
+203C F7F7FBEF                
+                     219     
+2200                 220            ORG 2200H     ;¥Ê∑≈––—°–≈∫≈ æ›,––∏ﬂ”––ß
+2200 00010002        221            DB 00H, 01H, 00H, 02H, 00H, 04H, 00H, 08H, 00H, 10H, 00H, 20H, 00H, 40H, 00H, 80H
+2204 00040008                
+2208 00100020                
+220C 00400080                
+2210 01000200        222                DB 01H, 00H, 02H, 00H, 04H, 00H, 08H, 00H, 10H, 00H, 20H, 00H, 40H, 00H, 80H, 00
+                             H
+2214 04000800                
+2218 10002000                
+221C 40008000                
+                     223     
+                     224                END
+                             
+A51 MACRO ASSEMBLER  ZHOU                                                                 12/15/2023 14:29:59 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CLK. . . . . . . .  B ADDR   0090H.2 A   
+DATA_H . . . . . .  N NUMB   0043H   A   
+DATA_L . . . . . .  N NUMB   0044H   A   
+DELAY1MS . . . . .  C ADDR   0173H   A   
+DH . . . . . . . .  B ADDR   0090H.0 A   
+DL . . . . . . . .  B ADDR   0090H.1 A   
+LOAD . . . . . . .  C ADDR   0111H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT1. . . . . . .  C ADDR   017DH   A   
+OE . . . . . . . .  B ADDR   0090H.4 A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+ROLL . . . . . . .  C ADDR   010AH   A   
+ROW_DATA . . . . .  N NUMB   2000H   A   
+ROW_SELECT . . . .  N NUMB   2200H   A   
+SELECT_H . . . . .  N NUMB   0041H   A   
+SELECT_L . . . . .  N NUMB   0042H   A   
+SHIFT. . . . . . .  C ADDR   0140H   A   
+SHIFT_H. . . . . .  C ADDR   014AH   A   
+SHIFT_L. . . . . .  C ADDR   0160H   A   
+START. . . . . . .  C ADDR   0107H   A   
+STR. . . . . . . .  B ADDR   0090H.3 A   
+TIME . . . . . . .  N NUMB   0045H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

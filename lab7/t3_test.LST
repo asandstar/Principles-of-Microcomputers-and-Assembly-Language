@@ -1,0 +1,217 @@
+A51 MACRO ASSEMBLER  T3_TEST                                                              12/15/2023 15:45:06 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN t3_test.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE t3_test.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0090                 1             DL EQU P1.0                     ;ÁÐÊäÈë
+  0091                 2             DH EQU P1.1                     ;ÐÐÊäÈë 
+  0092                 3             SCK EQU  P1.2        ;ÒÆÎ»¼Ä´æÆ÷ 
+  0093                 4             RCK EQU  P1.3        ;Ëø´æÆ÷  
+  0094                 5             OE EQU  P1.4         ;Ê¹ÄÜ¶Ë  
+                       6     
+  0030                 7             HL EQU 30H ;ÐÐ µÍÎ»
+  0031                 8             HH EQU 31H ;ÐÐ ¸ßÎ»
+  0032                 9             LL EQU 32H ;ÁÐ µÍÎ»
+  0033                10             LH EQU 33H ;ÁÐ ¸ßÎ»
+                      11                       
+0000                  12             ORG  0000H                 
+0000 020100           13             LJMP  MAIN  
+0100                  14             ORG  0100H                 
+0100                  15     MAIN:  
+0100 900196           16             MOV   DPTR,#WORDTAB  ;×ÖÄ£±íµØÖ·  
+0103 7900             17             MOV   R1,#00H          
+0105 7F00             18             MOV   R7,#00H       ;R7ÓÃÀ´±íÊ¾×ÖÄ£±íÆðÊ¼Î»ÖÃÆ«ÒÆÁ¿  
+0107                  19     LOOP:  
+0107 7D14             20             MOV   R5,#20         ;R5ÓÃÀ´±íÊ¾ÑÓÊ±£¬¸Ä±äR5µÄÖµ¿É¸Ä±ä¹öÆÁËÙ¶È                
+0109                  21     LOOP1:  
+0109 7E10             22             MOV   R6,#10H        ;R6ÓÃÀ´ÅÐ¶ÏÊÇ·ñÉ¨ÃèÍêÒ»ÂÖ  
+010B EF               23             MOV   A,R7              ;½«R7µÄÖµ¸³Öµ¸øR1  
+010C F9               24             MOV   R1,A  
+010D 753001           25             MOV   HL,#01H        ;ÐÐÉ¨ÃèÐÅºÅµÄ³õÖµ0001H  
+0110 753100           26             MOV   HH,#00H  
+0113                  27     LOOP2:  
+0113 E9               28             MOV   A,R1  
+0114 93               29             MOVC  A,@A+DPTR    
+0115 F532             30             MOV   LL,A           ;ÕÒµ½ÁÐµÍÎ»Ê¾Ý£¬´æÈëÄÚ´æµØÖ·ÖÐ  
+0117 09               31             INC   R1  
+0118 E9               32             MOV   A,R1  
+0119 93               33             MOVC  A,@A+DPTR  
+011A F533             34             MOV   LH,A         ;ÕÒµ½ÁÐ¸ßÎ»Ê¾Ý£¬´æÈëÄÚ´æµØÖ·ÖÐ  
+011C 12015A           35             LCALL HC595           ;µ÷ÓÃ´«ÊäÊ¾ÝµÄ³ÌÐò   
+011F 12018D           36             LCALL DELAY           ;µ÷ÓÃÑÓÊ±³ÌÐò  
+0122 C3               37             CLR   C               ;Î»´¦ÀíÀÛ¼ÓÆ÷ÇåÁã  
+0123 E530             38         MOV   A,HL  
+0125 33               39             RLC   A               ;×óÒÆÐÐÉ¨ÃèÐÅºÅµÍ°ËÎ»  
+0126 F530             40             MOV   HL,A  
+0128 E531             41             MOV   A,HH      
+012A 33               42             RLC   A               ;×óÒÆÐÐÉ¨ÃèÐÅºÅ¸ß°ËÎ»  
+012B F531             43             MOV   HH,A  
+012D 09               44             INC   R1  
+012E 1E               45         DEC   R6  
+012F BE00E1           46             CJNE  R6,#00H,LOOP2   ;Í¨¹R6ÅÐ¶ÏÊÇ·ñÉ¨ÃèÍêÒ»ÂÖ£¬R6¼õÎª0£¬Ò»ÂÖÉ¨Ãè½áÊø  
+0132 DDD5             47             DJNZ  R5,LOOP1        ;Í¨¹R5ÅÐ¶ÏÒ»Ö¡µÄÑÓÊ±ÊÇ·ñ´ïµ½ 
+                      48             
+0134 0F               49             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0135 0F               50             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      51             
+0136 0F               52             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0137 0F               53             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      54             
+0138 0F               55             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0139 0F               56             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      57             
+013A 0F               58             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+A51 MACRO ASSEMBLER  T3_TEST                                                              12/15/2023 15:45:06 PAGE     2
+
+013B 0F               59             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      60             
+013C 0F               61             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+013D 0F               62             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      63             
+013E 0F               64             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+013F 0F               65             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      66             
+0140 0F               67             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0141 0F               68             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      69             
+0142 0F               70             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0143 0F               71             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      72             
+0144 0F               73             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0145 0F               74             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      75             
+0146 0F               76             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0147 0F               77             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      78             
+0148 0F               79             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0149 0F               80             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      81             
+014A 0F               82             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+014B 0F               83             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      84             
+014C 0F               85             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+014D 0F               86             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      87             
+014E 0F               88             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+014F 0F               89             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      90             
+0150 0F               91             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0151 0F               92             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      93             
+0152 0F               94             INC   R7              ;¸Ä±ä×ÖÄ£±íµÄÆ«ÒÆÁ¿  
+0153 0F               95             INC   R7              ;R7Á¬Ðø¼Ó2£¬Ïàµ±ÓÚ»»ÐÐ
+                      96                     
+0154 BF40B0           97             CJNE  R7,#40H,LOOP    ;ÅÐ¶Ï×ÖÄ£±íÊÇ·ñ½áÊø  
+0157 020100           98         LJMP  MAIN  
+                      99             
+                     100                       
+015A                 101     HC595:  
+015A C294            102             CLR   OE             ;Ê¹ÄÜÐÅºÅµÍµçÆ½ÓÐÐ§  
+015C C293            103             CLR   RCK            ;RCKÐÅºÅÖÃ0  
+015E 7A08            104             MOV   R2,#08H  
+0160 AB33            105             MOV   R3,LH        ;ÁÐÐÅºÅ¸ß8Î»µØÖ·  
+0162 AC31            106             MOV   R4,HH        ;ÐÐÐÅºÅ¸ß8Î»µØÖ·  
+0164                 107     BACK:  
+0164 C292            108             CLR   SCK             ;SCKÐÅºÅÖÃ0   
+0166 EB              109             MOV   A,R3  
+0167 33              110             RLC   A  
+0168 FB              111             MOV   R3,A  
+0169 9291            112             MOV   DH,C           ;ÁÐÐÅºÅÖðÎ»´«Êä  
+016B EC              113             MOV   A,R4  
+016C 33              114             RLC   A  
+016D FC              115             MOV   R4,A  
+016E 9290            116             MOV   DL,C           ;ÐÐÐÅºÅÖðÎ»´«Êä  
+0170 D292            117             SETB  SCK             ;SCKÐÅºÅÉÏÉÑØµ½À´£¬½«´®ÐÐÊ¾ÝÒÆÈëÒÆÎ»¼Ä´æÆ÷  
+0172 DAF0            118             DJNZ  R2,BACK         ;ÅÐ¶Ï¸ß°ËÎ»ÐÅºÅÊÇ·ñ´«ÊäÍê±Ï  
+0174 7A08            119             MOV   R2,#08H    
+0176 AB32            120             MOV   R3,LL          ;ÁÐÐÅºÅµÍ°ËÎ»µØÖ·  
+0178 AC30            121             MOV   R4,HL          ;ÐÐÐÅºÅµÍ°ËÎ»µØÖ·  
+017A                 122     BACK1:  
+017A C292            123             CLR  SCK              ;SCKÐÅºÅÖÃ0  
+017C EB              124             MOV  A,R3  
+A51 MACRO ASSEMBLER  T3_TEST                                                              12/15/2023 15:45:06 PAGE     3
+
+017D 33              125             RLC  A  
+017E FB              126             MOV  R3,A  
+017F 9291            127             MOV  DH,C            ;ÁÐÐÅºÅÖðÎ»´«Êä  
+0181 EC              128             MOV  A,R4  
+0182 33              129             RLC  A  
+0183 FC              130             MOV  R4,A  
+0184 9290            131             MOV  DL,C            ;ÐÐÐÅºÅÖðÎ»´«Êä  
+0186 D292            132             SETB SCK               ;SCKÐÅºÅÉÏÉÑØµ½À´£¬½«´®ÐÐÊ¾ÝÒÆÈëÒÆÎ»¼Ä´æÆ÷  
+0188 DAF0            133             DJNZ R2,BACK1          ;ÅÐ¶ÏµÍ°ËÎ»ÐÅºÅÊÇ·ñ´«ÊäÍê±Ï  
+018A D293            134             SETB RCK               ;RCKÐÅºÅÉÏÉÑØµ½À´£¬ÒÆÎ»¼Ä´æÆ÷µÄÊ¾ÝËø´æÈëÊ¾Ý¼Ä´æÆ÷  
+018C 22              135             RET    
+018D                 136     DELAY:                     ;ÑÓÊ±×Ó³ÌÐò  
+018D 7A32            137             MOV  R2,#50    
+018F                 138     DELAY1:  
+018F 7B0A            139             MOV  R3,#10  
+0191                 140     DELAY2:  
+0191 DBFE            141             DJNZ R3,$  
+0193 DAFA            142             DJNZ R2,DELAY1  
+0195 22              143             RET  
+0196                 144     WORDTAB:
+0196 FFFFFFFF        145     DB 0FFH,0FFH,0FFH,0FFH,0FFH,0FFH,0FFH,0FFH,0FFH,0FFH,00FH,0F9H,06FH,0F0H,0EFH,0F7H;
+019A FFFFFFFF                
+019E FFFF0FF9                
+01A2 6FF0EFF7                
+01A6 CFF39FF9        146     DB 0CFH,0F3H,09FH,0F9H,03FH,0FCH,07FH,0FEH,0FFH,0FFH,0FFH,0FFH,0FFH,0FFH,0FFH,0FFH;"h1",0
+01AA 3FFC7FFE                
+01AE FFFFFFFF                
+01B2 FFFFFFFF                
+01B6 FFFFFFFF        147     DB 0FFH,0FFH,0FFH,0FFH,0FFH,0FFH,08FH,0F3H,067H,0C0H,0F7H,0DCH,0F7H,0DFH,0F7H,0CFH;
+01BA FFFF8FF3                
+01BE 67C0F7DC                
+01C2 F7DFF7CF                
+01C6 F7EFC7E7        148     DB 0F7H,0EFH,0C7H,0E7H,0DFH,0F3H,01FH,0FBH,07FH,0F8H,0FFH,0FEH,0FFH,0FFH,0FFH,0FFH;"h2",0
+01CA DFF31FFB                
+01CE 7FF8FFFE                
+01D2 FFFFFFFF                
+01D6 FFFF83C3        149     DB 0FFH,0FFH,083H,0C3H,03BH,099H,0F9H,03CH,0FDH,03FH,0FDH,03FH,0FDH,03FH,0F9H,03FH;
+01DA 3B99F93C                
+01DE FD3FFD3F                
+01E2 FD3FF93F                
+01E6 F3BFF79F        150     DB 0F3H,0BFH,0F7H,09FH,0EFH,0CFH,0CFH,0EFH,09FH,0F3H,0BFH,0F9H,07FH,0FCH,0FFH,0FFH;"h3",0
+01EA EFCFCFEF                
+01EE 9FF3BFF9                
+01F2 7FFCFFFF                
+                     151             END
+A51 MACRO ASSEMBLER  T3_TEST                                                              12/15/2023 15:45:06 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BACK . . . . . . .  C ADDR   0164H   A   
+BACK1. . . . . . .  C ADDR   017AH   A   
+DELAY. . . . . . .  C ADDR   018DH   A   
+DELAY1 . . . . . .  C ADDR   018FH   A   
+DELAY2 . . . . . .  C ADDR   0191H   A   
+DH . . . . . . . .  B ADDR   0090H.1 A   
+DL . . . . . . . .  B ADDR   0090H.0 A   
+HC595. . . . . . .  C ADDR   015AH   A   
+HH . . . . . . . .  N NUMB   0031H   A   
+HL . . . . . . . .  N NUMB   0030H   A   
+LH . . . . . . . .  N NUMB   0033H   A   
+LL . . . . . . . .  N NUMB   0032H   A   
+LOOP . . . . . . .  C ADDR   0107H   A   
+LOOP1. . . . . . .  C ADDR   0109H   A   
+LOOP2. . . . . . .  C ADDR   0113H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+OE . . . . . . . .  B ADDR   0090H.4 A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+RCK. . . . . . . .  B ADDR   0090H.3 A   
+SCK. . . . . . . .  B ADDR   0090H.2 A   
+WORDTAB. . . . . .  C ADDR   0196H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

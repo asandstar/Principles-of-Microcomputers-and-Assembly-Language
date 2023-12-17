@@ -1,0 +1,411 @@
+A51 MACRO ASSEMBLER  T3                                                                   12/15/2023 09:38:53 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+NO OBJECT MODULE REQUESTED
+ASSEMBLER INVOKED BY: D:\Keil_c51\C51\BIN\A51.EXE t3.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0090                 1             DL      EQU             P1.0
+  0091                 2             DH      EQU             P1.1
+  0092                 3             CLK             EQU             P1.2
+  0093                 4             STR             EQU             P1.3
+  0094                 5             OE              EQU             P1.4                    ;Á¬½ÓµÄÒ½Å
+                       6             
+  0039                 7             DHL             EQU             39H             
+  003A                 8             DHH             EQU             3AH                             ;ÁÐµÄ´®¿ÚÊä³öÊ¾Ý
+  003B                 9             DLL             EQU             3BH
+  003C                10             DLH             EQU             3CH                             ;ÐÐµÄ´®¿ÚÊä³öÊ¾Ý
+  003D                11             HANG    EQU             3DH                             ;Êä³öÁË¼¸ÐÐ
+  003E                12             LENG    EQU             3EH                             ;Êä³öÁË¼¸¸ö×Ö
+  003F                13             NUM             EQU             3FH                             ;×Ü¹²Êä³ö×ÖÊ
+  0040                14             TIMES   EQU             40H                             ;ÑÓ³¤¶¨Ê±Æ÷Ê±¼ä
+  0020                15             DH              EQU             20H                             ;´æ´¢ÁÐµÄ´®¿ÚÊä³ö
+*** _________________________________^
+*** ERROR #A10 IN 15 (t3.ASM, LINE 15): ATTEMPT TO DEFINE AN ALREADY DEFINED SYMBOL
+  0021                16             DL              EQU             21H                             ;´æ´¢ÐÐµÄ´®¿ÚÊä³ö
+*** _________________________________^
+*** ERROR #A10 IN 16 (t3.ASM, LINE 16): ATTEMPT TO DEFINE AN ALREADY DEFINED SYMBOL
+                      17             
+  008E                18             AUXR    EQU             8EH
+                      19     
+0000                  20             ORG             0000H
+0000 020100           21             LJMP    START
+                      22     
+000B                  23             ORG             000BH
+000B 0201F4           24             LJMP    TIMER0
+                      25     
+0100                  26             ORG             0100H
+0100                  27     START:  
+0100 758150           28             MOV             SP,#50H
+0103 D2A9             29             SETB    ET0
+0105 D2AF             30             SETB    EA
+                      31     
+0107 538E7F           32             ANL     AUXR,#7FH               ;¶¨Ê±Æ÷Ê±ÖÓ12TÄ£Ê½
+010A 5389F0           33             ANL     TMOD,#0F0H              ;ÉèÖÃ¶¨Ê±Æ÷Ä£Ê½
+010D 758A00           34             MOV     TL0,#000H               ;ÉèÖÃ¶¨Ê±³õÖµ
+0110 758C4C           35             MOV     TH0,#04CH               ;ÉèÖÃ¶¨Ê±³õÖµ
+0113 C28D             36             CLR     TF0                             ;Çå³TF0±êÖ¾
+0115 D28C             37             SETB    TR0                             ;¶¨Ê±Æ÷0¿ªÊ¼¼ÆÊ±
+                      38                     
+0117 C294             39             CLR             OE                              ;ÔÊÐíÊä³ö
+0119 753E00           40             MOV             LENG,#00H
+011C 753F02           41             MOV             NUM,#02H       ;Êä³öÈ¸ö×Ö
+011F 754000           42             MOV             TIMES,#00H              ;ÖÃ³õÖµ                         
+0122                  43     RESET:  
+0122 753D00           44             MOV             HANG,#00H               ;Êä³öµÄÐÐÖÃÎª0
+                      45     
+0125                  46     lOOP:   
+0125 E53E             47             MOV             A,LENG
+0127 75F020           48             MOV             B,#20H
+012A A4               49             MUL             AB
+012B 253D             50             ADD             A,HANG                  ;·­Ò³
+012D 900320           51             MOV             DPTR,#TAB1
+0130 93               52             MOVC    A,@A+DPTR               ;²éÕÒ±¾ÐÐÒªÊä³öµÄÊ¾Ý
+0131 F4               53             CPL             A                               ;DHÈ¡·´£¬ÎªÁËÊÊÓ¦¸ßµçÆ½ÓÐÐ§£¬¿ÉÄÜÐèÒªÐÞ¸Ä
+0132 F539             54             MOV             DHL,A
+A51 MACRO ASSEMBLER  T3                                                                   12/15/2023 09:38:53 PAGE     2
+
+                      55     
+0134 E53D             56             MOV             A,HANG
+0136 900300           57             MOV             DPTR,#HANGTAB
+0139 93               58             MOVC    A,@A+DPTR               ;²éÕÒÊä³öÄÄÒ»ÐÐ
+013A F53B             59             MOV             DLL,A
+                      60     
+013C 053D             61             INC             HANG
+                      62     
+013E E53E             63             MOV             A,LENG
+0140 75F020           64             MOV             B,#20H
+0143 A4               65             MUL             AB
+0144 253D             66             ADD             A,HANG
+0146 900320           67             MOV             DPTR,#TAB1
+0149 93               68             MOVC    A,@A+DPTR
+014A F4               69             CPL             A                                ;DHÈ¡·´£¬ÎªÁËÊÊÓ¦¸ßµçÆ½ÓÐÐ§
+014B F53A             70             MOV             DHH,A
+                      71     
+014D E53D             72             MOV             A,HANG
+014F 900300           73             MOV             DPTR,#HANGTAB
+0152 93               74             MOVC    A,@A+DPTR
+0153 F53C             75             MOV             DLH,A
+                      76     
+0155 053D             77             INC             HANG                    ;»»ÏÂÒ»ÐÐ
+                      78     
+0157 120161           79             LCALL   PRINT
+                      80     
+015A E53D             81             MOV             A,HANG
+015C B420C6           82             CJNE    A,#20H,LOOP     ;16ÐÐ»¹Ã»Êä³öÍêÔò½Ó×ÅÊä³öÏÂÒ»ÐÐ
+015F 80C1             83             SJMP    RESET                   ;16ÐÐÊä³öÍêÁËÔò´Ó0ÐÐ¿ªÊ¼Êä³ö
+                      84     
+0161                  85     PRINT:  ;ÒÀ´ÎÊä³öÃ¿Ò»ÐÐÊ¾Ý£¬²¢Ñ¡Í¨¸ÃÐÐ
+0161 C293             86             CLR             STR
+                      87             
+0163 853A20           88             MOV             DH,DHH
+0166 853C21           89             MOV             DL,DLH
+0169 C292             90             CLR             CLK
+016B                  91             MOV             C,DH.0
+*** ___________________________________________________^
+*** ERROR #A17 IN 91 (t3.ASM, LINE 91): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+016B 9220             92             MOV             DH,C
+016D                  93             MOV             C,DL.7
+*** ___________________________________________________^
+*** ERROR #A17 IN 93 (t3.ASM, LINE 93): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+016D 9221             94             MOV             DL,C
+016F D292             95             SETB    CLK
+                      96     
+0171 C292             97             CLR             CLK
+0173                  98             MOV             C,DH.1
+*** ___________________________________________________^
+*** ERROR #A17 IN 98 (t3.ASM, LINE 98): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0173 9220             99             MOV             DH,C
+0175                 100             MOV             C,DL.6
+*** ___________________________________________________^
+*** ERROR #A17 IN 100 (t3.ASM, LINE 100): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0175 9221            101             MOV             DL,C
+0177 D292            102             SETB    CLK
+                     103     
+0179 C292            104             CLR             CLK
+017B                 105             MOV             C,DH.2
+*** ___________________________________________________^
+*** ERROR #A17 IN 105 (t3.ASM, LINE 105): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+017B 9220            106             MOV             DH,C
+017D                 107             MOV             C,DL.5
+*** ___________________________________________________^
+*** ERROR #A17 IN 107 (t3.ASM, LINE 107): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+017D 9221            108             MOV             DL,C
+A51 MACRO ASSEMBLER  T3                                                                   12/15/2023 09:38:53 PAGE     3
+
+017F D292            109             SETB    CLK
+                     110     
+0181 C292            111             CLR             CLK
+0183                 112             MOV             C,DH.3
+*** ___________________________________________________^
+*** ERROR #A17 IN 112 (t3.ASM, LINE 112): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0183 9220            113             MOV             DH,C
+0185                 114             MOV             C,DL.4
+*** ___________________________________________________^
+*** ERROR #A17 IN 114 (t3.ASM, LINE 114): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0185 9221            115             MOV             DL,C
+0187 D292            116             SETB    CLK
+                     117     
+0189 C292            118             CLR             CLK
+018B                 119             MOV             C,DH.4
+*** ___________________________________________________^
+*** ERROR #A17 IN 119 (t3.ASM, LINE 119): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+018B 9220            120             MOV             DH,C
+018D                 121             MOV             C,DL.3
+*** ___________________________________________________^
+*** ERROR #A17 IN 121 (t3.ASM, LINE 121): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+018D 9221            122             MOV             DL,C
+018F D292            123             SETB    CLK
+                     124     
+0191 C292            125             CLR             CLK
+0193                 126             MOV             C,DH.5
+*** ___________________________________________________^
+*** ERROR #A17 IN 126 (t3.ASM, LINE 126): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0193 9220            127             MOV             DH,C
+0195                 128             MOV             C,DL.2
+*** ___________________________________________________^
+*** ERROR #A17 IN 128 (t3.ASM, LINE 128): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0195 9221            129             MOV             DL,C
+0197 D292            130             SETB    CLK
+                     131     
+0199 C292            132             CLR             CLK
+019B                 133             MOV             C,DH.6
+*** ___________________________________________________^
+*** ERROR #A17 IN 133 (t3.ASM, LINE 133): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+019B 9220            134             MOV             DH,C
+019D                 135             MOV             C,DL.1
+*** ___________________________________________________^
+*** ERROR #A17 IN 135 (t3.ASM, LINE 135): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+019D 9221            136             MOV             DL,C
+019F D292            137             SETB    CLK
+                     138     
+01A1 C292            139             CLR             CLK
+01A3                 140             MOV             C,DH.7
+*** ___________________________________________________^
+*** ERROR #A17 IN 140 (t3.ASM, LINE 140): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01A3 9220            141             MOV             DH,C
+01A5                 142             MOV             C,DL.0
+*** ___________________________________________________^
+*** ERROR #A17 IN 142 (t3.ASM, LINE 142): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01A5 9221            143             MOV             DL,C
+01A7 D292            144             SETB    CLK
+                     145     
+01A9 853920          146             MOV             DH,DHL
+01AC 853B21          147             MOV             DL,DLL
+                     148     
+01AF C292            149             CLR             CLK
+01B1                 150             MOV             C,DH.0
+*** ___________________________________________________^
+*** ERROR #A17 IN 150 (t3.ASM, LINE 150): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01B1 9220            151             MOV             DH,C
+01B3                 152             MOV             C,DL.7
+A51 MACRO ASSEMBLER  T3                                                                   12/15/2023 09:38:53 PAGE     4
+
+*** ___________________________________________________^
+*** ERROR #A17 IN 152 (t3.ASM, LINE 152): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01B3 9221            153             MOV             DL,C
+01B5 D292            154             SETB    CLK
+                     155     
+01B7 C292            156             CLR             CLK
+01B9                 157             MOV             C,DH.1
+*** ___________________________________________________^
+*** ERROR #A17 IN 157 (t3.ASM, LINE 157): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01B9 9220            158             MOV             DH,C
+01BB                 159             MOV             C,DL.6
+*** ___________________________________________________^
+*** ERROR #A17 IN 159 (t3.ASM, LINE 159): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01BB 9221            160             MOV             DL,C
+01BD D292            161             SETB    CLK
+                     162     
+01BF C292            163             CLR             CLK
+01C1                 164             MOV             C,DH.2
+*** ___________________________________________________^
+*** ERROR #A17 IN 164 (t3.ASM, LINE 164): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01C1 9220            165             MOV             DH,C
+01C3                 166             MOV             C,DL.5
+*** ___________________________________________________^
+*** ERROR #A17 IN 166 (t3.ASM, LINE 166): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01C3 9221            167             MOV             DL,C
+01C5 D292            168             SETB    CLK
+                     169     
+01C7 C292            170             CLR             CLK
+01C9                 171             MOV             C,DH.3
+*** ___________________________________________________^
+*** ERROR #A17 IN 171 (t3.ASM, LINE 171): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01C9 9220            172             MOV             DH,C
+01CB                 173             MOV             C,DL.4
+*** ___________________________________________________^
+*** ERROR #A17 IN 173 (t3.ASM, LINE 173): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01CB 9221            174             MOV             DL,C
+01CD D292            175             SETB    CLK
+                     176     
+01CF C292            177             CLR             CLK
+01D1                 178             MOV             C,DH.4
+*** ___________________________________________________^
+*** ERROR #A17 IN 178 (t3.ASM, LINE 178): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01D1 9220            179             MOV             DH,C
+01D3                 180             MOV             C,DL.3
+*** ___________________________________________________^
+*** ERROR #A17 IN 180 (t3.ASM, LINE 180): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01D3 9221            181             MOV             DL,C
+01D5 D292            182             SETB    CLK
+                     183     
+01D7 C292            184             CLR             CLK
+01D9                 185             MOV             C,DH.5
+*** ___________________________________________________^
+*** ERROR #A17 IN 185 (t3.ASM, LINE 185): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01D9 9220            186             MOV             DH,C
+01DB                 187             MOV             C,DL.2
+*** ___________________________________________________^
+*** ERROR #A17 IN 187 (t3.ASM, LINE 187): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01DB 9221            188             MOV             DL,C
+01DD D292            189             SETB    CLK
+                     190     
+01DF C292            191             CLR             CLK
+01E1                 192             MOV             C,DH.6
+*** ___________________________________________________^
+*** ERROR #A17 IN 192 (t3.ASM, LINE 192): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01E1 9220            193             MOV             DH,C
+01E3                 194             MOV             C,DL.1
+A51 MACRO ASSEMBLER  T3                                                                   12/15/2023 09:38:53 PAGE     5
+
+*** ___________________________________________________^
+*** ERROR #A17 IN 194 (t3.ASM, LINE 194): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01E3 9221            195             MOV             DL,C
+01E5 D292            196             SETB    CLK
+                     197     
+01E7 C292            198             CLR             CLK
+01E9                 199             MOV             C,DH.7
+*** ___________________________________________________^
+*** ERROR #A17 IN 199 (t3.ASM, LINE 199): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01E9 9220            200             MOV             DH,C
+01EB                 201             MOV             C,DL.0
+*** ___________________________________________________^
+*** ERROR #A17 IN 201 (t3.ASM, LINE 201): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+01EB 9221            202             MOV             DL,C
+01ED D292            203             SETB    CLK
+01EF C292            204             CLR             CLK
+                     205             
+01F1 D293            206             SETB    STR
+                     207     
+01F3 22              208             RET
+                     209     
+01F4                 210     TIMER0:
+01F4 0540            211             INC             TIMES           
+                     212     
+01F6 C0E0            213             PUSH    ACC
+01F8 E540            214             MOV             A,TIMES
+01FA B4300D          215             CJNE    A,#30H,BACK_TIMER0              ;¶¨Ê±Æ÷Òç³ö30´Î²Å·­Ò³
+01FD 754000          216             MOV             TIMES,#00H
+0200 E53E            217             MOV             A,LENG
+0202 B53F03          218             CJNE    A,NUM,NEXT_TIMER0               
+0205 753EFF          219             MOV             LENG,#0FFH                              ;µ½ÁË×îºóÒ»Ò³Ò³ÊÖÃ0FFH
+0208                 220     NEXT_TIMER0:
+0208 053E            221             INC             LENG                                    ;Ò³Ê¼Ó1
+020A                 222     BACK_TIMER0:
+020A D0E0            223             POP             ACC
+020C 32              224             RETI
+                     225     
+0300                 226             ORG             0300H
+0300                 227     HANGTAB:;ÐÐÑ¡Ôñ±í
+0300 01000200        228             DB 01H,00H,02H,00H,04H,00H,08H,00H,10H,00H,20H,00H,40H,00H,80H,00H
+0304 04000800                
+0308 10002000                
+030C 40008000                
+0310 00010002        229             DB 0H,01H,00H,02H,00H,04H,00H,08H,00H,10H,00H,20H,00H,40H,00H,80H
+0314 00040008                
+0318 00100020                
+031C 00400080                
+                     230     
+0320                 231     TAB1:   
+0320 00000000        232             DB 000H,000H,000H,000H,000H,000H,000H,000H,003H,080H,006H,0C0H,004H,060H,006H,030H;
+0324 00000000                
+0328 038006C0                
+032C 04600630                
+0330 02300660        233             DB 002H,030H,006H,060H,006H,0C0H,003H,080H,000H,000H,000H,000H,000H,000H,000H,000H;
+0334 06C00380                
+0338 00000000                
+033C 00000000                
+0340                 234     TAB2:
+0340 00000000        235             DB 000H,000H,000H,000H,007H,000H,00DH,0C0H,018H,060H,018H,020H,008H,030H,00CH,01CH;
+0344 07000DC0                
+0348 18601820                
+034C 08300C1C                
+0350 0C180830        236             DB 00CH,018H,008H,030H,008H,060H,018H,0C0H,00FH,080H,003H,000H,000H,000H,000H,000H;
+0354 086018C0                
+0358 0F800300                
+035C 00000000                
+A51 MACRO ASSEMBLER  T3                                                                   12/15/2023 09:38:53 PAGE     6
+
+0360                 237     TAB3:
+0360 00000F00        238             DB 000H,000H,00FH,000H,019H,0C0H,030H,060H,020H,030H,020H,018H,010H,00CH,018H,006H;
+0364 19C03060                
+0368 20302018                
+036C 100C1806                
+0370 180E3018        239             DB 018H,00EH,030H,018H,020H,030H,030H,060H,010H,0C0H,00FH,080H,000H,000H,000H,000H;
+0374 20303060                
+0378 10C00F80                
+037C 00000000                
+                     240     
+                     241     
+                     242     
+                     243     
+                     244     
+                     245     
+                     246     
+                     247     
+                     248     
+                     249     
+                     250             END
+A51 MACRO ASSEMBLER  T3                                                                   12/15/2023 09:38:53 PAGE     7
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+AUXR . . . . . . .  N NUMB   008EH   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+BACK_TIMER0. . . .  C ADDR   020AH   A   
+CLK. . . . . . . .  B ADDR   0090H.2 A   
+DH . . . . . . . .  N NUMB   0020H   A   
+DHH. . . . . . . .  N NUMB   003AH   A   
+DHL. . . . . . . .  N NUMB   0039H   A   
+DL . . . . . . . .  N NUMB   0021H   A   
+DLH. . . . . . . .  N NUMB   003CH   A   
+DLL. . . . . . . .  N NUMB   003BH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+HANG . . . . . . .  N NUMB   003DH   A   
+HANGTAB. . . . . .  C ADDR   0300H   A   
+LENG . . . . . . .  N NUMB   003EH   A   
+LOOP . . . . . . .  C ADDR   0125H   A   
+NEXT_TIMER0. . . .  C ADDR   0208H   A   
+NUM. . . . . . . .  N NUMB   003FH   A   
+OE . . . . . . . .  B ADDR   0090H.4 A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PRINT. . . . . . .  C ADDR   0161H   A   
+RESET. . . . . . .  C ADDR   0122H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+START. . . . . . .  C ADDR   0100H   A   
+STR. . . . . . . .  B ADDR   0090H.3 A   
+TAB1 . . . . . . .  C ADDR   0320H   A   
+TAB2 . . . . . . .  C ADDR   0340H   A   
+TAB3 . . . . . . .  C ADDR   0360H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0 . . . . . .  C ADDR   01F4H   A   
+TIMES. . . . . . .  N NUMB   0040H   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 34 ERROR(S)
